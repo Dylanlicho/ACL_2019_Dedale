@@ -15,20 +15,19 @@ public abstract class Character implements Movement {
     public void draw(SpriteBatch sp){
         sprite.setPosition(posX,posY);
         sprite.setOriginCenter();
-
-
-
         sprite.draw(sp);
     }
 
 
     public void moveRight() {
         posX ++;
+
     }
 
     @Override
     public void moveLeft() {
         posX --;
+
     }
 
     @Override

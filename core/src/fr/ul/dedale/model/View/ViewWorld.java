@@ -15,9 +15,8 @@ public class ViewWorld extends ScreenAdapter {
     public ViewWorld(){
         world = new World();
         sb = new SpriteBatch();
-        camera = new OrthographicCamera(50, 50);
-        camera.setToOrtho(false,50 ,50);
-
+        camera = new OrthographicCamera(50, 30);
+        camera.setToOrtho(false,50 ,30);
         Gdx.input.setInputProcessor(new Listener(this));
         camera.update();
         sb.setProjectionMatrix(camera.combined);
