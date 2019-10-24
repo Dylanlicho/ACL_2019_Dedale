@@ -13,22 +13,18 @@ public class World {
     public void draw(SpriteBatch sb){
         hero.draw(sb);
     }
-    public void moveHero(int direction){
+    public void moveHero(DirectionFactory direction){
         switch (direction){
-            case DirectionFactory
-                    .TOP :  hero.moveTop();
+            case TOP :  hero.moveTop();
             break;
 
-            case DirectionFactory
-                    .BOTTOM :  hero.moveBottom();
+            case BOTTOM :  hero.moveBottom();
                 break;
 
-            case DirectionFactory
-                    .LEFT : { hero.moveLeft();
+            case LEFT : { hero.moveLeft();
                 break; }
 
-            case DirectionFactory
-                    .RIGHT : { hero.moveRight();
+            case RIGHT : { hero.moveRight();
                 break; }
 
         }
