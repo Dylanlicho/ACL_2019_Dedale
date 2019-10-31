@@ -44,5 +44,6 @@ public abstract class Character implements Movement {
     public void turn(int direction) {
 
     }
+
 }
 

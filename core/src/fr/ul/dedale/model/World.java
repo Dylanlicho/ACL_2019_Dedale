@@ -10,9 +10,11 @@ public class World {
     public World(){
         hero = new Player(25,25);
     }
+
     public void draw(SpriteBatch sb){
         hero.draw(sb);
     }
+
     public void moveHero(DirectionFactory direction){
         switch (direction){
             case TOP :  hero.moveTop();
@@ -29,4 +31,18 @@ public class World {
 
         }
     }
+
+    /**
+     * Apply some damage to the player
+     * @param damage Number of damage applied to the player
+     */
+    public void damagePlayer(int damage){
+        hero.decreaseHp(damage);
+    }
+
+    public void teleportPlayer(int x, int y){
+        hero.setX(x);
+        hero.setY(y);
+    }
+
 }

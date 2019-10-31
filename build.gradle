@@ -14,7 +14,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "Le Labyrinthe de Dedale"
+        appName = "Le labyrinthe de Dedale"
         gdxVersion = '1.9.3'
         roboVMVersion = '2.1.0'
         box2DLightsVersion = '1.4'
