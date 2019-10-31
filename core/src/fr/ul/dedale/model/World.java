@@ -40,6 +40,11 @@ public class World {
         hero.decreaseHp(damage);
     }
 
+    /**
+     * Teleport the player on an other cell
+     * @param x Abscissa of the destination
+     * @param y Ordinate of the destination
+     */
     public void teleportPlayer(int x, int y){
         hero.setX(x);
         hero.setY(y);

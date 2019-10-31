@@ -1,16 +1,12 @@
 package fr.ul.dedale.model.character;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import fr.ul.dedale.DataFactory.PlayerFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 
 
 public class Player extends Character {
     public static int CPTANIMATION = 4;
     public static int SPRITESIZE = 30  ;
-    // The Health Point of the player
-    private double Hp = PlayerFactory.HP;
-
 
     public Player(int x , int y ){
         super.posX = x;
@@ -24,7 +20,7 @@ public class Player extends Character {
      * @param damage Damage the player take
      */
     public void decreaseHp(int damage) {
-        Hp = Hp - damage;
+        hp = hp - damage;
     }
 
     /**

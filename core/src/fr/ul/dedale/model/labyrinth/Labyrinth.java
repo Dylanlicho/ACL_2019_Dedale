@@ -1,6 +1,5 @@
-package fr.ul.dedale.model.labyrinthe;
+package fr.ul.dedale.model.labyrinth;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 
 public class Labyrinth {
@@ -18,10 +17,9 @@ public class Labyrinth {
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @param direction
+     * @param x Abscissa of the cell where the character is
+     * @param y Ordinate of the cell where the character is
+     * @param direction Direction of the movement of the character( we need it to know the cell we want)
      * @return
      */
     public Cell getCell(int x, int y,DirectionFactory direction){

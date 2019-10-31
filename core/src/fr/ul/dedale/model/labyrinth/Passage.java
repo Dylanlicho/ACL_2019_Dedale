@@ -1,4 +1,4 @@
-package fr.ul.dedale.model.labyrinthe;
+package fr.ul.dedale.model.labyrinth;
 
 import fr.ul.dedale.model.World;
 
@@ -28,6 +28,6 @@ public class Passage extends Cell {
 
     @Override
     public void activate(World world) {
-
+        world.teleportPlayer(arriveX,arriveY);
     }
 }

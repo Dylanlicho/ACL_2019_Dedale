@@ -1,4 +1,4 @@
-package fr.ul.dedale.model.labyrinthe;
+package fr.ul.dedale.model.labyrinth;
 
 import fr.ul.dedale.model.World;
 
