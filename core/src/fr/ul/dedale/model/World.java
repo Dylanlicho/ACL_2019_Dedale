@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.model.character.Player;
 
+import java.io.IOException;
+
 public class World {
     Player hero ;
 
-    public World(){
+    public World() {
         hero = new Player(25,25);
     }
 
@@ -48,6 +50,13 @@ public class World {
     public void teleportPlayer(int x, int y){
         hero.setX(x);
         hero.setY(y);
+    }
+
+    /**
+     * The hero win
+     */
+    public void winPlayer() {
+        //The player win
     }
 
 }
