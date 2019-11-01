@@ -18,6 +18,7 @@ public class TextureFactory {
     private TextureFactory() {
         images = new HashMap<String, Texture>();
         images.put("hero",new Texture("images/player.png"));
+        images.put("troll",new Texture("images/troll.png"));
         images.put("grass",new Texture("images/grass.jpg"));
 
     }

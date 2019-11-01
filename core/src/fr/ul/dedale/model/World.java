@@ -2,19 +2,29 @@ package fr.ul.dedale.model;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.model.character.Monster;
 import fr.ul.dedale.model.character.Player;
+import fr.ul.dedale.model.character.Troll;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class World {
     Player hero ;
+    ArrayList<Monster> monsters;
 
     public World() {
         hero = new Player(25,25);
+        monsters = new ArrayList<Monster>();
+        monsters.add(new Troll(10,10));
     }
 
     public void draw(SpriteBatch sb){
         hero.draw(sb);
+        for(int i = 0 ; i < monsters.size(); i++){
+            monsters.get(i).draw(sb);
+        }
     }
 
     public void moveHero(DirectionFactory direction){
@@ -32,6 +42,31 @@ public class World {
                 break; }
 
         }
+        for (int i = 0 ; i < monsters.size(); i++){
+            Random r = new Random();
+            int dir =  r.nextInt((4 - 0 ) + 1) + 0;
+            moveMonster(dir,i);
+
+
+        }
+    }
+    public void moveMonster(int direction, int elem ){
+        switch (direction){
+            case 0 :  monsters.get(elem).moveTop();
+                break;
+
+            case 1 :  monsters.get(elem).moveBottom();
+                break;
+
+            case 2 : { monsters.get(elem).moveLeft();
+                break; }
+
+            case 3 : { monsters.get(elem).moveRight();
+                break; }
+
+        }
+
+
     }
 
     /**

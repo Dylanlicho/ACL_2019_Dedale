@@ -23,13 +23,11 @@ public abstract class Character implements Movement {
 
     public void moveRight() {
         posX ++;
-
     }
 
     @Override
     public void moveLeft() {
         posX --;
-
     }
 
     @Override
@@ -44,7 +42,29 @@ public abstract class Character implements Movement {
 
     @Override
     public void turn(int direction) {
+    }
+    /**
+     * Decrease the Health point of the player
+     * @param damage Damage the player take
+     */
+    public void decreaseHp(int damage) {
+        hp = hp - damage;
+    }
 
+    /**
+     * Set the abscissa of the player
+     * @param x the value of the set
+     */
+    public void setX(int x){
+        posX = x;
+    }
+
+    /**
+     * Set the ordinate of the player
+     * @param y the value of the set
+     */
+    public void setY(int y) {
+        posY = y;
     }
 
 }
