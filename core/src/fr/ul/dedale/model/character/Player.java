@@ -15,27 +15,5 @@ public class Player extends Character {
         sprite.setSize(4,4);
     }
 
-    /**
-     * Decrease the Health point of the player
-     * @param damage Damage the player take
-     */
-    public void decreaseHp(int damage) {
-        hp = hp - damage;
-    }
 
-    /**
-     * Set the abscissa of the player
-     * @param x the value of the set
-     */
-    public void setX(int x){
-        posX = x;
-    }
-
-    /**
-     * Set the ordinate of the player
-     * @param y the value of the set
-     */
-    public void setY(int y) {
-        posY = y;
-    }
 }
