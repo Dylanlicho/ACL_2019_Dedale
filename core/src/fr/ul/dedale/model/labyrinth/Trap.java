@@ -14,6 +14,7 @@ public class Trap extends Cell{
     public Trap(int x,int y,int damage){
         super(x,y);
         this.damage = damage;
+        type = "fire";
     }
 
     @Override

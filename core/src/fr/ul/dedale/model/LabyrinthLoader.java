@@ -1,6 +1,8 @@
 package fr.ul.dedale.model;
 
 
+import fr.ul.dedale.model.labyrinth.Labyrinth;
+
 import java.io.*;
 
 /**
@@ -18,7 +20,7 @@ public class LabyrinthLoader {
      * @param numLevel the number of the level
      * @return the tab of the labyrinth (-> after an instance of labyrinth)
      */
-    public char[][] createLabyrinth(int numLevel) throws IOException {
+    public Labyrinth createLabyrinth(int numLevel) throws IOException {
         //initialization of the tab of the labyrinth
         char[][] labyrinth = new char[50][50];
         //name of the level file
@@ -41,6 +43,6 @@ public class LabyrinthLoader {
             line = br.readLine();
         }
 
-        return labyrinth;
+        return new Labyrinth(labyrinth);
     }
 }

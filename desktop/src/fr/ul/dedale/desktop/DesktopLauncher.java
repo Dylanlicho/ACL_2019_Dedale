@@ -9,8 +9,10 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Le labyrinthe de Dedale";
 		config.a = 8 ;
-		config.width = 1980;
-		config.height = 1080;
+		config.width = 640;
+//		config.width = 1980;
+		config.height = 640;
+//		config.height = 1080;
 		new LwjglApplication(new Game(), config);
 	}
 }

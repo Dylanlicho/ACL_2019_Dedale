@@ -1,6 +1,10 @@
 package fr.ul.dedale.model.labyrinth;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.World;
+
 
 public abstract class Cell {
 
@@ -9,6 +13,7 @@ public abstract class Cell {
     // Coordinate of the cell
     private int x;
     private int y;
+    protected String type;
 
     /**
      * Constructor of Cell
@@ -30,5 +35,10 @@ public abstract class Cell {
      * Action do when the player is on this cell
      */
     public abstract void activate(World world);
+
+    public void draw (SpriteBatch sb) {
+        Texture texture = TextureFactory.getInstance().getImage(type);
+        sb.draw(texture,x, y,1,1,0,0,texture.getWidth(),texture.getHeight(),false,false);
+    }
 
 }

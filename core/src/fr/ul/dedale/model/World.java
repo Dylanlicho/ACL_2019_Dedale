@@ -3,17 +3,28 @@ package fr.ul.dedale.model;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.model.character.Player;
+import fr.ul.dedale.model.labyrinth.Labyrinth;
 
 import java.io.IOException;
 
 public class World {
+
     Player hero ;
+    private Labyrinth labyrinth;
+    private LabyrinthLoader loader;
 
     public World() {
-        hero = new Player(25,25);
+        hero = new Player(0,0);
+        loader = new LabyrinthLoader();
+        try {
+            labyrinth = loader.createLabyrinth(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(SpriteBatch sb){
+        labyrinth.draw(sb);
         hero.draw(sb);
     }
 

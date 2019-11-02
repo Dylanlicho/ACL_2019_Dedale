@@ -15,6 +15,7 @@ public class Treasure extends Cell{
      */
     public Treasure(int x, int y) {
         super(x, y);
+        type = "delta";
     }
 
     @Override

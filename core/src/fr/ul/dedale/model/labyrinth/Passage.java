@@ -19,6 +19,7 @@ public class Passage extends Cell {
         super(posX,posY);
         this.arriveX = arriveX;
         this.arriveY = arriveY;
+        type = "passage";
     }
 
     @Override
