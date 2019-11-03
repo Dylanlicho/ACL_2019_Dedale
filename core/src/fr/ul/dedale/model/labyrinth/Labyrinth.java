@@ -50,29 +50,35 @@ public class Labyrinth {
                 }
             }
         }
+
     }
 
+    public Cell getCell(int x,int y){
+        return cellList[x][y];
+    }
     /**
      * @param x Abscissa of the cell where the character is
      * @param y Ordinate of the cell where the character is
      * @param direction Direction of the movement of the character( we need it to know the cell we want)
      * @return
      */
-    public Cell getCell(int x, int y,DirectionFactory direction){
+    public Cell getNextCell(int x, int y,DirectionFactory direction){
         //TODO il faut faire un try catch dans la fonction appelante au cas où le "res" retourné est null
         Cell res = null;
         switch(direction){
             case TOP:
-                res = cellList[x-1][y];
+                res = cellList[x][y+1];
                 break;
             case BOTTOM:
-                res = cellList[x+1][y];
-                break;
-            case LEFT:
                 res = cellList[x][y-1];
                 break;
+            case LEFT:
+
+                res = cellList[x - 1][y];
+
+                break;
             case RIGHT:
-                res = cellList[x][y+1];
+                res = cellList[x+1][y];
                 break;
         }
         return res;
@@ -83,6 +89,7 @@ public class Labyrinth {
      * @param sb the Sprite batch
      */
     public void draw (SpriteBatch sb) {
+
         for (Cell[] cells : cellList) {
             for (Cell cell : cells) {
                 if (cell != null) {

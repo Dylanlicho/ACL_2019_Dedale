@@ -34,6 +34,8 @@ public class Listener implements InputProcessor {
         if( keycode == Input.Keys.DOWN){
             viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
         }
+
+        viewWorld.getWorld().game();
         return true;
     }
 

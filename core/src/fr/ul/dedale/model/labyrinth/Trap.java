@@ -1,8 +1,9 @@
 package fr.ul.dedale.model.labyrinth;
 
+import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
-public class Trap extends Cell{
+public class Trap extends Cell {
 
     // Damage of the trap
     private int damage;
@@ -27,4 +28,7 @@ public class Trap extends Cell{
         world.damagePlayer(damage);
     }
 
+    public void attack() {
+
+    }
 }

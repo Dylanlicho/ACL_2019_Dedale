@@ -1,11 +1,14 @@
 package fr.ul.dedale.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.model.character.Character;
 import fr.ul.dedale.model.character.Monster;
 import fr.ul.dedale.model.character.Player;
 import fr.ul.dedale.model.character.Troll;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
+import fr.ul.dedale.model.labyrinth.Treasure;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,20 +20,40 @@ public class World {
     ArrayList<Monster> monsters;
     private Labyrinth labyrinth;
     private LabyrinthLoader loader;
+    private int activeFire ;
 
     public World() {
-        hero = new Player(25,25);
+        activeFire = 0;
+        hero = new Player(1,1);
         monsters = new ArrayList<Monster>();
-        monsters.add(new Troll(10,10));
-        hero = new Player(0,0);
+        monsters.add(new Troll(12,12));
+        monsters.add(new Troll(5,5));
         loader = new LabyrinthLoader();
         try {
             labyrinth = loader.createLabyrinth(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
+    public void game(){
+        for (int i = 0 ; i < monsters.size(); i++){
+            Random r = new Random();
+            int dir =  r.nextInt((3 - 0 ) + 1) + 0;
+            if(!monsters.get(i).isThroughWall()  ) {
+                while (!canMove(monsters.get(i), DirectionFactory.values()[dir])) {
+                    dir = r.nextInt((3 - 0) + 1) + 0;
+                }
+                moveMonster(dir,i);
+
+            }
+            monsters.get(i).attackCollision(this);
+        }
+        labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
+        checkLoosePLayer();
+
+
+    }
     public void draw(SpriteBatch sb){
         labyrinth.draw(sb);
         hero.draw(sb);
@@ -40,6 +63,7 @@ public class World {
     }
 
     public void moveHero(DirectionFactory direction){
+        if(canMove(hero,direction)){
         switch (direction){
             case TOP :  hero.moveTop();
             break;
@@ -53,14 +77,10 @@ public class World {
             case RIGHT : { hero.moveRight();
                 break; }
 
+          }
         }
-        for (int i = 0 ; i < monsters.size(); i++){
-            Random r = new Random();
-            int dir =  r.nextInt((4 - 0 ) + 1) + 0;
-            moveMonster(dir,i);
 
 
-        }
     }
     public void moveMonster(int direction, int elem ){
         switch (direction){
@@ -103,7 +123,32 @@ public class World {
      * The hero win
      */
     public void winPlayer() {
-        //The player win
+            System.out.println("you win");
+            Gdx.app.exit();
     }
 
+    /**
+     * the hero loose
+     */
+    public void checkLoosePLayer(){
+        if (hero.getHp()==0){
+            System.out.println("you died");
+            Gdx.app.exit();
+        }
+
+    }
+    public boolean canMove(Character c, DirectionFactory d){
+        int x = c.getPosX() ;
+        int y = c.getPosY();
+        if(!c.isThroughWall() && labyrinth.getNextCell(x,y,d).isSolid()){
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public Player getHero() {
+        return hero;
+    }
 }

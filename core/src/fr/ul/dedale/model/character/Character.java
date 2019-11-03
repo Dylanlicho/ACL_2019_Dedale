@@ -67,5 +67,19 @@ public abstract class Character implements Movement {
         posY = y;
     }
 
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+    public boolean isThroughWall(){
+        return throughWall;
+    }
+
+    public int getHp() {
+        return hp;
+    }
 }
 

@@ -41,4 +41,15 @@ public abstract class Cell {
         sb.draw(texture,x, y,1,1,0,0,texture.getWidth(),texture.getHeight(),false,false);
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
