@@ -5,6 +5,9 @@ import com.sun.javafx.css.Size;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.SizeFactory;
 
+import java.awt.*;
+import java.util.Map;
+
 public class Labyrinth {
 
     // List of cells which compose the level
@@ -26,8 +29,6 @@ public class Labyrinth {
     public Labyrinth(char[][] tabLevel) {
         //initialisation of the level
         cellList = new Cell[tabLevel.length][tabLevel[0].length];
-
-
         for (int i = 0; i < tabLevel.length; i++) {
             for (int j = 0; j < tabLevel[i].length; j++) {
                 switch (tabLevel[i][j]) {
@@ -38,7 +39,7 @@ public class Labyrinth {
                         cellList[i][j] = new Empty(i, j);
                         break;
                     case SizeFactory.PASSAGE:
-                        cellList[i][j] = new Passage(i, j, 0, 0);
+                        cellList[i][j] = new Passage(i, j, 5, 5);
                         break;
                     case SizeFactory.FIRE:
                         cellList[i][j] = new Trap(i, j, 1);
