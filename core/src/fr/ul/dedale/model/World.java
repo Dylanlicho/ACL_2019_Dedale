@@ -51,12 +51,12 @@ public class World {
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
         checkLoosePLayer();
-
-
     }
     public void draw(SpriteBatch sb){
         labyrinth.draw(sb);
-        hero.draw(sb);
+        if(hero.getHp()>0) {
+            hero.draw(sb);
+        }
         for(int i = 0 ; i < monsters.size(); i++){
             monsters.get(i).draw(sb);
         }
@@ -131,9 +131,9 @@ public class World {
      * the hero loose
      */
     public void checkLoosePLayer(){
-        if (hero.getHp()==0){
+        if (hero.getHp()<0){
             System.out.println("you died");
-            Gdx.app.exit();
+            //Gdx.app.exit();
         }
 
     }

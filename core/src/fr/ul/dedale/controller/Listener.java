@@ -16,25 +16,26 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if( keycode == Input.Keys.ESCAPE){
-            Gdx.app.exit();
-        }
+        if(viewWorld.getWorld().getHero().getHp()>0) {
+            if (keycode == Input.Keys.ESCAPE) {
+                Gdx.app.exit();
+            }
 
-        if( keycode == Input.Keys.RIGHT){
-            viewWorld.getWorld().moveHero(DirectionFactory.RIGHT);
-        }
+            if (keycode == Input.Keys.RIGHT) {
+                viewWorld.getWorld().moveHero(DirectionFactory.RIGHT);
+            }
 
-        if( keycode == Input.Keys.LEFT){
-            viewWorld.getWorld().moveHero(DirectionFactory.LEFT);
-        }
-        if( keycode == Input.Keys.UP){
-            viewWorld.getWorld().moveHero(DirectionFactory.TOP);
-        }
+            if (keycode == Input.Keys.LEFT) {
+                viewWorld.getWorld().moveHero(DirectionFactory.LEFT);
+            }
+            if (keycode == Input.Keys.UP) {
+                viewWorld.getWorld().moveHero(DirectionFactory.TOP);
+            }
 
-        if( keycode == Input.Keys.DOWN){
-            viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
+            if (keycode == Input.Keys.DOWN) {
+                viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
+            }
         }
-
         viewWorld.getWorld().game();
         return true;
     }

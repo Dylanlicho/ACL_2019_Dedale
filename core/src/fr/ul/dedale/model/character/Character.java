@@ -16,7 +16,7 @@ public abstract class Character implements Movement {
 
     /**
      * draw the labyrinth
-     * @param sb the Sprite batch
+     * @param sp the Sprite batch
      */
     public void draw(SpriteBatch sp){
         sprite.setPosition(posX,posY);
