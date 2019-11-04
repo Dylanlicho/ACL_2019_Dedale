@@ -6,8 +6,13 @@ import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
 public class Troll extends Monster implements Attacker {
-    public static int SPRITESIZE = 100  ;
+    public static int SPRITESIZE = 100  ; // sprite size
 
+    /**
+     * constructor troll
+     * @param x abscissa coordinate  troll
+     * @param y ordonate coordinate troll
+     */
     public Troll(int x , int y ){
 
         super.posX = x;

@@ -54,6 +54,11 @@ public class Labyrinth {
 
     }
 
+    /**getteur cell
+     * @param x Abscissa of the cell where the character is
+     * @param y Ordinate of the cell where the character is
+     * @return
+     */
     public Cell getCell(int x,int y){
         return cellList[x][y];
     }

@@ -41,14 +41,26 @@ public abstract class Cell {
         sb.draw(texture,x, y,1,1,0,0,texture.getWidth(),texture.getHeight(),false,false);
     }
 
+    /**
+     * getter type
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * getter  abscissa coordinate
+     * @return
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * getter ordinate coordinate
+     * @return
+     */
     public int getY() {
         return y;
     }

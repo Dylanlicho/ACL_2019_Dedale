@@ -137,6 +137,13 @@ public class World {
         }
 
     }
+
+    /**
+     * return true if the character can move in futur case
+     * @param c character
+     * @param d direction
+     * @return
+     */
     public boolean canMove(Character c, DirectionFactory d){
         int x = c.getPosX() ;
         int y = c.getPosY();
@@ -150,6 +157,10 @@ public class World {
 
     }
 
+    /**
+     * getter hero
+     * @return
+     */
     public Player getHero() {
         return hero;
     }

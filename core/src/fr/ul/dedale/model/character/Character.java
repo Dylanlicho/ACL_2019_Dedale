@@ -14,6 +14,10 @@ public abstract class Character implements Movement {
       protected boolean throughWall;
       protected Sprite sprite;
 
+    /**
+     * draw the labyrinth
+     * @param sb the Sprite batch
+     */
     public void draw(SpriteBatch sp){
         sprite.setPosition(posX,posY);
         sprite.setOriginCenter();

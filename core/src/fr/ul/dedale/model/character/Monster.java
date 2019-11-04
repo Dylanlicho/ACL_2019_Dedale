@@ -4,6 +4,7 @@ import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
 public class Monster extends Character implements Attacker {
+
     @Override
     public void attackCollision(World world) {
         if(world.getHero().getPosX()==getPosX() && world.getHero().getPosY() == getPosY()){

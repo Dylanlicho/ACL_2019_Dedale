@@ -5,10 +5,15 @@ import fr.ul.dedale.DataFactory.TextureFactory;
 
 
 public class Player extends Character {
-    public static int HP = 1 ;
-    public static int CPTANIMATION = 4;
-    public static int SPRITESIZE = 30  ;
+    public static int HP = 1 ; //life player
+    public static int CPTANIMATION = 4; // cpt animation
+    public static int SPRITESIZE = 30  ;    //size of sprite
 
+    /**
+     * constructor player
+     * @param x abscissa coordinate  player
+     * @param y ordonate coordinate player
+     */
     public Player(int x , int y ){
         hp = HP;
         throughWall = false;
