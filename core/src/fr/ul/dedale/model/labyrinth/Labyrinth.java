@@ -29,6 +29,7 @@ public class Labyrinth {
     public Labyrinth(char[][] tabLevel) {
         //initialisation of the level
         cellList = new Cell[tabLevel.length][tabLevel[0].length];
+        int passageX = -1, passageY = -1;
         for (int i = 0; i < tabLevel.length; i++) {
             for (int j = 0; j < tabLevel[i].length; j++) {
                 switch (tabLevel[i][j]) {
@@ -39,7 +40,14 @@ public class Labyrinth {
                         cellList[i][j] = new Empty(i, j);
                         break;
                     case SizeFactory.PASSAGE:
-                        cellList[i][j] = new Passage(i, j, 5, 5);
+                        if (passageX < 0) {
+                            cellList[i][j] = new Passage(i, j, i, j);
+                            passageX = i;
+                            passageY = j;
+                        } else {
+                            cellList[i][j] = new Passage(i, j, passageX, passageY);
+                            ((Passage) cellList[passageX][passageY]).setDestination(i, j);
+                        }
                         break;
                     case SizeFactory.FIRE:
                         cellList[i][j] = new Trap(i, j, 1);

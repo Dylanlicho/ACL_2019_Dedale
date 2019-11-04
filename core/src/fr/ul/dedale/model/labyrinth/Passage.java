@@ -27,6 +27,11 @@ public class Passage extends Cell {
         return false;
     }
 
+    public void setDestination(int x, int y) {
+        arriveX = x;
+        arriveY = y;
+    }
+
     @Override
     public void activate(World world) {
         world.teleportPlayer(arriveX,arriveY);
