@@ -2,7 +2,8 @@ package fr.ul.dedale.model.labyrinth;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
-import fr.ul.dedale.DataFactory.SizeFactory;
+import fr.ul.dedale.DataFactory.LabyrinthFactory;
+
 
 public class Labyrinth {
 
@@ -25,17 +26,17 @@ public class Labyrinth {
     public Labyrinth(char[][] tabLevel) {
         //initialisation of the level
         cellList = new Cell[tabLevel.length][tabLevel[0].length];
-        int passageX = -1, passageY = -1;
+        int passageX = -1, passageY = -1; //The first passage
         for (int i = 0; i < tabLevel.length; i++) {
             for (int j = 0; j < tabLevel[i].length; j++) {
                 switch (tabLevel[i][j]) {
-                    case SizeFactory.WALL:
+                    case LabyrinthFactory.WALL:
                         cellList[i][j] = new Wall(i, j);
                         break;
-                    case SizeFactory.GROUND:
+                    case LabyrinthFactory.GROUND:
                         cellList[i][j] = new Empty(i, j);
                         break;
-                    case SizeFactory.PASSAGE:
+                    case LabyrinthFactory.PASSAGE:
                         if (passageX < 0) {
                             cellList[i][j] = new Passage(i, j, i, j);
                             passageX = i;
@@ -45,10 +46,10 @@ public class Labyrinth {
                             ((Passage) cellList[passageX][passageY]).setDestination(i, j);
                         }
                         break;
-                    case SizeFactory.FIRE:
+                    case LabyrinthFactory.FIRE:
                         cellList[i][j] = new Trap(i, j, 1);
                         break;
-                    case SizeFactory.DELTA:
+                    case LabyrinthFactory.DELTA:
                         cellList[i][j] = new Treasure(i, j);
                         break;
 
