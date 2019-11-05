@@ -77,7 +77,7 @@ public class World {
                 int directionY = posY_ghost - posY_player;
 
                 // The X has a bigger distance than the Y, So we move the ghost in absciss
-                if(deltaX >= deltaY){
+                if(deltaX > deltaY){
                     if(directionX >= 0){
 
                         // Left
@@ -90,7 +90,7 @@ public class World {
                     }
                 }
                 // We move the ghost in ordinate
-                else{
+                else if (deltaX < deltaY){
                     if(directionY >= 0){
                         // Bottom
                         moveMonster(1,i);
