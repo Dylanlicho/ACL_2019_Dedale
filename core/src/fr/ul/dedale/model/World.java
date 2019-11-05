@@ -7,6 +7,7 @@ import fr.ul.dedale.model.character.Character;
 import fr.ul.dedale.model.character.Monster;
 import fr.ul.dedale.model.character.Player;
 import fr.ul.dedale.model.character.Troll;
+import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
 import fr.ul.dedale.model.labyrinth.Treasure;
 
@@ -149,13 +150,17 @@ public class World {
         int x = c.getPosX() ;
         int y = c.getPosY();
 
+        try {
+            Cell nextCell = labyrinth.getNextCell(x, y, d);
+            if(!c.isThroughWall() && nextCell.isSolid()){
+                return false;
+            }
 
-        if(!c.isThroughWall() && labyrinth.getNextCell(x,y,d).isSolid()){
-            return false;
+            return true;
+        }catch (NullPointerException e){
+            System.out.println("Exception: la cell n'a pas pu être récupéré");
         }
-
-        return true;
-
+        return false;
     }
 
     /**
