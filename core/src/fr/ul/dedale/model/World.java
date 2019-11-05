@@ -149,6 +149,7 @@ public class World {
     public boolean canMove(Character c, DirectionFactory d){
         int x = c.getPosX() ;
         int y = c.getPosY();
+        
 
         try {
             Cell nextCell = labyrinth.getNextCell(x, y, d);

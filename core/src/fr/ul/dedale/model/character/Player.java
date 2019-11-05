@@ -7,7 +7,8 @@ import fr.ul.dedale.DataFactory.TextureFactory;
 public class Player extends Character {
     public static int HP = 1 ; //life player
     public static int CPTANIMATION = 4; // cpt animation
-    public static int SPRITESIZE = 30  ;    //size of sprite
+    public static int SPRITESIZEWIGHT = 100  ;    //size of sprite
+    public static int SPRITESIZEHIGHT= 130  ;    //size of sprite
 
     /**
      * constructor player
@@ -19,7 +20,7 @@ public class Player extends Character {
         throughWall = false;
         super.posX = x;
         super.posY = y;
-        super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZE,SPRITESIZE);
+        super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
         sprite.setSize(1,1);
     }
 
