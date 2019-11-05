@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.model.character.*;
 import fr.ul.dedale.model.character.Character;
+import fr.ul.dedale.model.character.Monster;
+import fr.ul.dedale.model.character.Player;
+import fr.ul.dedale.model.character.Troll;
+import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
 import fr.ul.dedale.model.labyrinth.Treasure;
 
@@ -202,12 +206,17 @@ public class World {
         int y = c.getPosY();
 
 
-        if(!c.isThroughWall() && labyrinth.getNextCell(x,y,d).isSolid()){
-            return false;
+        try {
+            Cell nextCell = labyrinth.getNextCell(x, y, d);
+            if(!c.isThroughWall() && nextCell.isSolid()){
+                return false;
+            }
+
+            return true;
+        }catch (NullPointerException e){
+
         }
-
-        return true;
-
+        return false;
     }
 
     /**
