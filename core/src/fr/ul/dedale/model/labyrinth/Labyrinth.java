@@ -1,12 +1,8 @@
 package fr.ul.dedale.model.labyrinth;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.javafx.css.Size;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.SizeFactory;
-
-import java.awt.*;
-import java.util.Map;
 
 public class Labyrinth {
 
