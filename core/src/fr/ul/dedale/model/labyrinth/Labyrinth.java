@@ -1,7 +1,6 @@
 package fr.ul.dedale.model.labyrinth;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.javafx.css.Size;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.SizeFactory;
 
@@ -76,23 +75,28 @@ public class Labyrinth {
      * @param direction Direction of the movement of the character( we need it to know the cell we want)
      * @return
      */
-    public Cell getNextCell(int x, int y,DirectionFactory direction){
-        //TODO il faut faire un try catch dans la fonction appelante au cas où le "res" retourné est null
+    public Cell getNextCell(int x, int y,DirectionFactory direction) throws NullPointerException{
         Cell res = null;
-        switch(direction){
+        switch(direction) {
             case TOP:
-                res = cellList[x][y+1];
+                if (y<cellList[x].length-1){
+                    res = cellList[x][y + 1];
+                }
                 break;
             case BOTTOM:
-                res = cellList[x][y-1];
+                if(y > 0) {
+                    res = cellList[x][y - 1];
+                }
                 break;
             case LEFT:
-
-                res = cellList[x - 1][y];
-
+                if(x>0) {
+                    res = cellList[x - 1][y];
+                }
                 break;
             case RIGHT:
-                res = cellList[x+1][y];
+                if(x<cellList.length-1) {
+                    res = cellList[x + 1][y];
+                }
                 break;
         }
         return res;
