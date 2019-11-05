@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import fr.ul.dedale.DataFactory.SizeFactory;
-import fr.ul.dedale.DataFactory.TextureFactory;
+import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -18,8 +17,8 @@ public class ViewWorld extends ScreenAdapter {
     public ViewWorld(){
         world = new World();
         sb = new SpriteBatch();
-        camera = new OrthographicCamera(SizeFactory.WIDTH, SizeFactory.HEIGHT);
-        camera.setToOrtho(false,SizeFactory.WIDTH ,SizeFactory.HEIGHT);
+        camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
+        camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
         Gdx.input.setInputProcessor(new Listener(this));
         camera.update();
         sb.setProjectionMatrix(camera.combined);

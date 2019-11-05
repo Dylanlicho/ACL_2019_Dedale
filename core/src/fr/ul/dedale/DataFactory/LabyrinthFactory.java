@@ -1,6 +1,6 @@
 package fr.ul.dedale.DataFactory;
 
-public class SizeFactory {
+public class LabyrinthFactory {
 
     public static int HEIGHT = 20;
     public static int WIDTH = 20;
