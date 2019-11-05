@@ -148,6 +148,7 @@ public class World {
     public boolean canMove(Character c, DirectionFactory d){
         int x = c.getPosX() ;
         int y = c.getPosY();
+        
 
 
         if(!c.isThroughWall() && labyrinth.getNextCell(x,y,d).isSolid()){
