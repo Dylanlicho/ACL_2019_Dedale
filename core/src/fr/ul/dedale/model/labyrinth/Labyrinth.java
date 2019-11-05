@@ -77,14 +77,16 @@ public class Labyrinth {
      */
     public Cell getNextCell(int x, int y,DirectionFactory direction) throws NullPointerException{
         Cell res = null;
+        System.out.println("x: "+x);
+        System.out.println("y: "+y);
         switch(direction) {
             case TOP:
-                if (y > 0){
+                if (y<cellList[x].length-1){
                     res = cellList[x][y + 1];
                 }
                 break;
             case BOTTOM:
-                if(y<cellList.length-1) {
+                if(y > 0) {
                     res = cellList[x][y - 1];
                 }
                 break;
