@@ -158,7 +158,7 @@ public class World {
 
             return true;
         }catch (NullPointerException e){
-            System.out.println("Exception: la cell n'a pas pu être récupéré");
+            
         }
         return false;
     }
