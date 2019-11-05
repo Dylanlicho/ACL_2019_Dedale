@@ -3,6 +3,7 @@ package fr.ul.dedale.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.model.character.*;
 import fr.ul.dedale.model.character.Character;
 import fr.ul.dedale.model.character.Monster;
 import fr.ul.dedale.model.character.Player;
@@ -29,6 +30,7 @@ public class World {
         monsters = new ArrayList<Monster>();
         monsters.add(new Troll(12,12));
         monsters.add(new Troll(5,5));
+        monsters.add(new Ghost(10,10));
         loader = new LabyrinthLoader();
         try {
             labyrinth = loader.createLabyrinth(0);
@@ -40,7 +42,11 @@ public class World {
     public void game(){
         for (int i = 0 ; i < monsters.size(); i++){
             Random r = new Random();
+
+            // Random between 0 and 3
             int dir =  r.nextInt((3 - 0 ) + 1) + 0;
+
+            // The monster is a troll
             if(!monsters.get(i).isThroughWall()  ) {
                 while (!canMove(monsters.get(i), DirectionFactory.values()[dir])) {
                     dir = r.nextInt((3 - 0) + 1) + 0;
@@ -48,6 +54,55 @@ public class World {
                 moveMonster(dir,i);
 
             }
+
+            // The monsters is a Ghost
+            else{
+
+                // Player coordinates
+                int posX_player = hero.getPosX();
+                int posY_player = hero.getPosY();
+
+                // Ghost coordinates
+                int posX_ghost = monsters.get(i).getPosX();
+                int posY_ghost = monsters.get(i).getPosY();
+
+                // Distance between X and Y
+                int deltaX = Math.abs(posX_ghost - posX_player);
+                int deltaY = Math.abs(posY_ghost - posY_player);
+
+                // If we move left or right
+                int directionX = posX_ghost - posX_player;
+
+                // If we move top or bottom
+                int directionY = posY_ghost - posY_player;
+
+                // The X has a bigger distance than the Y, So we move the ghost in absciss
+                if(deltaX >= deltaY){
+                    if(directionX >= 0){
+
+                        // Left
+                        moveMonster(2,i);
+                    }
+                    else{
+
+                        // Right
+                        moveMonster(3,i);
+                    }
+                }
+                // We move the ghost in ordinate
+                else{
+                    if(directionY >= 0){
+                        // Bottom
+                        moveMonster(1,i);
+                    }
+                    else{
+                        // Top
+                        moveMonster(0,i);
+                    }
+                }
+            }
+
+
             monsters.get(i).attackCollision(this);
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
@@ -148,7 +203,7 @@ public class World {
     public boolean canMove(Character c, DirectionFactory d){
         int x = c.getPosX() ;
         int y = c.getPosY();
-        
+
 
         try {
             Cell nextCell = labyrinth.getNextCell(x, y, d);
@@ -158,7 +213,7 @@ public class World {
 
             return true;
         }catch (NullPointerException e){
-            
+
         }
         return false;
     }

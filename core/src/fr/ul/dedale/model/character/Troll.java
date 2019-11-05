@@ -6,6 +6,7 @@ import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
 public class Troll extends Monster implements Attacker {
+
     public static int SPRITESIZE = 100  ; // sprite size
 
     /**

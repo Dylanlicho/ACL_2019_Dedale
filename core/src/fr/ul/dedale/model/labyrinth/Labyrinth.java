@@ -4,9 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.SizeFactory;
 
-import java.awt.*;
-import java.util.Map;
-
 public class Labyrinth {
 
     // List of cells which compose the level
