@@ -133,8 +133,7 @@ public class World {
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
             System.out.println("you died");
-//            Gdx.app.exit();
-            hero = new Player(1,1);
+            Gdx.app.exit();
         }
 
     }
