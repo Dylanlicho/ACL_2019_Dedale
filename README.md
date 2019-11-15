@@ -3,8 +3,8 @@
 
 # Run project :
 
-* Unix users : launch 'bash gradlew desktop:run'
-* Windows users : launch 'gradlew.bat desktop:run'
+* Unix users : launch ``` bash gradlew desktop:run ```
+* Windows users : launch ``` gradlew.bat desktop:run ```
 
 # Import project :
 
