@@ -1,7 +1,9 @@
 package fr.ul.dedale.model;
 
 
+import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
+import fr.ul.dedale.model.labyrinth.Passage;
 
 import java.io.*;
 
@@ -22,16 +24,31 @@ public class LabyrinthLoader {
      */
     public Labyrinth createLabyrinth(int numLevel) throws IOException {
         //initialization of the tab of the labyrinth
-        char[][] labyrinth = new char[50][50];
+//        char[][] labyrinth = new char[50][50];
         //name of the level file
         String namefile = "level/level" + numLevel + ".txt";
         //read the file
-        InputStream ips=new FileInputStream(namefile);
-        InputStreamReader ipsr=new InputStreamReader(ips);
-        BufferedReader br=new BufferedReader(ipsr);
+        InputStream ips = new FileInputStream(namefile);
+        InputStreamReader ipsr = new InputStreamReader(ips);
+        BufferedReader br = new BufferedReader(ipsr);
         //for all the line of the file
         String line = br.readLine();
+        int nbLines = 0;
+        int nbColumns = 0;
+
         int l = 0;
+        while(line != null) {
+            nbLines ++;
+            nbColumns = Math.max(nbColumns, line.length());
+            line = br.readLine();
+        }
+
+
+        char[][] labyrinth = new char[nbLines][nbColumns];
+        ips = new FileInputStream(namefile);
+        ipsr = new InputStreamReader(ips);
+        br = new BufferedReader(ipsr);
+        line = br.readLine();
         while(line != null) {
             char ch;
             //table filling
@@ -43,6 +60,26 @@ public class LabyrinthLoader {
             line = br.readLine();
         }
 
-        return new Labyrinth(labyrinth);
+        Labyrinth lab = new Labyrinth(labyrinth);
+
+        namefile = "level/passage"+numLevel+".txt";
+        ips = new FileInputStream(namefile);
+        ipsr = new InputStreamReader(ips);
+        br = new BufferedReader(ipsr);
+
+        line = br.readLine();
+        while (line != null) {
+            String[] passages = line.split("\\|");
+            String[] passage1 = passages[0].split("~");
+            String[] passage2 = passages[1].split("~");
+            Passage p1 = (Passage)lab.getCell(Integer.parseInt(passage1[0]), Integer.parseInt(passage1[1]));
+            Passage p2 = (Passage)lab.getCell(Integer.parseInt(passage2[0]), Integer.parseInt(passage2[1]));
+
+            p1.setDestination(p2.getX(), p2.getY());
+            p2.setDestination(p1.getX(), p1.getY());
+            line = br.readLine();
+        }
+
+        return lab;
     }
 }
