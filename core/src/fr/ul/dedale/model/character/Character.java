@@ -2,8 +2,6 @@ package fr.ul.dedale.model.character;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import fr.ul.dedale.DataFactory.TextureFactory;
 
 public abstract class Character implements Movement {
       protected int hp ;
