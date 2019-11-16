@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Character implements Movement {
-      protected int hp ;
-      protected  int attack ;
-      protected  int posX;
-      protected  int posY;
-      protected int direction;
-      protected boolean throughWall;
-      protected Sprite sprite;
+
+    protected int hp ;
+    protected  int attack ;
+    protected  int posX;
+    protected  int posY;
+    protected int direction;
+    protected boolean throughWall;
+    protected Sprite sprite;
 
     /**
      * draw the labyrinth
@@ -76,6 +77,7 @@ public abstract class Character implements Movement {
     public int getPosY() {
         return posY;
     }
+
     public boolean isThroughWall(){
         return throughWall;
     }
