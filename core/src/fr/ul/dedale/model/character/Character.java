@@ -2,6 +2,7 @@ package fr.ul.dedale.model.character;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.ul.dedale.DataFactory.DirectionFactory;
 
 public abstract class Character implements Movement {
 
@@ -26,25 +27,49 @@ public abstract class Character implements Movement {
 
     public void moveRight() {
         posX ++;
+        turn(DirectionFactory.TURNRIGHT);
     }
 
     @Override
     public void moveLeft() {
         posX --;
+        turn(DirectionFactory.TURNLEFT);
     }
 
     @Override
     public void moveTop() {
         posY ++;
+        turn(DirectionFactory.TURNTOP);
     }
 
     @Override
     public void moveBottom() {
         posY -- ;
+        turn(DirectionFactory.TURNBOTTOM);
     }
 
     @Override
-    public void turn(int direction) {
+    public void turn(DirectionFactory direction) {
+        switch (direction){
+            case TURNTOP:
+                this.direction = DirectionFactory.TURNTOP.ordinal();
+                System.out.println("on est laaaa");
+                setDirection();
+                break;
+            case TURNBOTTOM:
+                this.direction = DirectionFactory.TURNBOTTOM.ordinal();
+                setDirection();
+                break;
+            case TURNLEFT:
+                this.direction = DirectionFactory.TURNLEFT.ordinal();
+                setDirection();
+                break;
+            case TURNRIGHT:
+                this.direction = DirectionFactory.TURNRIGHT.ordinal();
+                setDirection();
+                break;
+
+        }
     }
     /**
      * Decrease the Health point of the player
@@ -84,6 +109,9 @@ public abstract class Character implements Movement {
 
     public int getHp() {
         return hp;
+    }
+    public void setDirection(){
+
     }
 }
 

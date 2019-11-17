@@ -9,6 +9,7 @@ import fr.ul.dedale.model.World;
 
 public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
+    Boolean turnFirstPress = false;
 
     public Listener(ViewWorld vWorld){
         this.viewWorld = vWorld;
@@ -17,6 +18,36 @@ public class Listener implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(viewWorld.getWorld().getHero().getHp()>0) {
+            if (turnFirstPress==true){
+                if (keycode == Input.Keys.UP) {
+                   viewWorld.getWorld().getHero().turn(DirectionFactory.TURNTOP);
+                    return true;
+                }
+                if (keycode == Input.Keys.RIGHT) {
+                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNRIGHT);
+                    return true;
+                }
+
+                if (keycode == Input.Keys.LEFT) {
+                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNLEFT);
+                    return true;
+
+                }
+
+
+                if (keycode == Input.Keys.DOWN) {
+                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNBOTTOM);
+                    return true;
+
+                }
+            }
+            if (keycode==Input.Keys.C) {
+                turnFirstPress = true;
+                return true;
+            }
+
+
+
             if (keycode == Input.Keys.ESCAPE) {
                 Gdx.app.exit();
             }
@@ -42,6 +73,12 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode==Input.Keys.C) {
+            turnFirstPress = false;
+            return true;
+        }
+
+
         return false;
     }
 

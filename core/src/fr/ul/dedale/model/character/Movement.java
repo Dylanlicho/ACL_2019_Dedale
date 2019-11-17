@@ -1,5 +1,7 @@
 package fr.ul.dedale.model.character;
 
+import fr.ul.dedale.DataFactory.DirectionFactory;
+
 public interface Movement {
     /**
      * move character to right
@@ -17,5 +19,5 @@ public interface Movement {
      * move character to bottom
      */
     void moveBottom();
-    void turn(int direction);
+    void turn(DirectionFactory direction);
 }
