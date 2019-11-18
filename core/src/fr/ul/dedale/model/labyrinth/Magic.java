@@ -12,6 +12,7 @@ public class Magic extends  Cell {
      */
     public Magic(int x, int y) {
         super(x, y);
+        type = "magic";
     }
 
     @Override

@@ -10,6 +10,7 @@ public class LabyrinthFactory {
     public static final char FIRE = 'f';
     public static final char DELTA = 'd';
     public static final char PASSAGE = 'p';
+    public static final char MAGIC = 'm';
 
     public static final int MAGICHEALTH = 1;
 

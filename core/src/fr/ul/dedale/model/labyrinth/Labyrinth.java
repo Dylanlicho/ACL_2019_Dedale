@@ -52,6 +52,8 @@ public class Labyrinth {
                     case LabyrinthFactory.DELTA:
                         cellList[i][j] = new Treasure(i, j);
                         break;
+                    case LabyrinthFactory.MAGIC:
+                        cellList[i][j] = new Magic(i,j);
                     default:
                         break;
                 }

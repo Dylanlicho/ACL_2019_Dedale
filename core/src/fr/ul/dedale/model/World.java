@@ -115,8 +115,9 @@ public class World {
             }
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
-        checkLoosePLayer();
+//        checkLoosePLayer();
     }
+
     public void draw(SpriteBatch sb){
         labyrinth.draw(sb);
         if(hero.getHp()>0) {
@@ -147,9 +148,8 @@ public class World {
 
           }
         }
-
-
     }
+
     public void moveMonster(int direction, int elem ){
         switch (direction){
             case 0 :  monsters.get(elem).moveTop();
@@ -175,6 +175,7 @@ public class World {
      */
     public void damagePlayer(int damage){
         hero.decreaseHp(damage);
+        checkLoosePLayer();
     }
 
     /**
@@ -206,15 +207,15 @@ public class World {
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
             System.out.println("you died");
-            Gdx.app.exit();
+            loose();
         }
 
     }
 
     public void loose(){
         hero = characterLoader.getPlayer();
-//        monsters = characterLoader.getMonsters();
-        ////THOMAS ICI CHARGEMENT MONSTRES/////
+        createMonsters();
+        System.out.println("dd");
     }
 
     /**
@@ -280,70 +281,53 @@ public class World {
 
             characterLoader.createCharacter(level);
             hero = characterLoader.getPlayer();
-
-            //////
-            monsters = new ArrayList<Monster>();
-
-
-            Integer value;
-            Integer key;
-            for(Map.Entry<Integer, Integer> entry : characterLoader.getMonsters().entrySet()){
-
-                key = entry.getKey();
-                value = entry.getValue();
-
-                for(int i=0;i<value;i++) {
-
-                    Point newPoint = findEmptyCell();
-
-                    switch (key) {
-
-                        // Case Ghost
-                        case 0:
-                            monsters.add(new Ghost(newPoint.x, newPoint.y));
-                            System.out.println("ajout ghost");
-                            break;
-
-                        // Case Troll
-                        case 1:
-                            monsters.add(new Troll(newPoint.x, newPoint.y));
-                            System.out.println("ajout troll");
-                            break;
-                    }
-                }
-            }
-
-            /////
-            ////THOMAS ICI CHARGEMENT MONTRES/////
+            createMonsters();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void createMonsters() {
+        monsters = new ArrayList<Monster>();
+
+        Integer value;
+        Integer key;
+        for(Map.Entry<Integer, Integer> entry : characterLoader.getMonsters().entrySet()){
+
+            key = entry.getKey();
+            value = entry.getValue();
+
+            for(int i=0;i<value;i++) {
+
+                Point newPoint = findEmptyCell();
+
+                switch (key) {
+
+                    // Case Ghost
+                    case 0:
+                        monsters.add(new Ghost(newPoint.x, newPoint.y));
+                        break;
+
+                    // Case Troll
+                    case 1:
+                        monsters.add(new Troll(newPoint.x, newPoint.y));
+                        break;
+                }
+            }
+        }
+    }
 
 
     public Point findEmptyCell(){
-
         int height =LabyrinthFactory.HEIGHT;
         int widht = LabyrinthFactory.WIDTH;
-
-
         while(true) {
-
-
             int x = ThreadLocalRandom.current().nextInt(0, widht-2);
             int y = ThreadLocalRandom.current().nextInt(0, height-2);
-
-            System.out.println("x :"+x);
-            System.out.println("y :"+y);
-
             if (!labyrinth.getCell(x, y).isSolid()) {
-
-
                 return new Point(x, y);
             }
         }
-
     }
 
 }
