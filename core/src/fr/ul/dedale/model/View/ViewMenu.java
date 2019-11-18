@@ -55,11 +55,13 @@ public class ViewMenu extends ScreenAdapter {
 
 
     public void render(float delta){
+        Gdx.gl.glClearColor( 0, 0, 0, 1 );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
         sb.begin();
 
         //sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         stage.draw();
-        sb.draw(TextureFactory.getInstance().getImage("delta"), 10,10,32*LabyrinthFactory.WIDTH, 32*LabyrinthFactory.HEIGHT);
+//        sb.draw(TextureFactory.getInstance().getImage("ground"), 0,0,LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
 
 
         sb.end();
