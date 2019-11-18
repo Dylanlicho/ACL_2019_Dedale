@@ -6,11 +6,14 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -54,7 +57,9 @@ public class ViewMenu extends ScreenAdapter {
 
 
     public void render(float delta){
+
         sb.begin();
+
 
         stage.draw();
 
@@ -63,6 +68,7 @@ public class ViewMenu extends ScreenAdapter {
 
     @Override
     public void show() {
+
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -72,12 +78,19 @@ public class ViewMenu extends ScreenAdapter {
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
+
+        Label titre = new Label("         Dedale's Maze",skin);
+
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
         TextButton preferences = new TextButton("Preferences", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
+        table.add(titre).fillX().uniformX();;
+
+        table.row().pad(20, 0, 20, 0);
+
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.add(preferences).fillX().uniformX();

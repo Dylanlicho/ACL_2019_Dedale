@@ -3,6 +3,7 @@ package fr.ul.dedale.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.model.View.ViewWorld;
 import fr.ul.dedale.model.World;
@@ -10,9 +11,12 @@ import fr.ul.dedale.model.World;
 public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
     Boolean turnFirstPress = false;
+    private Music mp3Sound;
 
     public Listener(ViewWorld vWorld){
+
         this.viewWorld = vWorld;
+        mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
     }
 
     @Override
@@ -48,7 +52,7 @@ public class Listener implements InputProcessor {
 
             if(keycode== Input.Keys.SPACE){
                 viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
-                System.out.println("ca tape");
+                mp3Sound.play();
             }
 
 
