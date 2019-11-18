@@ -330,8 +330,11 @@ public class World {
         while(true) {
 
 
-            int x = ThreadLocalRandom.current().nextInt(0, widht );
-            int y = ThreadLocalRandom.current().nextInt(0, height);
+            int x = ThreadLocalRandom.current().nextInt(0, widht-2);
+            int y = ThreadLocalRandom.current().nextInt(0, height-2);
+
+            System.out.println("x :"+x);
+            System.out.println("y :"+y);
 
             if (!labyrinth.getCell(x, y).isSolid()) {
 
