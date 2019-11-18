@@ -24,6 +24,7 @@ import fr.ul.dedale.model.World;
 public class ViewMenu extends ScreenAdapter {
 
     private final Stage stage;
+    private final Music buttonSound;
     public SpriteBatch sb;
     public OrthographicCamera camera;
 //    private World world;
@@ -51,6 +52,9 @@ public class ViewMenu extends ScreenAdapter {
         mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
         mp3Sound.setLooping(true);
         mp3Sound.play();
+
+
+        buttonSound = Gdx.audio.newMusic(Gdx.files.internal("audio/click.mp3"));
     }
 
 
@@ -67,6 +71,7 @@ public class ViewMenu extends ScreenAdapter {
 
     @Override
     public void show() {
+
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -93,6 +98,7 @@ public class ViewMenu extends ScreenAdapter {
 
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                buttonSound.play();
                 mp3Sound.stop();
                 game.setScreen(new ViewWorld(game));
             }
