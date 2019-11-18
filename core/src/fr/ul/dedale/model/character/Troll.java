@@ -3,7 +3,6 @@ package fr.ul.dedale.model.character;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
-import fr.ul.dedale.model.World;
 
 public class Troll extends Monster implements Attacker {
 
@@ -15,7 +14,7 @@ public class Troll extends Monster implements Attacker {
      * @param y ordonate coordinate troll
      */
     public Troll(int x , int y ){
-
+        super.hp = 1;
         super.posX = x;
         super.posY = y;
         super.sprite = new Sprite(TextureFactory.getInstance().getImage("troll"),SPRITESIZE,SPRITESIZE);

@@ -53,7 +53,6 @@ public abstract class Character implements Movement {
         switch (direction){
             case TURNTOP:
                 this.direction = DirectionFactory.TURNTOP.ordinal();
-                System.out.println("on est laaaa");
                 setDirection();
                 break;
             case TURNBOTTOM:

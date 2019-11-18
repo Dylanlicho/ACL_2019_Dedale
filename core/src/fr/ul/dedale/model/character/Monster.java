@@ -11,4 +11,9 @@ public class Monster extends Character implements Attacker {
             world.getHero().decreaseHp(1);
         }
     }
+
+    @Override
+    public void attackSword(World world) {
+
+    }
 }

@@ -31,7 +31,7 @@ public class World {
         monsters = new ArrayList<Monster>();
         monsters.add(new Troll(12,12));
         monsters.add(new Troll(5,5));
-        monsters.add(new Ghost(10,10));
+       // monsters.add(new Ghost(10,10));
         loader = new LabyrinthLoader();
         try {
             labyrinth = loader.createLabyrinth(0);
@@ -42,6 +42,7 @@ public class World {
     }
     public void game(){
         for (int i = 0 ; i < monsters.size(); i++){
+
             Random r = new Random();
 
             // Random between 0 and 3
@@ -105,6 +106,9 @@ public class World {
 
 
             monsters.get(i).attackCollision(this);
+            if(monsters.get(i).getHp()<=0){
+                monsters.remove(i);
+            }
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
         checkLoosePLayer();
@@ -115,7 +119,9 @@ public class World {
             hero.draw(sb);
         }
         for(int i = 0 ; i < monsters.size(); i++){
-            monsters.get(i).draw(sb);
+            if(monsters.get(i).getHp()>0) {
+                monsters.get(i).draw(sb);
+            }
         }
     }
 
@@ -225,5 +231,13 @@ public class World {
      */
     public Player getHero() {
         return hero;
+    }
+
+    /**
+     * getter monsters
+     * @return
+     */
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
     }
 }

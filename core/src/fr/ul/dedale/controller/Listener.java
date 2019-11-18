@@ -46,6 +46,10 @@ public class Listener implements InputProcessor {
                 return true;
             }
 
+            if(keycode== Input.Keys.SPACE){
+                viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
+                System.out.println("ca tape");
+            }
 
 
             if (keycode == Input.Keys.ESCAPE) {

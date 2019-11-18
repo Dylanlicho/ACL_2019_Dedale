@@ -3,9 +3,11 @@ package fr.ul.dedale.model.character;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
+import fr.ul.dedale.model.Attacker;
+import fr.ul.dedale.model.World;
 
 
-public class Player extends Character {
+public class Player extends Character implements Attacker {
     public static int HP = 1 ; //life player
     public static int CPTANIMATION = 4; // cpt animation
     public static int SPRITESIZEWIGHT = 100  ;    //size of sprite
@@ -44,4 +46,32 @@ public class Player extends Character {
         sprite.setSize(1,1);
     }
 
+    @Override
+    public void attackCollision(World world) {
+
+    }
+
+    @Override
+    public void attackSword(World world) {
+        int x = getPosX();
+        int y = getPosY();
+        if(direction==DirectionFactory.TURNLEFT.ordinal()){
+            x--;
+        }
+        if(direction==DirectionFactory.TURNRIGHT.ordinal()){
+            x++;
+        }
+        if(direction==DirectionFactory.TURNTOP.ordinal()){
+            y++;
+        }
+        if(direction==DirectionFactory.TURNBOTTOM.ordinal()){
+            y--;
+        }
+        for(Monster m :world.getMonsters()){
+            if(m.getPosX()==x && m.getPosY()==y){
+                m.decreaseHp(1);
+            }
+        }
+
+    }
 }

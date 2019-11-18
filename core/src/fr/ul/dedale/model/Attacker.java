@@ -6,4 +6,6 @@ public interface Attacker {
      * @param world world of this level
      */
     void attackCollision(World world);
+
+    void attackSword(World world);
 }
