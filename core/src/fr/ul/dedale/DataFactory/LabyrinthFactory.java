@@ -18,6 +18,6 @@ public class LabyrinthFactory {
     public static final int TROLL = 1;
     public static final int PLAYER = 2;
 
-    public static final int NB_NIVEAUX = 1;
+    public static final int NB_NIVEAUX = 2;
 
 }

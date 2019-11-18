@@ -177,7 +177,6 @@ public class World {
      */
     public void damagePlayer(int damage){
         hero.decreaseHp(damage);
-        checkLoosePLayer();
     }
 
     /**
@@ -194,13 +193,12 @@ public class World {
      * The hero win
      */
     public void winPlayer() {
-            System.out.println("you win");
             level++;
             if (level > LabyrinthFactory.NB_NIVEAUX) {
                 ViewMenu vm = new ViewMenu(game);
                 game.setScreen(vm);
             }
-            createLevel();
+            else createLevel();
     }
 
     /**
@@ -209,7 +207,7 @@ public class World {
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
             System.out.println("you died");
-            loose();
+            Gdx.app.exit();
         }
 
     }
