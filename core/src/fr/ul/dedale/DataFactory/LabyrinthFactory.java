@@ -2,7 +2,7 @@ package fr.ul.dedale.DataFactory;
 
 public class LabyrinthFactory {
 
-    public static int HEIGHT = 20;
+    public static int HEIGHT = 22;
     public static int WIDTH = 20;
 
     public static final char WALL = 'w';

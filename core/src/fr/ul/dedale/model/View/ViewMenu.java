@@ -59,6 +59,8 @@ public class ViewMenu extends ScreenAdapter {
 
         //sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         stage.draw();
+        sb.draw(TextureFactory.getInstance().getImage("delta"), 10,10,32*LabyrinthFactory.WIDTH, 32*LabyrinthFactory.HEIGHT);
+
 
         sb.end();
     }
