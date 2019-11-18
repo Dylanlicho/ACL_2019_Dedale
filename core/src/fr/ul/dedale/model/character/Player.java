@@ -10,7 +10,7 @@ import fr.ul.dedale.model.World;
 
 
 public class Player extends Character implements Attacker {
-    public static int HP = 1 ; //life player
+    public static int HP = 3 ; //life player
     public static int CPTANIMATION = 4; // cpt animation
     public static int SPRITESIZEWIGHT = 100  ;    //size of sprite
     public static int SPRITESIZEHIGHT= 130  ;    //size of sprite
@@ -74,7 +74,7 @@ public class Player extends Character implements Attacker {
             y--;
         }
         for(Monster m :world.getMonsters()){
-            if((m.getPosX()==x && m.getPosY()==y) || (m.getPosY()==getPosY() && m.getPosX()==getPosX())){
+            if(m.getPosX()==x && m.getPosY()==y){
                 m.decreaseHp(1);
             }
         }

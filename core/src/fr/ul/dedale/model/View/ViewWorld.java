@@ -4,19 +4,26 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
 public class ViewWorld extends ScreenAdapter {
+
+    private BitmapFont text;
     public SpriteBatch sb;
     public OrthographicCamera camera;
     private World world;
 
 
     public ViewWorld(Game game){
+        text = new BitmapFont();
         world = new World(game);
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
@@ -29,11 +36,22 @@ public class ViewWorld extends ScreenAdapter {
     public void render(float delta){
         sb.begin();
         world.draw(sb);
+        // Display of the HUD
+        int posX = 2;
+        int posY = 20;
         for(int i=0;i<getWorld().getHero().getHp();i++) {
-            sb.draw(TextureFactory.getInstance().getImage("life"), i*2, 20, 2, 2);
+            sb.draw(TextureFactory.getInstance().getImage("life"), i*posX, posY, 2, 2);
         }
+        text.getData().setScale(0.05f,0.05f);
+        text.draw(sb, "Space: Attack     C + Arrow: Change direction", (getWorld().getHero().getHp()*posX) + 1,21);
 
         sb.end();
+    }
+
+    @Override
+    public void show() {
+        super.show();
+
     }
 
     public World getWorld() {

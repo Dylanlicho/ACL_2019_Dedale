@@ -115,7 +115,7 @@ public class World {
             }
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
-//        checkLoosePLayer();
+        checkLoosePLayer();
     }
 
     public void draw(SpriteBatch sb){
@@ -213,9 +213,8 @@ public class World {
     }
 
     public void loose(){
-        hero = characterLoader.getPlayer();
+        hero = labyrinthLoader.getPlayer();
         createMonsters();
-        System.out.println("dd");
     }
 
     /**
