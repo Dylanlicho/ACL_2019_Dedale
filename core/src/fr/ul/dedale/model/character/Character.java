@@ -113,5 +113,13 @@ public abstract class Character implements Movement {
     public void setDirection(){
 
     }
+
+    /**
+     * Increase the HP of the character
+     * @param health number of HP increased
+     */
+    public void increaseHP(int health){
+        hp = hp + health;
+    }
 }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.model.character.*;
 import fr.ul.dedale.model.character.Character;
 import fr.ul.dedale.model.character.Monster;
@@ -190,6 +191,7 @@ public class World {
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
             System.out.println("you died");
+
             Gdx.app.exit();
         }
 
@@ -225,5 +227,13 @@ public class World {
      */
     public Player getHero() {
         return hero;
+    }
+
+    /**
+     * Increase the HP of the player
+     * @param hp number of HP increased
+     */
+    public void healPlayer(int hp) {
+        hero.increaseHP(hp);
     }
 }

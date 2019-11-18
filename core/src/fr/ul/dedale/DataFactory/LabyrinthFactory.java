@@ -11,4 +11,6 @@ public class LabyrinthFactory {
     public static final char DELTA = 'd';
     public static final char PASSAGE = 'p';
 
+    public static final int MAGICHEALTH = 1;
+
 }
