@@ -1,16 +1,25 @@
 package fr.ul.dedale.model;
 
 
+import fr.ul.dedale.model.character.Ghost;
+import fr.ul.dedale.model.character.Monster;
+import fr.ul.dedale.model.character.Player;
+import fr.ul.dedale.model.character.Troll;
 import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
 import fr.ul.dedale.model.labyrinth.Passage;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The class for load a labyrinth
  */
 public class LabyrinthLoader {
+
+    private ArrayList<Monster> monsterList;
+    private Player player;
 
     /**
      * Constructor of the class
@@ -26,7 +35,7 @@ public class LabyrinthLoader {
         //initialization of the tab of the labyrinth
 //        char[][] labyrinth = new char[50][50];
         //name of the level file
-        String namefile = "level/level" + numLevel + ".txt";
+        String namefile = "level/labyrinth/level" + numLevel + ".txt";
         //read the file
         InputStream ips = new FileInputStream(namefile);
         InputStreamReader ipsr = new InputStreamReader(ips);
@@ -62,7 +71,7 @@ public class LabyrinthLoader {
 
         Labyrinth lab = new Labyrinth(labyrinth);
 
-        namefile = "level/passage"+numLevel+".txt";
+        namefile = "level/labyrinth/passage"+numLevel+".txt";
         ips = new FileInputStream(namefile);
         ipsr = new InputStreamReader(ips);
         br = new BufferedReader(ipsr);
@@ -82,4 +91,26 @@ public class LabyrinthLoader {
 
         return lab;
     }
+
+    /**
+     * Reinstanciate the list of monsters
+     * @return The list of monsters in the level
+     */
+    public ArrayList<Monster> getMonsters(){
+        monsterList = new ArrayList<Monster>();
+        monsterList.add(new Troll(12,12));
+        monsterList.add(new Troll(5,5));
+        monsterList.add(new Ghost(10,10));
+        return monsterList;
+    }
+
+    /**
+     * Return the instanciation of the player
+     * @return the player
+     */
+    public Player getPlayer(){
+        player = new Player(1,1);
+        return player;
+    }
+
 }

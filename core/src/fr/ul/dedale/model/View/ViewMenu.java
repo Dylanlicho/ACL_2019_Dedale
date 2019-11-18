@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -25,7 +26,7 @@ public class ViewMenu extends ScreenAdapter {
     private final Stage stage;
     public SpriteBatch sb;
     public OrthographicCamera camera;
-    private World world;
+//    private World world;
     private Game game;
     private Music mp3Sound;
 
@@ -34,7 +35,7 @@ public class ViewMenu extends ScreenAdapter {
 
         this.game = game;
 
-        world = new World();
+//        world = new World(game);
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
@@ -56,6 +57,7 @@ public class ViewMenu extends ScreenAdapter {
     public void render(float delta){
         sb.begin();
 
+        sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         stage.draw();
 
         sb.end();
@@ -90,7 +92,7 @@ public class ViewMenu extends ScreenAdapter {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 mp3Sound.stop();
-                game.setScreen(new ViewWorld());
+                game.setScreen(new ViewWorld(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -114,7 +116,7 @@ public class ViewMenu extends ScreenAdapter {
 
     }
 
-    public World getWorld() {
-        return world;
-    }
+//    public World getWorld() {
+//        return world;
+//    }
 }

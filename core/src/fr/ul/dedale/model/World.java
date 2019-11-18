@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.model.View.ViewMenu;
 import fr.ul.dedale.model.character.*;
 import fr.ul.dedale.model.character.Character;
 import fr.ul.dedale.model.character.Monster;
@@ -23,23 +24,21 @@ public class World {
     Player hero ;
     ArrayList<Monster> monsters;
     private Labyrinth labyrinth;
-    private LabyrinthLoader loader;
+    //The loader of the labyrinth
+    private LabyrinthLoader labyrinthLoader;
+    //The loader of the characters
+    private CharacterLoader characterLoader;
     private int activeFire ;
+    //The number of the current level
+    private int level;
+    //The game
+    private Game game;
 
-    public World() {
+    public World(Game game) {
+        this.game = game;
         activeFire = 0;
-        hero = new Player(1,1);
-        monsters = new ArrayList<Monster>();
-        monsters.add(new Troll(12,12));
-        monsters.add(new Troll(5,5));
-       // monsters.add(new Ghost(10,10));
-        loader = new LabyrinthLoader();
-        try {
-            labyrinth = loader.createLabyrinth(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        level = 1;
+        createLevel();
     }
     public void game(){
         for (int i = 0 ; i < monsters.size(); i++){
@@ -189,7 +188,12 @@ public class World {
      */
     public void winPlayer() {
             System.out.println("you win");
-            Gdx.app.exit();
+            level++;
+            if (level > LabyrinthFactory.NB_NIVEAUX) {
+                ViewMenu vm = new ViewMenu(game);
+                game.setScreen(vm);
+            }
+            createLevel();
     }
 
     /**
@@ -201,6 +205,12 @@ public class World {
             Gdx.app.exit();
         }
 
+    }
+
+    public void loose(){
+        hero = characterLoader.getPlayer();
+//        monsters = characterLoader.getMonsters();
+        ////THOMAS ICI CHARGEMENT MONSTRES/////
     }
 
     /**
@@ -249,5 +259,31 @@ public class World {
      */
     public void healPlayer(int hp) {
         hero.increaseHP(hp);
+    }
+
+    /**
+     * create the current level
+     */
+    public void createLevel() {
+        labyrinthLoader = new LabyrinthLoader();
+        try {
+            labyrinth = labyrinthLoader.createLabyrinth(level);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        characterLoader = new CharacterLoader();
+        try {
+            characterLoader.createCharacter(level);
+            hero = characterLoader.getPlayer();
+            //////
+            monsters = new ArrayList<Monster>();
+            monsters.add(new Troll(12,12));
+            monsters.add(new Troll(5,5));
+//        monsters.add(new Ghost(10,10));
+            /////
+            ////THOMAS ICI CHARGEMENT MONTRES/////
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
