@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -56,7 +57,7 @@ public class ViewMenu extends ScreenAdapter {
     public void render(float delta){
         sb.begin();
 
-        sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
+        //sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         stage.draw();
 
         sb.end();

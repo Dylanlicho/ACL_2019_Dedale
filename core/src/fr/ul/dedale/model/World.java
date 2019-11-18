@@ -15,9 +15,12 @@ import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
 import fr.ul.dedale.model.labyrinth.Treasure;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
 
@@ -273,17 +276,70 @@ public class World {
         }
         characterLoader = new CharacterLoader();
         try {
+
             characterLoader.createCharacter(level);
             hero = characterLoader.getPlayer();
+
             //////
             monsters = new ArrayList<Monster>();
-            monsters.add(new Troll(12,12));
-            monsters.add(new Troll(5,5));
-//        monsters.add(new Ghost(10,10));
+
+
+            Integer value;
+            Integer key;
+            for(Map.Entry<Integer, Integer> entry : characterLoader.getMonsters().entrySet()){
+
+                key = entry.getKey();
+                value = entry.getValue();
+
+                for(int i=0;i<value;i++) {
+
+                    Point newPoint = findEmptyCell();
+
+                    switch (key) {
+
+                        // Case Ghost
+                        case 0:
+                            monsters.add(new Ghost(newPoint.x, newPoint.y));
+                            System.out.println("ajout ghost");
+                            break;
+
+                        // Case Troll
+                        case 1:
+                            monsters.add(new Troll(newPoint.x, newPoint.y));
+                            System.out.println("ajout troll");
+                            break;
+                    }
+                }
+            }
+
             /////
             ////THOMAS ICI CHARGEMENT MONTRES/////
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
+    public Point findEmptyCell(){
+
+        int height =LabyrinthFactory.HEIGHT;
+        int widht = LabyrinthFactory.WIDTH;
+
+
+        while(true) {
+
+
+            int x = ThreadLocalRandom.current().nextInt(0, widht );
+            int y = ThreadLocalRandom.current().nextInt(0, height);
+
+            if (!labyrinth.getCell(x, y).isSolid()) {
+
+
+                return new Point(x, y);
+            }
+        }
+
+    }
+
 }
