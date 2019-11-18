@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.model.View.ViewWorld;
 import fr.ul.dedale.model.World;
+import fr.ul.dedale.model.character.Player;
 
 public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
@@ -52,6 +53,7 @@ public class Listener implements InputProcessor {
 
             if(keycode== Input.Keys.SPACE){
                 viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
+                viewWorld.getWorld().getHero().hit();
                 mp3Sound.play();
             }
 
@@ -81,6 +83,10 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        if(keycode==Input.Keys.SPACE){
+            viewWorld.getWorld().getHero().nohit();
+
+        }
         if (keycode==Input.Keys.C) {
             turnFirstPress = false;
             return true;

@@ -127,6 +127,7 @@ public class World {
                 monsters.get(i).draw(sb);
             }
         }
+        hero.drawhit(sb);
     }
 
     public void moveHero(DirectionFactory direction){

@@ -1,19 +1,21 @@
 package fr.ul.dedale.model.character;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.DataFactory.TextureFactory;
 
 public abstract class Character implements Movement {
 
     protected int hp ;
-    protected  int attack ;
+    protected  boolean attack ;
     protected  int posX;
     protected  int posY;
     protected int direction;
     protected boolean throughWall;
     protected Sprite sprite;
-
+    protected  SpriteBatch spriteBatch;
     /**
      * draw the labyrinth
      * @param sp the Sprite batch
@@ -22,6 +24,7 @@ public abstract class Character implements Movement {
         sprite.setPosition(posX,posY);
         sprite.setOriginCenter();
         sprite.draw(sp);
+
     }
 
 

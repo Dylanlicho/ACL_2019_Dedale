@@ -1,6 +1,8 @@
 package fr.ul.dedale.model.character;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
@@ -16,6 +18,9 @@ public class Player extends Character implements Attacker {
     protected static int SPRITEBOTTOM = 0;
     protected static int SPRITELEFT = 1;
     protected static int SPRITERIGHT = 3;
+    protected  int xAttack;
+    protected  int yAttack;
+
 
     /**
      * constructor player
@@ -23,6 +28,7 @@ public class Player extends Character implements Attacker {
      * @param y ordonate coordinate player
      */
     public Player(int x , int y ){
+        attack =false;
         hp = HP;
         throughWall = false;
         super.posX = x;
@@ -72,6 +78,21 @@ public class Player extends Character implements Attacker {
                 m.decreaseHp(1);
             }
         }
-
+        xAttack = x;
+        yAttack = y;
+       }
+       public void hit(){
+        attack =true;
+       }
+       public void nohit(){
+        attack = false;
+       }
+    public void drawhit(SpriteBatch sb) {
+        if(attack) {
+            Texture texture = TextureFactory.getInstance().getImage("hit");
+            sb.draw(texture, xAttack, yAttack, 1, 1, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+        }
     }
+
+
 }
