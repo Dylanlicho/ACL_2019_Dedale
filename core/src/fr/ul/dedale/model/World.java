@@ -108,10 +108,12 @@ public class World {
             }
 
 
-            monsters.get(i).attackCollision(this);
             //monster die
             if(monsters.get(i).getHp()<=0){
                 monsters.remove(i);
+            }else {
+                monsters.get(i).attackCollision(this);
+
             }
         }
         labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
