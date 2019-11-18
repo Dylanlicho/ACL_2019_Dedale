@@ -27,7 +27,8 @@ public class TextureFactory {
         images.put("delta",new Texture("images/delta.png"));
         images.put("passage",new Texture("images/hermes.png"));
         images.put("ghost",new Texture("images/ghost_planche.png"));
-
+        images.put("magic",new Texture("images/magic.png"));
+        images.put("life",new Texture("images/life.png"));
     }
     public Texture getImage(String imageName){
         return images.get(imageName);

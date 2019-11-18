@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -28,6 +29,10 @@ public class ViewWorld extends ScreenAdapter {
     public void render(float delta){
         sb.begin();
         world.draw(sb);
+        for(int i=0;i<getWorld().getHero().getHp();i++) {
+            sb.draw(TextureFactory.getInstance().getImage("life"), i*2, 20, 2, 2);
+        }
+
         sb.end();
     }
 
