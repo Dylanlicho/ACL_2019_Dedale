@@ -21,7 +21,7 @@ public class TextureFactory {
         images.put("troll",new Texture("images/troll.png"));
         images.put("grass",new Texture("images/grass.jpg"));
         images.put("ground",new Texture("images/ground.png"));
-//        images.put("ground",new Texture("images/grass.jpg"));
+        images.put("groundTrap",new Texture("images/groundTrap.png"));
         images.put("wall",new Texture("images/wall.png"));
         images.put("fire",new Texture("images/fire.png"));
         images.put("delta",new Texture("images/delta.png"));

@@ -52,7 +52,7 @@ public class Listener implements InputProcessor {
 
             if(keycode== Input.Keys.SPACE){
                 viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
-                mp3Sound.play();
+                System.out.println("ca tape");
             }
 
 

@@ -6,14 +6,11 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -28,7 +25,7 @@ public class ViewMenu extends ScreenAdapter {
     private final Stage stage;
     public SpriteBatch sb;
     public OrthographicCamera camera;
-    private World world;
+//    private World world;
     private Game game;
     private Music mp3Sound;
 
@@ -37,7 +34,7 @@ public class ViewMenu extends ScreenAdapter {
 
         this.game = game;
 
-        world = new World();
+//        world = new World(game);
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
@@ -57,10 +54,9 @@ public class ViewMenu extends ScreenAdapter {
 
 
     public void render(float delta){
-
         sb.begin();
 
-
+        sb.draw(TextureFactory.getInstance().getImage("ground"), 0, 0, LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         stage.draw();
 
         sb.end();
@@ -68,7 +64,6 @@ public class ViewMenu extends ScreenAdapter {
 
     @Override
     public void show() {
-
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
@@ -78,19 +73,12 @@ public class ViewMenu extends ScreenAdapter {
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
-
-        Label titre = new Label("         Dedale's Maze",skin);
-
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
         TextButton preferences = new TextButton("Preferences", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
-        table.add(titre).fillX().uniformX();;
-
-        table.row().pad(20, 0, 20, 0);
-
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.add(preferences).fillX().uniformX();
@@ -103,7 +91,7 @@ public class ViewMenu extends ScreenAdapter {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 mp3Sound.stop();
-                game.setScreen(new ViewWorld());
+                game.setScreen(new ViewWorld(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -127,7 +115,7 @@ public class ViewMenu extends ScreenAdapter {
 
     }
 
-    public World getWorld() {
-        return world;
-    }
+//    public World getWorld() {
+//        return world;
+//    }
 }
