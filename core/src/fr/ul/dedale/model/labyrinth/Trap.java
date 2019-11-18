@@ -3,7 +3,6 @@ package fr.ul.dedale.model.labyrinth;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.TextureFactory;
-import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
 public class Trap extends Cell {
