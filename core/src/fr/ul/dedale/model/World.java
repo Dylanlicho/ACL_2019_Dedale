@@ -107,6 +107,7 @@ public class World {
 
 
             monsters.get(i).attackCollision(this);
+            //monster die
             if(monsters.get(i).getHp()<=0){
                 monsters.remove(i);
             }

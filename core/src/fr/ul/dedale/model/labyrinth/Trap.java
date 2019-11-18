@@ -34,6 +34,7 @@ public class Trap extends Cell {
     public void activate(World world) {
         accrAnim();
         world.damagePlayer(damage);
+
     }
 
     public void draw (SpriteBatch sb) {
@@ -41,7 +42,7 @@ public class Trap extends Cell {
         if(nAnim%2==0){
              texture = TextureFactory.getInstance().getImage("fire");
         }else{
-            texture = TextureFactory.getInstance().getImage("ground");
+            texture = TextureFactory.getInstance().getImage("groundTrap");
         }
         sb.draw(texture, x, y, 1, 1, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
     }
