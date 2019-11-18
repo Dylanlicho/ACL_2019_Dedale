@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
-import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
