@@ -28,12 +28,16 @@ public class World {
 
     public World() {
         activeFire = 0;
+        /*
         hero = new Player(1,1);
         monsters = new ArrayList<Monster>();
         monsters.add(new Troll(12,12));
         monsters.add(new Troll(5,5));
-       // monsters.add(new Ghost(10,10));
+        monsters.add(new Ghost(10,10));*/
         loader = new LabyrinthLoader();
+
+        hero = loader.getPlayer();
+        monsters = loader.getMonsters();
         try {
             labyrinth = loader.createLabyrinth(0);
         } catch (IOException e) {
@@ -197,9 +201,15 @@ public class World {
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
             System.out.println("you died");
-            Gdx.app.exit();
+            loose();
+            //Gdx.app.exit();
         }
 
+    }
+
+    public void loose(){
+        hero = loader.getPlayer();
+        monsters = loader.getMonsters();
     }
 
     /**
