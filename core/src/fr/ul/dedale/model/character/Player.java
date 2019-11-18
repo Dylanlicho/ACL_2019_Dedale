@@ -74,7 +74,7 @@ public class Player extends Character implements Attacker {
             y--;
         }
         for(Monster m :world.getMonsters()){
-            if(m.getPosX()==x && m.getPosY()==y){
+            if((m.getPosX()==x && m.getPosY()==y) ||(m.getPosX()==getPosX() && m.getPosY()==getPosY()) ){
                 m.decreaseHp(1);
             }
         }
