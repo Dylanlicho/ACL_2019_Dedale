@@ -35,7 +35,7 @@ public class LabyrinthLoader {
         //initialization of the tab of the labyrinth
 //        char[][] labyrinth = new char[50][50];
         //name of the level file
-        String namefile = "level/level" + numLevel + ".txt";
+        String namefile = "level/labyrinth/level" + numLevel + ".txt";
         //read the file
         InputStream ips = new FileInputStream(namefile);
         InputStreamReader ipsr = new InputStreamReader(ips);
@@ -71,7 +71,7 @@ public class LabyrinthLoader {
 
         Labyrinth lab = new Labyrinth(labyrinth);
 
-        namefile = "level/passage"+numLevel+".txt";
+        namefile = "level/labyrinth/passage"+numLevel+".txt";
         ips = new FileInputStream(namefile);
         ipsr = new InputStreamReader(ips);
         br = new BufferedReader(ipsr);

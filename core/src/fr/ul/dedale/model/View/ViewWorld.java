@@ -1,5 +1,6 @@
 package fr.ul.dedale.model.View;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,8 +15,8 @@ public class ViewWorld extends ScreenAdapter {
     private World world;
 
 
-    public ViewWorld(){
-        world = new World();
+    public ViewWorld(Game game){
+        world = new World(game);
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
