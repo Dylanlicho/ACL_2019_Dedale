@@ -11,7 +11,6 @@ public class Game extends com.badlogic.gdx.Game {
 	public void create() {
 	 	es =  new ViewMenu(this);
 	 	setScreen(es);
-//	 	world = new World(this);
 	}
 	@Override
 	public void dispose () {
