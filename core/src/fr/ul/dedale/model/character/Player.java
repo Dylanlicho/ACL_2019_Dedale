@@ -36,6 +36,10 @@ public class Player extends Character implements Attacker {
         super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
         sprite.setSize(1,1);
     }
+
+    /**
+     * set sprite of hero
+     */
     public void setDirection(){
         if(DirectionFactory.TURNTOP.ordinal() == direction){
             super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),0,SPRITEBTOP*SPRITESIZEHIGHT,SPRITESIZEWIGHT,SPRITESIZEHIGHT);
@@ -81,12 +85,25 @@ public class Player extends Character implements Attacker {
         xAttack = x;
         yAttack = y;
        }
-       public void hit(){
+
+    /**
+     * the player are attacking
+     */
+    public void hit(){
         attack =true;
        }
-       public void nohit(){
+
+    /**
+     * the play are't attacking
+     */
+    public void nohit(){
         attack = false;
        }
+
+    /**
+     * draw sprite attack
+     * @param sb
+     */
     public void drawhit(SpriteBatch sb) {
         if(attack) {
             Texture texture = TextureFactory.getInstance().getImage("hit");
