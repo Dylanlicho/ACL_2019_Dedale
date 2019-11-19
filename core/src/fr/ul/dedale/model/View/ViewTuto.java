@@ -67,7 +67,7 @@ public class ViewTuto extends ScreenAdapter {
         //add components to table
         table.add(image).center();
         table.row().pad(10, 0, 10, 0);
-        table.add(menu).fillX().uniformX();
+        table.add(menu).center();
         table.row();
 
         menu.addListener(new InputListener(){
