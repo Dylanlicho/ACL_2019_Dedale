@@ -3,35 +3,29 @@ package fr.ul.dedale.model.View;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
-import fr.ul.dedale.controller.Listener;
-import fr.ul.dedale.model.World;
 
-public class ViewMenu extends ScreenAdapter {
+public class ViewTuto extends ScreenAdapter {
 
     private final Stage stage;
     public SpriteBatch sb;
     public OrthographicCamera camera;
-//    private World world;
+    //    private World world;
     private Game game;
-    private Music mp3Sound;
 
-
-    public ViewMenu(Game game){
+    public ViewTuto(Game game){
 
         this.game = game;
 
@@ -45,14 +39,7 @@ public class ViewMenu extends ScreenAdapter {
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
-
-
-        mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
-        mp3Sound.setLooping(true);
-        mp3Sound.play();
     }
-
 
     public void render(float delta){
         Gdx.gl.glClearColor( 0, 0, 0, 1 );
@@ -64,71 +51,34 @@ public class ViewMenu extends ScreenAdapter {
 
     @Override
     public void show() {
+        super.show();
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
-        //table.setDebug(true);
         stage.addActor(table);
 
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
         //create buttons
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton tuto = new TextButton("How to play", skin);
-        TextButton exit = new TextButton("Exit", skin);
+        TextButton menu = new TextButton("Menu", skin);
+        Image image = new Image(TextureFactory.getInstance().getImage("tuto"));
 
-        //add buttons to table
-        table.add(newGame).fillX().uniformX();
+        //add components to table
+        table.add(image).center();
         table.row().pad(10, 0, 10, 0);
-        table.add(tuto).fillX().uniformX();
+        table.add(menu).fillX().uniformX();
         table.row();
-        table.add(exit).fillX().uniformX();
 
-
-        newGame.addListener(new InputListener(){
-
+        menu.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                mp3Sound.stop();
-                game.setScreen(new ViewWorld(game));
+                game.setScreen(new ViewMenu(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
-
-        exit.addListener(new InputListener(){
-
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.exit();
-            }
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-
-        tuto.addListener(new InputListener(){
-
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new ViewTuto(game));
-            }
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-        });
-
-
-
     }
-
-//    public World getWorld() {
-//        return world;
-//    }
 }
