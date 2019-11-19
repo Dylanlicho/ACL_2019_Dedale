@@ -80,6 +80,12 @@ public class Player extends Character implements Attacker {
         for(Monster m :world.getMonsters()){
             if((m.getPosX()==x && m.getPosY()==y) ||(m.getPosX()==getPosX() && m.getPosY()==getPosY()) ){
                 m.decreaseHp(1);
+
+                if(m.getHp() <= 0){
+
+                    if(super.getHp()<3)
+                        super.increaseHP(1);
+                }
             }
         }
         xAttack = x;
