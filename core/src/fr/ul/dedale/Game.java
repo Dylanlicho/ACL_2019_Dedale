@@ -6,7 +6,6 @@ import fr.ul.dedale.model.World;
 public class Game extends com.badlogic.gdx.Game {
 
 	ViewMenu es ;
-//	World world;
 
 	@Override
 	public void create() {

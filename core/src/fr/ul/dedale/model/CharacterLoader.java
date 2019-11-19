@@ -62,7 +62,7 @@ public class CharacterLoader {
      * @return the player
      */
     public Player getPlayer () {
-        return player;
+        return new Player(player.getPosX(), player.getPosY());
     }
 
 }

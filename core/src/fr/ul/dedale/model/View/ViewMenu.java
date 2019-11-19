@@ -26,9 +26,8 @@ public class ViewMenu extends ScreenAdapter {
     private final Stage stage;
     public SpriteBatch sb;
     public OrthographicCamera camera;
-//    private World world;
     private Game game;
-    private Music mp3Sound;
+    private static Music mp3Sound;
 
 
     public ViewMenu(Game game){
@@ -48,9 +47,11 @@ public class ViewMenu extends ScreenAdapter {
 
 
 
-        mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
-        mp3Sound.setLooping(true);
-        mp3Sound.play();
+        if (mp3Sound == null) {
+            mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
+            mp3Sound.setLooping(true);
+            mp3Sound.play();
+        }
     }
 
 
@@ -128,7 +129,4 @@ public class ViewMenu extends ScreenAdapter {
 
     }
 
-//    public World getWorld() {
-//        return world;
-//    }
 }

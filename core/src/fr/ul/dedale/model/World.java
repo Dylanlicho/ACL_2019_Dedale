@@ -209,7 +209,7 @@ public class World {
      * check if the hero has lost
      */
     private void checkLoosePLayer(){
-        if (hero.getHp()<0){
+        if (hero.getHp()<=0){
             loose();
         }
 
