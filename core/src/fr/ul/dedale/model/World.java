@@ -206,17 +206,20 @@ public class World {
     }
 
     /**
-     * the hero loose
+     * check if the hero has lost
      */
-    public void checkLoosePLayer(){
+    private void checkLoosePLayer(){
         if (hero.getHp()<0){
             loose();
         }
 
     }
 
-    public void loose(){
-        hero = labyrinthLoader.getPlayer();
+    /**
+     * the player loose
+     */
+    private void loose(){
+        hero = characterLoader.getPlayer();
         createMonsters();
         labyrinth.init();
     }
@@ -247,7 +250,7 @@ public class World {
 
     /**
      * getter hero
-     * @return
+     * @return the hero
      */
     public Player getHero() {
         return hero;
@@ -255,7 +258,7 @@ public class World {
 
     /**
      * getter monsters
-     * @return
+     * @return the monsters
      */
     public ArrayList<Monster> getMonsters() {
         return monsters;
@@ -272,7 +275,7 @@ public class World {
     /**
      * create the current level
      */
-    public void createLevel() {
+    private void createLevel() {
         labyrinthLoader = new LabyrinthLoader();
         try {
             labyrinth = labyrinthLoader.createLabyrinth(level);
@@ -290,6 +293,9 @@ public class World {
         }
     }
 
+    /**
+     * Create the monsters with the list getting in characterLoader
+     */
     private void createMonsters() {
         monsters = new ArrayList<Monster>();
 
@@ -307,12 +313,12 @@ public class World {
                 switch (key) {
 
                     // Case Ghost
-                    case 0:
+                    case LabyrinthFactory.GHOST:
                         monsters.add(new Ghost(newPoint.x, newPoint.y));
                         break;
 
                     // Case Troll
-                    case 1:
+                    case LabyrinthFactory.TROLL:
                         monsters.add(new Troll(newPoint.x, newPoint.y));
                         break;
                 }
@@ -321,6 +327,10 @@ public class World {
     }
 
 
+    /**
+     * Find an empty cell
+     * @return a point corresponding to the position of an empty cell
+     */
     public Point findEmptyCell(){
         int height =LabyrinthFactory.HEIGHT;
         int widht = LabyrinthFactory.WIDTH;

@@ -18,9 +18,6 @@ import java.util.List;
  */
 public class LabyrinthLoader {
 
-    private ArrayList<Monster> monsterList;
-    private Player player;
-
     /**
      * Constructor of the class
      */
@@ -45,6 +42,7 @@ public class LabyrinthLoader {
         int nbLines = 0;
         int nbColumns = 0;
 
+        //Get the number of lines and columns
         int l = 0;
         while(line != null) {
             nbLines ++;
@@ -52,7 +50,7 @@ public class LabyrinthLoader {
             line = br.readLine();
         }
 
-
+        //Creation of the labyrinth
         char[][] labyrinth = new char[nbLines][nbColumns];
         ips = new FileInputStream(namefile);
         ipsr = new InputStreamReader(ips);
@@ -69,8 +67,10 @@ public class LabyrinthLoader {
             line = br.readLine();
         }
 
+        //Instantiation of the labyrinth
         Labyrinth lab = new Labyrinth(labyrinth);
 
+        //Open the passages
         namefile = "level/labyrinth/passage"+numLevel+".txt";
         ips = new FileInputStream(namefile);
         ipsr = new InputStreamReader(ips);
@@ -92,25 +92,5 @@ public class LabyrinthLoader {
         return lab;
     }
 
-    /**
-     * Reinstanciate the list of monsters
-     * @return The list of monsters in the level
-     */
-    public ArrayList<Monster> getMonsters(){
-        monsterList = new ArrayList<Monster>();
-        monsterList.add(new Troll(12,12));
-        monsterList.add(new Troll(5,5));
-        monsterList.add(new Ghost(10,10));
-        return monsterList;
-    }
-
-    /**
-     * Return the instanciation of the player
-     * @return the player
-     */
-    public Player getPlayer(){
-        player = new Player(1,1);
-        return player;
-    }
 
 }

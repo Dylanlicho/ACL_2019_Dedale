@@ -13,8 +13,9 @@ public abstract class Cell {
     // Coordinate of the cell
     protected int x;
     protected int y;
+    //The type of the cell
     protected String type;
-//    protected int nAnim;
+    //True if the cell if activate(for the cells which we must know if those has been activated)
     protected boolean isActivate = false;
 
     /**
@@ -38,14 +39,18 @@ public abstract class Cell {
      */
     public abstract void activate(World world);
 
+    /**
+     * Draw the cell
+     * @param sb the SpriteBatch
+     */
     public void draw (SpriteBatch sb) {
-        Texture texture = TextureFactory.getInstance().getImage(type);
+        Texture texture = TextureFactory.getInstance().getImage(getType());
         sb.draw(texture,x, y,1,1,0,0,texture.getWidth(),texture.getHeight(),false,false);
     }
 
     /**
      * getter type
-     * @return
+     * @return the type
      */
     public String getType() {
         return type;
@@ -53,7 +58,7 @@ public abstract class Cell {
 
     /**
      * getter  abscissa coordinate
-     * @return
+     * @return the position in X
      */
     public int getX() {
         return x;
@@ -61,7 +66,7 @@ public abstract class Cell {
 
     /**
      * getter ordinate coordinate
-     * @return
+     * @return the position in Y
      */
     public int getY() {
         return y;
