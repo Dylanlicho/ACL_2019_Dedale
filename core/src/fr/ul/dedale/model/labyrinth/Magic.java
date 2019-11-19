@@ -26,8 +26,12 @@ public class Magic extends  Cell {
 
     @Override
     public void activate(World world) {
-        isActivate = true;
-        world.healPlayer(LabyrinthFactory.MAGICHEALTH);
+        if (world.getHero().getHp() < LabyrinthFactory.HP_PLAYER) {
+            if (!isActivate) {
+                world.healPlayer(LabyrinthFactory.MAGICHEALTH);
+                isActivate = true;
+            }
+        }
     }
 
     public void draw (SpriteBatch sb) {

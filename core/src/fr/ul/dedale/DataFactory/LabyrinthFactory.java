@@ -20,4 +20,6 @@ public class LabyrinthFactory {
 
     public static final int NB_NIVEAUX = 2;
 
+    public static final int HP_PLAYER = 3 ; //life player
+
 }

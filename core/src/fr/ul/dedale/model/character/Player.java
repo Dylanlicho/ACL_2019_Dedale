@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
 
 public class Player extends Character implements Attacker {
-    public static int HP = 3 ; //life player
     public static int CPTANIMATION = 4; // cpt animation
     public static int SPRITESIZEWIGHT = 100  ;    //size of sprite
     public static int SPRITESIZEHIGHT= 130  ;    //size of sprite
@@ -29,7 +29,7 @@ public class Player extends Character implements Attacker {
      */
     public Player(int x , int y ){
         attack =false;
-        hp = HP;
+        hp = LabyrinthFactory.HP_PLAYER;
         throughWall = false;
         super.posX = x;
         super.posY = y;
