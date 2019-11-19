@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class World {
 
@@ -198,7 +199,10 @@ public class World {
                 ViewMenu vm = new ViewMenu(game);
                 game.setScreen(vm);
             }
-            else createLevel();
+            else {
+
+                createLevel();
+            }
     }
 
     /**
@@ -206,8 +210,9 @@ public class World {
      */
     public void checkLoosePLayer(){
         if (hero.getHp()<0){
-            System.out.println("you died");
-            Gdx.app.exit();
+//            System.out.println("you died");
+//            Gdx.app.exit();
+            loose();
         }
 
     }
@@ -215,6 +220,7 @@ public class World {
     public void loose(){
         hero = labyrinthLoader.getPlayer();
         createMonsters();
+        labyrinth.init();
     }
 
     /**

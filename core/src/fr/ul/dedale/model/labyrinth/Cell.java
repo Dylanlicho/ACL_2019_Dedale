@@ -11,9 +11,11 @@ public abstract class Cell {
     // true if the player can't go onto the cell, false otherwise
     private boolean solid;
     // Coordinate of the cell
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
     protected String type;
+//    protected int nAnim;
+    protected boolean isActivate = false;
 
     /**
      * Constructor of Cell
@@ -63,5 +65,15 @@ public abstract class Cell {
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * change the value of the cell
+     * true if the cell is activate
+     * false if the cell isn't activate
+     * @param activate the new value
+     */
+    public void setActivate(boolean activate) {
+        isActivate = activate;
     }
 }

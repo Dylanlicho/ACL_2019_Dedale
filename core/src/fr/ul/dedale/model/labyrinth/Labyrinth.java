@@ -97,6 +97,17 @@ public class Labyrinth {
     }
 
     /**
+     * Reinitialize the cells, if the cells were activate, those may be not activate
+     */
+    public void init() {
+        for (Cell[] cells : cellList) {
+            for (Cell c : cells) {
+                c.setActivate(false);
+            }
+        }
+    }
+
+    /**
      * draw the labyrinth
      * @param sb the Sprite batch
      */

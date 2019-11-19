@@ -11,7 +11,7 @@ public class Trap extends Cell {
     private int damage;
     private int x;
     private int y;
-    private int nAnim = 1 ;
+//    private int nAnim = 1 ;
 
     /**
      * Constructor of Trap
@@ -23,6 +23,7 @@ public class Trap extends Cell {
         type = "fire";
         this.x = x ;
         this.y = y ;
+//        nAnim = 1;
     }
 
     @Override
@@ -32,14 +33,15 @@ public class Trap extends Cell {
 
     @Override
     public void activate(World world) {
-        accrAnim();
+//        accrAnim();
+        isActivate  = true;
         world.damagePlayer(damage);
-
     }
 
     public void draw (SpriteBatch sb) {
         Texture texture ;
-        if(nAnim%2==0){
+//        if(nAnim%2==0){
+        if(isActivate){
              texture = TextureFactory.getInstance().getImage("fire");
         }else{
             texture = TextureFactory.getInstance().getImage("groundTrap");
@@ -48,7 +50,7 @@ public class Trap extends Cell {
     }
 
 
-    public void accrAnim() {
-        nAnim ++ ;
-    }
+//    public void accrAnim() {
+//        nAnim ++ ;
+//    }
 }
