@@ -77,7 +77,9 @@ public class Listener implements InputProcessor {
                 viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
             }
         }
+
         viewWorld.getWorld().game();
+
         return true;
     }
 

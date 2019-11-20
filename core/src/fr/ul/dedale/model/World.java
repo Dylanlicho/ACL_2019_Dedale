@@ -42,6 +42,7 @@ public class World {
         createLevel();
     }
     public void game(){
+
         for (int i = 0 ; i < monsters.size(); i++){
 
             Random r = new Random();
@@ -55,11 +56,12 @@ public class World {
                     dir = r.nextInt((3 - 0) + 1) + 0;
                 }
                 moveMonster(dir,i);
-
             }
 
             // The monsters is a Ghost
             else{
+
+                System.out.println("Game Ghost");
 
                 // Player coordinates
                 int posX_player = hero.getPosX();
@@ -93,7 +95,7 @@ public class World {
                     }
                 }
                 // We move the ghost in ordinate
-                else if (deltaX < deltaY){
+                else {
                     if(directionY >= 0){
                         // Bottom
                         moveMonster(1,i);
