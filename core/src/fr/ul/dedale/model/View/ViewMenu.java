@@ -27,7 +27,7 @@ public class ViewMenu extends ScreenAdapter {
     public SpriteBatch sb;
     public OrthographicCamera camera;
     private Game game;
-    private static Music mp3Sound;
+    private static Music mp3Sound =  Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
 
 
     public ViewMenu(Game game){
@@ -47,11 +47,8 @@ public class ViewMenu extends ScreenAdapter {
 
 
 
-        if (mp3Sound == null) {
-            mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
             mp3Sound.setLooping(true);
             mp3Sound.play();
-        }
     }
 
 

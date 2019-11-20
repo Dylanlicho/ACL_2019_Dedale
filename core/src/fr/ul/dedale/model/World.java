@@ -13,15 +13,12 @@ import fr.ul.dedale.model.character.Player;
 import fr.ul.dedale.model.character.Troll;
 import fr.ul.dedale.model.labyrinth.Cell;
 import fr.ul.dedale.model.labyrinth.Labyrinth;
-import fr.ul.dedale.model.labyrinth.Treasure;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class World {
 
