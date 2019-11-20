@@ -9,7 +9,6 @@ public class Monster extends Character implements Attacker {
     public void attackCollision(World world) {
         if(world.getHero().getPosX()==getPosX() && world.getHero().getPosY() == getPosY()){
             world.getHero().decreaseHp(1);
-            super.decreaseHp(1);
         }
     }
 
