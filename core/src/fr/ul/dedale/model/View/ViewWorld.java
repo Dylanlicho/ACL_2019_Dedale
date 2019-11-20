@@ -24,6 +24,7 @@ public class ViewWorld extends ScreenAdapter {
     private World world;
 
 
+
     public ViewWorld(Game game){
         world = new World(game);
         sb = new SpriteBatch();
@@ -37,16 +38,21 @@ public class ViewWorld extends ScreenAdapter {
     public void render(float delta){
         Gdx.gl.glClearColor( 0, 0, 0, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+
+
+
         sb.begin();
         world.draw(sb);
         // Display of the HUD
         int posX = 2;
         int posY = 20;
-        for(int i=0;i<getWorld().getHero().getHp();i++) {
-            sb.draw(TextureFactory.getInstance().getImage("life"), i*posX, posY, 2, 2);
+        for (int i = 0; i < getWorld().getHero().getHp(); i++) {
+            sb.draw(TextureFactory.getInstance().getImage("life"), i * posX, posY, 2, 2);
         }
         sb.end();
+
     }
+
 
 
     public World getWorld() {
