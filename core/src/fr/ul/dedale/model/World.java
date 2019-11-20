@@ -61,8 +61,6 @@ public class World {
             // The monsters is a Ghost
             else{
 
-                System.out.println("Game Ghost");
-
                 // Player coordinates
                 int posX_player = hero.getPosX();
                 int posY_player = hero.getPosY();
