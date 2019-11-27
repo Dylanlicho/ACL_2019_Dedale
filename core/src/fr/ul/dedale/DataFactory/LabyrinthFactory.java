@@ -13,6 +13,7 @@ public class LabyrinthFactory {
     public static final char DELTA = 'd';
     public static final char PASSAGE = 'p';
     public static final char MAGIC = 'm';
+    public static final char DOOR = 'o';
 
     //The number of life which is given by the magic cell
     public static final int MAGICHEALTH = 1;

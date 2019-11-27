@@ -32,6 +32,8 @@ public class World {
     private int activeFire ;
     //The number of the current level
     private int level;
+    //The number of the current room of the level
+    private int room;
     //The game
     private Game game;
 
@@ -39,6 +41,7 @@ public class World {
         this.game = game;
         activeFire = 0;
         level = 1;
+        room = 1;
         createLevel();
 
         one = new Thread(new Runnable() {
@@ -227,16 +230,21 @@ public class World {
      * create the current level
      */
     private void createLevel() {
+        room = 1;
+        createRoom();
+    }
+
+    private void createRoom() {
         labyrinthLoader = new LabyrinthLoader();
         try {
-            labyrinth = labyrinthLoader.createLabyrinth(level);
+            labyrinth = labyrinthLoader.createLabyrinth(level, room);
         } catch (IOException e) {
             e.printStackTrace();
         }
         characterLoader = new CharacterLoader();
         try {
 
-            characterLoader.createCharacter(level);
+            characterLoader.createCharacter(level, room);
             hero = characterLoader.getPlayer();
             createMonsters();
         } catch (IOException e) {
@@ -410,6 +418,14 @@ public class World {
             }
         }
 
+    }
+
+    /**
+     * Go to the next room
+     */
+    public void nextRoom() {
+        room++;
+        createRoom();
     }
 
 }

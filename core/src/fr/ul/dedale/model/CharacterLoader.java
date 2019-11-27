@@ -20,9 +20,10 @@ public class CharacterLoader {
      * @param numLevel the number of the level
      * @throws IOException launch if the file is not charge correctly
      */
-    public void createCharacter(int numLevel) throws IOException {
+    public void createCharacter(int numLevel, int room) throws IOException {
         monsters = new HashMap<Integer, Integer>();
-        String namefile = "level/character/level" + numLevel + ".txt";
+        String namefile = "levels/level" + numLevel + "/characters"
+                + "/characters" + room + ".txt";
         //read the file
         InputStream ips = new FileInputStream(namefile);
         InputStreamReader ipsr = new InputStreamReader(ips);

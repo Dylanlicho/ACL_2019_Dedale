@@ -47,6 +47,10 @@ public class Labyrinth {
                         break;
                     case LabyrinthFactory.MAGIC:
                         cellList[i][j] = new Magic(i,j);
+                        break;
+                    case LabyrinthFactory.DOOR:
+                        cellList[i][j] = new Door(i,j);
+                        break;
                     default:
                         break;
                 }

@@ -28,11 +28,12 @@ public class LabyrinthLoader {
      * @param numLevel the number of the level
      * @return the tab of the labyrinth (-> after an instance of labyrinth)
      */
-    public Labyrinth createLabyrinth(int numLevel) throws IOException {
+    public Labyrinth createLabyrinth(int numLevel, int room) throws IOException {
         //initialization of the tab of the labyrinth
 //        char[][] labyrinth = new char[50][50];
         //name of the level file
-        String namefile = "level/labyrinth/level" + numLevel + ".txt";
+        String directory = "levels/level" + numLevel;
+        String namefile = directory + "/rooms/room" + room + ".txt";
         //read the file
         InputStream ips = new FileInputStream(namefile);
         InputStreamReader ipsr = new InputStreamReader(ips);
@@ -71,7 +72,7 @@ public class LabyrinthLoader {
         Labyrinth lab = new Labyrinth(labyrinth);
 
         //Open the passages
-        namefile = "level/labyrinth/passage"+numLevel+".txt";
+        namefile = directory + "/passages/passages" + room + ".txt";
         ips = new FileInputStream(namefile);
         ipsr = new InputStreamReader(ips);
         br = new BufferedReader(ipsr);
