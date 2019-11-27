@@ -65,7 +65,7 @@ public class ViewTuto extends ScreenAdapter {
         Image image = new Image(TextureFactory.getInstance().getImage("tuto"));
 
         //add components to table
-        table.add(image).center();
+        table.add(image).width(LabyrinthFactory.SCREEN_WIDTH-40);
         table.row().pad(10, 0, 10, 0);
         table.add(menu).center();
         table.row();

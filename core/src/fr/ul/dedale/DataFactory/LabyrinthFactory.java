@@ -26,4 +26,8 @@ public class LabyrinthFactory {
 
     public static final int HP_PLAYER = 3 ; //life player
 
+    public static final int SCREEN_WIDTH = 640;
+    public static final int SCREEN_HEIGHT = 680;
+
+
 }
