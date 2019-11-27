@@ -24,9 +24,12 @@ public class ViewWorld extends ScreenAdapter {
     private World world;
 
 
-
+    /**
+     * Constructor of the view of the world
+     * @param game the game
+     */
     public ViewWorld(Game game){
-        world = new World(game);
+        world = new World(game,1);
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
@@ -35,11 +38,28 @@ public class ViewWorld extends ScreenAdapter {
         sb.setProjectionMatrix(camera.combined);
     }
 
+    /**
+     * Constructor of view of the world at a level
+     * @param game the game
+     * @param level the level where start
+     */
+    public ViewWorld(Game game, int level){
+        world = new World(game, level);
+        sb = new SpriteBatch();
+        camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
+        camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
+        Gdx.input.setInputProcessor(new Listener(this));
+        camera.update();
+        sb.setProjectionMatrix(camera.combined);
+    }
+
+    /**
+     * Display the view
+     * @param delta the delta time
+     */
     public void render(float delta){
         Gdx.gl.glClearColor( 0, 0, 0, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
-
-
 
         sb.begin();
         world.draw(sb);
@@ -53,8 +73,10 @@ public class ViewWorld extends ScreenAdapter {
 
     }
 
-
-
+    /**
+     * getter of the world
+     * @return the world
+     */
     public World getWorld() {
         return world;
     }

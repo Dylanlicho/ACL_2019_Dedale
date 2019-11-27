@@ -73,12 +73,15 @@ public class ViewMenu extends ScreenAdapter {
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
+        TextButton levelChooser = new TextButton("Levels", skin);
         TextButton tuto = new TextButton("How to play", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
+        table.add(levelChooser).fillX().uniformX();
+        table.row();
         table.add(tuto).fillX().uniformX();
         table.row();
         table.add(exit).fillX().uniformX();
@@ -114,6 +117,20 @@ public class ViewMenu extends ScreenAdapter {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 game.setScreen(new ViewTuto(game));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+        });
+
+        levelChooser.addListener(new InputListener(){
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                mp3Sound.stop();
+                game.setScreen(new FileChooser(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

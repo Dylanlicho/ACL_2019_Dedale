@@ -37,13 +37,29 @@ public class World {
     //The game
     private Game game;
 
-    public World(Game game) {
+//    /**
+//     * Constructor of th
+//     * @param game
+//     */
+//    public World(Game game) {
+//        this.game = game;
+//        activeFire = 0;
+//        level = 1;
+//        room = 1;
+//        createLevel();
+//        launchThread();
+//    }
+
+    public World(Game game, int level) {
         this.game = game;
         activeFire = 0;
-        level = 1;
+        this.level = level;
         room = 1;
         createLevel();
+        launchThread();
+    }
 
+    private void launchThread() {
         one = new Thread(new Runnable() {
             public void run() {
 
@@ -60,8 +76,8 @@ public class World {
         });
 
         one.start();
-
     }
+
     public void game(){
 
 
@@ -149,7 +165,7 @@ public class World {
      */
     public void winPlayer() {
             level++;
-            if (level > LabyrinthFactory.NB_NIVEAUX) {
+            if (level > LabyrinthFactory.NB_LEVEL) {
                 ViewMenu vm = new ViewMenu(game);
                 game.setScreen(vm);
             }
