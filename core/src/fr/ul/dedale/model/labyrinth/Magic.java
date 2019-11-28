@@ -19,6 +19,10 @@ public class Magic extends  Cell {
         type = "magic";
     }
 
+    public Magic(){
+
+    }
+
     @Override
     public boolean isSolid() {
         return false;

@@ -62,6 +62,13 @@ public class Listener implements InputProcessor {
             if (keycode == Input.Keys.ESCAPE) {
                 Gdx.app.exit();
             }
+            if (keycode == Input.Keys.S) {
+                viewWorld.getWorld().save();
+            }
+
+            if (keycode == Input.Keys.L) {
+                viewWorld.getWorld().load();
+            }
 
             if (keycode == Input.Keys.RIGHT) {
                 viewWorld.getWorld().moveHero(DirectionFactory.RIGHT);

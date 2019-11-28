@@ -15,6 +15,10 @@ public class Wall extends Cell{
         type = "wall";
     }
 
+    public Wall(){
+
+    }
+
     @Override
     public boolean isSolid() {
         return true;

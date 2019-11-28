@@ -20,6 +20,10 @@ public class Trap extends Cell {
         type = "fire";
     }
 
+    public Trap(){
+
+    }
+
     @Override
     public boolean isSolid() {
         return false;

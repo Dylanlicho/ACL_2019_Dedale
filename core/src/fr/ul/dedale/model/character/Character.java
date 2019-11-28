@@ -1,12 +1,12 @@
 package fr.ul.dedale.model.character;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import fr.ul.dedale.DataFactory.DirectionFactory;
-import fr.ul.dedale.DataFactory.TextureFactory;
 
-public abstract class Character implements Movement {
+public abstract class Character implements Movement, Json.Serializable {
 
     protected int hp ;
     protected  boolean attack ;
@@ -16,6 +16,8 @@ public abstract class Character implements Movement {
     protected boolean throughWall;
     protected Sprite sprite;
     protected  SpriteBatch spriteBatch;
+
+
     /**
      * draw the labyrinth
      * @param sp the Sprite batch
@@ -122,6 +124,30 @@ public abstract class Character implements Movement {
      */
     public void increaseHP(int health){
         hp = hp + health;
+    }
+
+
+
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("hp", hp);
+        json.writeValue("attack", attack);
+        json.writeValue("posX", posX);
+        json.writeValue("posY", posY);
+        json.writeValue("direction", direction);
+        json.writeValue("throughWall", throughWall);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        hp=jsonData.getInt("hp");
+        attack=jsonData.getBoolean("attack");
+        posX=jsonData.getInt("posX");
+        posY=jsonData.getInt("posY");
+        direction=jsonData.getInt("direction");
+        throughWall=jsonData.getBoolean("throughWall");
+
     }
 }
 
