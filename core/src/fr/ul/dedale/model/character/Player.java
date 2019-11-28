@@ -3,6 +3,8 @@ package fr.ul.dedale.model.character;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
@@ -33,6 +35,14 @@ public class Player extends Character implements Attacker {
         throughWall = false;
         super.posX = x;
         super.posY = y;
+        super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
+        sprite.setSize(1,1);
+    }
+
+    public Player(){
+        attack =false;
+        hp = LabyrinthFactory.HP_PLAYER;
+        throughWall = false;
         super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
         sprite.setSize(1,1);
     }
@@ -116,6 +126,7 @@ public class Player extends Character implements Attacker {
             sb.draw(texture, xAttack, yAttack, 1, 1, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
         }
     }
+
 
 
 }

@@ -1,7 +1,13 @@
 package fr.ul.dedale.model;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.model.View.ViewMenu;
@@ -459,5 +465,57 @@ public class World {
     public void menuReturn() {
         ViewMenu vm = new ViewMenu(game);
         game.setScreen(vm);
+    }
+
+
+    public void save(){
+
+        FileHandle file = Gdx.files.local("save/hero.json");
+        Json json = new Json();
+        file.writeString(json.toJson(hero,Player.class),false);
+
+
+        file = Gdx.files.local("save/level.json");
+        json = new Json();
+        file.writeString(json.toJson(level,Integer.class),false);
+
+        file = Gdx.files.local("save/room.json");
+        json = new Json();
+        file.writeString(json.toJson(room,Integer.class),false);
+
+        file = Gdx.files.local("save/labyrinth.json");
+        json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);
+        json.setElementType(Labyrinth.class, "cellList", Cell.class);
+        file.writeString(json.toJson(labyrinth,Labyrinth.class),false);
+
+
+
+    }
+
+
+    public void load(){
+
+        FileHandle file = Gdx.files.local("save/hero.json");
+        Json json = new Json();
+        String heroJson = file.readString();
+        hero = json.fromJson(Player.class, heroJson);
+
+        file = Gdx.files.local("save/room.json");
+        json = new Json();
+        heroJson = file.readString();
+        room = json.fromJson(Integer.class, heroJson);
+
+        file = Gdx.files.local("save/level.json");
+        json = new Json();
+        heroJson = file.readString();
+        level = json.fromJson(Integer.class, heroJson);
+
+        file = Gdx.files.local("save/labyrinth.json");
+        json = new Json();
+        heroJson = file.readString();
+        labyrinth = json.fromJson(Labyrinth.class, heroJson);
+
+
     }
 }

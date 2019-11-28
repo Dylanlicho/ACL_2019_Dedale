@@ -15,6 +15,10 @@ public class Empty extends Cell{
         type = "ground";
     }
 
+    public Empty(){
+
+    }
+
     @Override
     public boolean isSolid() {
         return false;

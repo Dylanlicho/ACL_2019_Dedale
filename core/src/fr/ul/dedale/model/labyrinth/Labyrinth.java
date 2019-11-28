@@ -3,9 +3,10 @@ package fr.ul.dedale.model.labyrinth;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import java.io.Serializable;
 
 
-public class Labyrinth {
+public class Labyrinth implements Serializable {
 
     // List of cells which compose the level
     private Cell[][] cellList;
@@ -17,6 +18,10 @@ public class Labyrinth {
      */
     public void Labyrinth(int height, int width){
         cellList = new Cell[height][width];
+    }
+
+    public Labyrinth(){
+
     }
 
     /**

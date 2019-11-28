@@ -18,6 +18,10 @@ public class Treasure extends Cell{
         type = "delta";
     }
 
+    public Treasure(){
+
+    }
+
     @Override
     public boolean isSolid() {
         return false;

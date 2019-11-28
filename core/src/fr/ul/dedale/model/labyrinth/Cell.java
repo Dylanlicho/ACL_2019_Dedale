@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.World;
 
+import java.io.Serializable;
 
-public abstract class Cell {
+
+public abstract class Cell implements Serializable {
 
     // true if the player can't go onto the cell, false otherwise
     private boolean solid;
@@ -26,6 +28,10 @@ public abstract class Cell {
     public Cell(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public Cell(){
+
     }
 
     /**
