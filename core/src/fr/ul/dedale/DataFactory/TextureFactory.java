@@ -32,6 +32,8 @@ public class TextureFactory {
         images.put("hit",new Texture("images/hit.png"));
         images.put("tuto",new Texture("images/keyboard.png"));
         images.put("door",new Texture("images/door.png"));
+        images.put("win",new Texture("images/win_message.png"));
+        images.put("menu",new Texture("images/menu_return.png"));
     }
     public Texture getImage(String imageName){
         return images.get(imageName);

@@ -36,19 +36,9 @@ public class World {
     private int room;
     //The game
     private Game game;
+    //For know if the level is finished
+    private boolean currentLevelFinish;
 
-//    /**
-//     * Constructor of th
-//     * @param game
-//     */
-//    public World(Game game) {
-//        this.game = game;
-//        activeFire = 0;
-//        level = 1;
-//        room = 1;
-//        createLevel();
-//        launchThread();
-//    }
 
     public World(Game game, int level) {
         this.game = game;
@@ -64,7 +54,8 @@ public class World {
             public void run() {
 
                 while(true){
-                    evolveMonsters();
+                    if (!currentLevelFinish)
+                        evolveMonsters();
 
                     try {
                         Thread.sleep(500);
@@ -80,10 +71,10 @@ public class World {
 
     public void game(){
 
-
-        labyrinth.getCell(hero.getPosX(),hero.getPosY()).activate(this);
-        checkLoosePLayer();
-
+        if (!isCurrentLevelFinish()) {
+            labyrinth.getCell(hero.getPosX(), hero.getPosY()).activate(this);
+            checkLoosePLayer();
+        }
 
     }
 
@@ -165,14 +156,12 @@ public class World {
      */
     public void winPlayer() {
             level++;
-            if (level > LabyrinthFactory.NB_LEVEL) {
-                ViewMenu vm = new ViewMenu(game);
-                game.setScreen(vm);
-            }
-            else {
-
-                createLevel();
-            }
+//            if (level > LabyrinthFactory.NB_LEVEL) {
+//
+//            }
+//            else {
+                currentLevelFinish = true;
+//            }
     }
 
     /**
@@ -245,11 +234,15 @@ public class World {
     /**
      * create the current level
      */
-    private void createLevel() {
+    public void createLevel() {
         room = 1;
+        currentLevelFinish = false;
         createRoom();
     }
 
+    /**
+     * Create the current room
+     */
     private void createRoom() {
         labyrinthLoader = new LabyrinthLoader();
         try {
@@ -444,4 +437,27 @@ public class World {
         createRoom();
     }
 
+    /**
+     * Increment the level
+     */
+    public void incrementLevel() {
+        level++;
+    }
+
+    /**
+     * Getter of the currentLevelFinish
+     * @return true if the current level is finished, false otherwise
+     */
+    public boolean isCurrentLevelFinish() {
+        return currentLevelFinish;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void menuReturn() {
+        ViewMenu vm = new ViewMenu(game);
+        game.setScreen(vm);
+    }
 }

@@ -5,37 +5,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
+
 
 public class ViewWorld extends ScreenAdapter {
 
     public SpriteBatch sb;
     public OrthographicCamera camera;
     private World world;
-
+    private Game game;
 
     /**
      * Constructor of the view of the world
      * @param game the game
      */
     public ViewWorld(Game game){
-        world = new World(game,1);
-        sb = new SpriteBatch();
-        camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
-        camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
-        Gdx.input.setInputProcessor(new Listener(this));
-        camera.update();
-        sb.setProjectionMatrix(camera.combined);
+        world = new World(game, 1);
+        this.game = game;
+        create();
     }
 
     /**
@@ -45,6 +36,11 @@ public class ViewWorld extends ScreenAdapter {
      */
     public ViewWorld(Game game, int level){
         world = new World(game, level);
+        this.game = game;
+        create();
+    }
+
+    private void create() {
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
@@ -69,8 +65,13 @@ public class ViewWorld extends ScreenAdapter {
         for (int i = 0; i < getWorld().getHero().getHp(); i++) {
             sb.draw(TextureFactory.getInstance().getImage("life"), i * posX, posY, 2, 2);
         }
+        if (getWorld().isCurrentLevelFinish()) {
+            if (getWorld().getLevel() <= LabyrinthFactory.NB_LEVEL)
+                sb.draw(TextureFactory.getInstance().getImage("win"), 4, 5, 14,10);
+            else
+                sb.draw(TextureFactory.getInstance().getImage("menu"), 4, 5, 14,10);
+        }
         sb.end();
-
     }
 
     /**

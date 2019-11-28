@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class FileChooser extends ScreenAdapter {
 
     private final int MAX_COLUMNS = 5;
+    private final int PAD = 10;
     private final Stage stage;
     public SpriteBatch sb;
     private OrthographicCamera camera;
@@ -68,27 +69,23 @@ public class FileChooser extends ScreenAdapter {
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
-        //table.setDebug(true);
         stage.addActor(table);
 
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
         //create buttons
-//        ArrayList<TextButton> buttons = new ArrayList<TextButton>(LabyrinthFactory.NB_LEVEL);
         int nbColumns = 1;
-        table.row().pad(10, 10, 10, 10);
+        table.row().pad(PAD, PAD, PAD, PAD);
         for (int i = 0; i < LabyrinthFactory.NB_LEVEL; i++) {
-            if (nbColumns > 5) {
-                table.row().pad(10, 10, 10, 10);
+            if (nbColumns > MAX_COLUMNS) {
+                table.row().pad(PAD, PAD, PAD, PAD);
                 nbColumns = 1;
             }
             final int level = i + 1;
             TextButton textButton = new TextButton("" + level, skin);
-//            buttons.add(textButton);
             //add buttons to table
             table.add(textButton).fillX().uniformX();
-//                table.row().pad(10, 0, 10, 0);
 
             textButton.addListener(new InputListener() {
 
