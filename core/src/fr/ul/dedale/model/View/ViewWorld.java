@@ -65,6 +65,9 @@ public class ViewWorld extends ScreenAdapter {
         for (int i = 0; i < getWorld().getHero().getHp(); i++) {
             sb.draw(TextureFactory.getInstance().getImage("life"), i * posX, posY, 2, 2);
         }
+        if(world.isSaving()) {
+            sb.draw(TextureFactory.getInstance().getImage("save"), 18, posY, 2, 2);
+        }
         if (getWorld().isCurrentLevelFinish()) {
             if (getWorld().getLevel() <= LabyrinthFactory.NB_LEVEL)
                 sb.draw(TextureFactory.getInstance().getImage("win"), 4, 5, 14,10);

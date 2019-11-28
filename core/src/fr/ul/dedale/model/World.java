@@ -4,9 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
@@ -35,7 +33,7 @@ public class World {
     private LabyrinthLoader labyrinthLoader;
     //The loader of the characters
     private CharacterLoader characterLoader;
-    private int activeFire ;
+
     //The number of the current level
     private int level;
     //The number of the current room of the level
@@ -46,13 +44,17 @@ public class World {
     private boolean currentLevelFinish;
 
 
+    // When we save the game
+    private boolean isSaving;
+
+
     public World(Game game, int level) {
         this.game = game;
-        activeFire = 0;
         this.level = level;
         room = 1;
         createLevel();
         launchThread();
+        isSaving=false;
     }
 
     private void launchThread() {
@@ -490,7 +492,22 @@ public class World {
         file.writeString(json.toJson(labyrinth,Labyrinth.class),false);
 
 
+        isSaving = true;
 
+
+        Thread save = new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    Thread.sleep(900);
+
+                    isSaving=false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        save.start();
     }
 
 
@@ -517,5 +534,10 @@ public class World {
         labyrinth = json.fromJson(Labyrinth.class, heroJson);
 
 
+    }
+
+    public boolean isSaving() {
+
+        return isSaving;
     }
 }

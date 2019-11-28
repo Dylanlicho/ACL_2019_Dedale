@@ -40,11 +40,6 @@ public class Player extends Character implements Attacker {
     }
 
     public Player(){
-        attack =false;
-        hp = LabyrinthFactory.HP_PLAYER;
-        throughWall = false;
-        super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
-        sprite.setSize(1,1);
     }
 
     /**
