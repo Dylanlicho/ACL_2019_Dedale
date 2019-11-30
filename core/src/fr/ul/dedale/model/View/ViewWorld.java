@@ -1,6 +1,5 @@
 package fr.ul.dedale.model.View;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
+import fr.ul.dedale.Game;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -16,7 +16,6 @@ public class ViewWorld extends ScreenAdapter {
 
     public SpriteBatch sb;
     public OrthographicCamera camera;
-    private World world;
     private Game game;
 
     /**
@@ -24,7 +23,6 @@ public class ViewWorld extends ScreenAdapter {
      * @param game the game
      */
     public ViewWorld(Game game){
-        world = new World(game, 1);
         this.game = game;
         create();
     }
@@ -35,8 +33,10 @@ public class ViewWorld extends ScreenAdapter {
      * @param level the level where start
      */
     public ViewWorld(Game game, int level){
-        world = new World(game, level);
         this.game = game;
+        game.getWorld().setLevel(level);
+        getWorld().setLevel(level);
+        getWorld().createLevel();
         create();
     }
 
@@ -47,6 +47,7 @@ public class ViewWorld extends ScreenAdapter {
         Gdx.input.setInputProcessor(new Listener(this,game));
         camera.update();
         sb.setProjectionMatrix(camera.combined);
+        game.getWorld().begin();
     }
 
     /**
@@ -58,14 +59,14 @@ public class ViewWorld extends ScreenAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
         sb.begin();
-        world.draw(sb);
+        getWorld().draw(sb);
         // Display of the HUD
         int posX = 2;
         int posY = 20;
         for (int i = 0; i < getWorld().getHero().getHp(); i++) {
             sb.draw(TextureFactory.getInstance().getImage("life"), i * posX, posY, 2, 2);
         }
-        if(world.isSaving()) {
+        if(getWorld().isSaving()) {
             sb.draw(TextureFactory.getInstance().getImage("save"), 18, posY, 2, 2);
         }
         if (getWorld().isCurrentLevelFinish()) {
@@ -82,6 +83,6 @@ public class ViewWorld extends ScreenAdapter {
      * @return the world
      */
     public World getWorld() {
-        return world;
+        return game.getWorld();
     }
 }

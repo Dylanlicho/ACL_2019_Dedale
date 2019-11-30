@@ -6,11 +6,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
-import com.badlogic.gdx.Game;
+import fr.ul.dedale.Game;
 import fr.ul.dedale.model.View.ViewMenu;
 import fr.ul.dedale.model.View.ViewWorld;
-import fr.ul.dedale.model.World;
-import fr.ul.dedale.model.character.Player;
 
 public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
@@ -26,40 +24,41 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(viewWorld.getWorld().getHero().getHp()>0 && !viewWorld.getWorld().isCurrentLevelFinish()) {
-             if (turnFirstPress==true){
-                if (keycode == Input.Keys.UP) {
-                   viewWorld.getWorld().getHero().turn(DirectionFactory.TURNTOP);
+        if (viewWorld.getWorld().isBegin()) {
+            if (viewWorld.getWorld().getHero().getHp() > 0 && !viewWorld.getWorld().isCurrentLevelFinish()) {
+                if (turnFirstPress == true) {
+                    if (keycode == Input.Keys.UP) {
+                        viewWorld.getWorld().getHero().turn(DirectionFactory.TURNTOP);
+                        return true;
+                    }
+                    if (keycode == Input.Keys.RIGHT) {
+                        viewWorld.getWorld().getHero().turn(DirectionFactory.TURNRIGHT);
+                        return true;
+                    }
+
+                    if (keycode == Input.Keys.LEFT) {
+                        viewWorld.getWorld().getHero().turn(DirectionFactory.TURNLEFT);
+                        return true;
+
+                    }
+
+
+                    if (keycode == Input.Keys.DOWN) {
+                        viewWorld.getWorld().getHero().turn(DirectionFactory.TURNBOTTOM);
+                        return true;
+
+                    }
+                }
+                if (keycode == Input.Keys.C) {
+                    turnFirstPress = true;
                     return true;
                 }
-                if (keycode == Input.Keys.RIGHT) {
-                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNRIGHT);
-                    return true;
+
+                if (keycode == Input.Keys.SPACE) {
+                    viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
+                    viewWorld.getWorld().getHero().hit();
+                    mp3Sound.play();
                 }
-
-                if (keycode == Input.Keys.LEFT) {
-                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNLEFT);
-                    return true;
-
-                }
-
-
-                if (keycode == Input.Keys.DOWN) {
-                    viewWorld.getWorld().getHero().turn(DirectionFactory.TURNBOTTOM);
-                    return true;
-
-                }
-            }
-            if (keycode==Input.Keys.C) {
-                turnFirstPress = true;
-                return true;
-            }
-
-            if(keycode== Input.Keys.SPACE){
-                viewWorld.getWorld().getHero().attackSword(viewWorld.getWorld());
-                viewWorld.getWorld().getHero().hit();
-                mp3Sound.play();
-            }
 
 
             if (keycode == Input.Keys.ESCAPE) {
@@ -69,34 +68,35 @@ public class Listener implements InputProcessor {
                 viewWorld.getWorld().save();
             }
 
-            if (keycode == Input.Keys.L) {
-                viewWorld.getWorld().load();
+                if (keycode == Input.Keys.L) {
+                    viewWorld.getWorld().load();
+                }
+
+                if (keycode == Input.Keys.RIGHT) {
+                    viewWorld.getWorld().moveHero(DirectionFactory.RIGHT);
+                }
+
+                if (keycode == Input.Keys.LEFT) {
+                    viewWorld.getWorld().moveHero(DirectionFactory.LEFT);
+                }
+                if (keycode == Input.Keys.UP) {
+                    viewWorld.getWorld().moveHero(DirectionFactory.TOP);
+                }
+
+                if (keycode == Input.Keys.DOWN) {
+                    viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
+                }
             }
 
-            if (keycode == Input.Keys.RIGHT) {
-                viewWorld.getWorld().moveHero(DirectionFactory.RIGHT);
-            }
 
-            if (keycode == Input.Keys.LEFT) {
-                viewWorld.getWorld().moveHero(DirectionFactory.LEFT);
-            }
-            if (keycode == Input.Keys.UP) {
-                viewWorld.getWorld().moveHero(DirectionFactory.TOP);
-            }
-
-            if (keycode == Input.Keys.DOWN) {
-                viewWorld.getWorld().moveHero(DirectionFactory.BOTTOM);
-            }
+            viewWorld.getWorld().game();
         }
-
-        viewWorld.getWorld().game();
-
         return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-       // if (viewWorld.getWorld().isCurrentLevelFinish()) {
+        if (viewWorld.getWorld().isBegin()) {
             if (keycode == Input.Keys.SPACE) {
                 viewWorld.getWorld().getHero().nohit();
 
@@ -106,7 +106,7 @@ public class Listener implements InputProcessor {
                 return true;
             }
 
-       // }
+        }
         return false;
     }
 
@@ -117,7 +117,7 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if( viewWorld.getWorld().isCurrentLevelFinish()) {
+        if( viewWorld.getWorld().isCurrentLevelFinish() && viewWorld.getWorld().isBegin()) {
                 if (button == Input.Buttons.LEFT) {
                     if (viewWorld.getWorld().getLevel() <= LabyrinthFactory.NB_LEVEL)
                         viewWorld.getWorld().createLevel();

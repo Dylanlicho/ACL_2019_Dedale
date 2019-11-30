@@ -1,6 +1,6 @@
 package fr.ul.dedale.model.View;
 
-import com.badlogic.gdx.Game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
+import fr.ul.dedale.Game;
 import fr.ul.dedale.controller.Listener;
 import fr.ul.dedale.model.World;
 
@@ -27,7 +28,7 @@ public class ViewMenu extends ScreenAdapter {
     public SpriteBatch sb;
     public OrthographicCamera camera;
     private Game game;
-    private static Music mp3Sound =  Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
+
 
 
     public ViewMenu(Game game){
@@ -45,10 +46,7 @@ public class ViewMenu extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-
-
-            mp3Sound.setLooping(true);
-            mp3Sound.play();
+        game.getSound().play();
     }
 
 
@@ -73,6 +71,9 @@ public class ViewMenu extends ScreenAdapter {
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
+        if (Gdx.files.local("save/hero.json").exists())
+            newGame = new TextButton("Continue", skin);
+
         TextButton levelChooser = new TextButton("Levels", skin);
         TextButton tuto = new TextButton("How to play", skin);
         TextButton exit = new TextButton("Exit", skin);
@@ -91,7 +92,13 @@ public class ViewMenu extends ScreenAdapter {
 
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                mp3Sound.stop();
+                game.getSound().stop();
+                if ( Gdx.files.local("save/hero.json").exists()) {
+                    game.getWorld().load();
+                }
+                else {
+                    game.getWorld().createLevel();
+                }
                 game.setScreen(new ViewWorld(game));
             }
             @Override
@@ -129,7 +136,6 @@ public class ViewMenu extends ScreenAdapter {
 
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                mp3Sound.stop();
                 game.setScreen(new FileChooser(game));
             }
             @Override

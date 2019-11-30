@@ -15,6 +15,10 @@ public class Mystery extends Cell {
         type = "mystery";
     }
 
+    public Mystery() {
+        type = "mystery";
+    }
+
     @Override
     public boolean isSolid() {
         return false;

@@ -1,7 +1,6 @@
 package fr.ul.dedale.model.View;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
@@ -11,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.Game;
 
 import java.util.ArrayList;
 
@@ -27,8 +28,6 @@ public class FileChooser extends ScreenAdapter {
     public SpriteBatch sb;
     private OrthographicCamera camera;
     private Game game;
-    private static Music mp3Sound =  Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
-
 
     /**
      * Constructor of the FileChooser
@@ -47,9 +46,6 @@ public class FileChooser extends ScreenAdapter {
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
-        mp3Sound.setLooping(true);
-        mp3Sound.play();
     }
 
     /**
@@ -73,6 +69,7 @@ public class FileChooser extends ScreenAdapter {
 
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
+        int nbLevelDebloque = game.getWorld().getLastLevel();
 
         //create buttons
         int nbColumns = 1;
@@ -91,7 +88,7 @@ public class FileChooser extends ScreenAdapter {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    mp3Sound.stop();
+                    game.getSound().stop();
                     game.setScreen(new ViewWorld(game, level));
                 }
 
@@ -100,10 +97,36 @@ public class FileChooser extends ScreenAdapter {
                     return true;
                 }
             });
+
+            if (level > nbLevelDebloque) {
+                textButton.setTouchable(Touchable.disabled);
+                textButton.setDisabled(true);
+            }
             nbColumns++;
+
+
+
 
         }
 
+        Table tableMenu = new Table();
+        tableMenu.setFillParent(true);
+        stage.addActor(tableMenu);
+        TextButton menu = new TextButton("Menu", skin);
+        menu.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new ViewMenu(game));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+
+        //add buttons to table
+        tableMenu.row().pad(LabyrinthFactory.SCREEN_WIDTH - 100, 0, 0, 0);
+        tableMenu.add(menu).center();
     }
 
 }

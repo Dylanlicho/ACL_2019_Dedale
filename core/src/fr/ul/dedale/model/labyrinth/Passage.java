@@ -22,6 +22,10 @@ public class Passage extends Cell {
         type = "passage";
     }
 
+    public Passage() {
+        type = "passage";
+    }
+
     @Override
     public boolean isSolid() {
         return false;

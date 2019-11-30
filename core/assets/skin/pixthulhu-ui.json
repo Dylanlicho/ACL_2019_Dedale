@@ -213,23 +213,27 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: subtitle
-		fontColor: field
+		fontColor: field,
+		disabledFontColor: black,
 		up: button
 		down: button-pressed
 	}
 	toggle: {
-		font: subtitle
-		fontColor: field
+		font: subtitle,
+		fontColor: field,
+		disabledFontColor: black,
 		up: button
 		down: button-pressed
 		checked: button-pressed
 	}
 	arcade: {
-		font: font
-		fontColor: field
+		font: font,
+		fontColor: field,
+		disabledFontColor: black,
 		up: button-arcade
 		down: button-arcade-pressed
 	}
+
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {

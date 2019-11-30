@@ -1,6 +1,5 @@
 package fr.ul.dedale.model;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import fr.ul.dedale.Game;
 import fr.ul.dedale.model.View.ViewMenu;
 import fr.ul.dedale.model.character.*;
 import fr.ul.dedale.model.character.Character;
@@ -44,6 +44,9 @@ public class World {
     //The loader of the characters
     private CharacterLoader characterLoader;
 
+    //The number of the last level play
+    private int lastLevel;
+
     //The number of the current level
     private int level;
 
@@ -59,14 +62,24 @@ public class World {
     // When we save the game
     private boolean isSaving;
 
+    // Know if we have begin to play
+    private boolean begin;
 
-    public World(Game game, int level) {
+
+    public World(Game game) {
         this.game = game;
-        this.level = level;
+        this.lastLevel = 1;
+        this.level = 1;
         room = 1;
-        createLevel();
-        launchThread();
         isSaving=false;
+        labyrinthLoader = new LabyrinthLoader();
+        characterLoader = new CharacterLoader();
+        begin = false;
+    }
+
+    public void begin() {
+        begin = true;
+        launchThread();
     }
 
     private void launchThread() {
@@ -176,9 +189,7 @@ public class World {
      */
     public void winPlayer() {
             level++;
-//            if (level > LabyrinthFactory.NB_LEVEL) {
-//
-//            }
+            if (level > lastLevel) lastLevel = level;
 //            else {
                 currentLevelFinish = true;
 //            }
@@ -282,15 +293,13 @@ public class World {
      * Create the current room
      */
     private void createRoom() {
-        labyrinthLoader = new LabyrinthLoader();
         try {
             labyrinth = labyrinthLoader.createLabyrinth(level, room);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        characterLoader = new CharacterLoader();
-        try {
 
+        try {
             characterLoader.createCharacter(level, room);
             hero = characterLoader.getPlayer();
             createMonsters();
@@ -489,6 +498,16 @@ public class World {
     }
 
     public void menuReturn() {
+        if (level > LabyrinthFactory.NB_LEVEL) {
+            FileHandle[] files = Gdx.files.local("save/").list();
+            for (FileHandle file : files) {
+                if (!file.name().equals("lastLevel.json"))
+                    file.delete();
+            }
+        }
+        begin = false;
+        level = 1;
+        room = 1;
         ViewMenu vm = new ViewMenu(game);
         game.setScreen(vm);
     }
@@ -504,6 +523,11 @@ public class World {
         Json json = new Json();
         file.writeString(json.toJson(hero,Player.class),false);
 
+
+        // Sauvegarde l'attribut lastLevel
+        file = Gdx.files.local("save/lastLevel.json");
+        json = new Json();
+        file.writeString(json.toJson(lastLevel,Integer.class),false);
 
         // Sauvegarde l'attribut level
         file = Gdx.files.local("save/level.json");
@@ -553,7 +577,7 @@ public class World {
 
 
     public void load(){
-
+        boolean load = false;
         // Try si une sauvegarde existe
         try {
 
@@ -568,6 +592,12 @@ public class World {
             json = new Json();
             heroJson = file.readString();
             room = json.fromJson(Integer.class, heroJson);
+
+            // On récupert l'attribut last level
+            file = Gdx.files.local("save/lastLevel.json");
+            json = new Json();
+            heroJson = file.readString();
+            lastLevel = json.fromJson(Integer.class, heroJson);
 
             // On récupert l'attribut level
             file = Gdx.files.local("save/level.json");
@@ -590,11 +620,19 @@ public class World {
             // On instancie la nouvelle liste de monstre avec celle de la classe temporaire
             monsters=new ArrayList<Monster>();
             monsters=m.getMonsters();
+
+            labyrinthLoader.createLabyrinth(level, room);
+            characterLoader.createCharacter(level, room);
+
+            load = true;
         }
-        catch (GdxRuntimeException e){
+        catch (GdxRuntimeException | IOException e){
 
         }
 
+        if (!load) {
+            createLevel();
+        }
 
     }
 
@@ -603,5 +641,44 @@ public class World {
         return isSaving;
     }
 
+    /**
+     * Change the level
+     * @param level the new number of the level
+     */
+    public void setLevel(int level) {
+        this.level = level;
+        room = 1;
+    }
 
+    /**
+     * Getter of begin
+     * @return true if we playing and false if we are to the menu
+     */
+    public boolean isBegin() {
+        return begin;
+    }
+
+    /**
+     * Setter of begin
+     * @param begin the new value of begin
+     */
+    public void setBegin(boolean begin) {
+        this.begin = begin;
+    }
+
+    /**
+     * getter of the last level
+     * @return the number of the last level
+     */
+    public int getLastLevel() {
+        return lastLevel;
+    }
+
+    /**
+     * Setter of the last level
+     * @param lastLevel the new last level
+     */
+    public void setLastLevel(int lastLevel) {
+        this.lastLevel = lastLevel;
+    }
 }
