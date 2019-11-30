@@ -28,11 +28,19 @@ public class Mystery extends Cell {
         }
     }
 
+    /**
+     * Return a number between the number of type the mystery cell can take and 0
+     * @return a number between the number of type the mystery cell can take and 0
+     */
     public int getContent(){
         Random random = new Random();
         return random.nextInt(LabyrinthFactory.NB_MYSTERY);
     }
 
+    /**
+     * Draw the sprite
+     * @param sb the SpriteBatch
+     */
     public void draw (SpriteBatch sb) {
         Texture texture ;
         if(!isActivate){
