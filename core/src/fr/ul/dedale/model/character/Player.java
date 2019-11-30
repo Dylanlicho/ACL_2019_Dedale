@@ -40,6 +40,8 @@ public class Player extends Character implements Attacker {
     }
 
     public Player(){
+        super.sprite = new Sprite(TextureFactory.getInstance().getImage("hero"),SPRITESIZEWIGHT,SPRITESIZEHIGHT);
+        sprite.setSize(1,1);
     }
 
     /**
