@@ -35,6 +35,7 @@ public class TextureFactory {
         images.put("win",new Texture("images/win_message.png"));
         images.put("menu",new Texture("images/menu_return.png"));
         images.put("save",new Texture("images/save.png"));
+        images.put("mystery", new Texture("images/mystery.png"));
     }
     public Texture getImage(String imageName){
         return images.get(imageName);

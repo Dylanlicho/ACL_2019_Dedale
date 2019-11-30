@@ -45,7 +45,7 @@ public class Labyrinth implements Serializable {
                             cellList[i][j] = new Passage(i, j, i, j);
                         break;
                     case LabyrinthFactory.FIRE:
-                        cellList[i][j] = new Trap(i, j, 1);
+                        cellList[i][j] = new Trap(i, j, LabyrinthFactory.TRAPDAMAGE);
                         break;
                     case LabyrinthFactory.DELTA:
                         cellList[i][j] = new Treasure(i, j);
@@ -56,6 +56,8 @@ public class Labyrinth implements Serializable {
                     case LabyrinthFactory.DOOR:
                         cellList[i][j] = new Door(i,j);
                         break;
+                    case LabyrinthFactory.MYSTERY:
+                        cellList[i][j] = new Mystery(i,j);
                     default:
                         break;
                 }

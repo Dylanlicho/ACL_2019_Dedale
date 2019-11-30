@@ -248,8 +248,26 @@ public class World {
      * @param hp number of HP increased
      */
     public void healPlayer(int hp) {
-        hero.increaseHP(hp);
+        if (hero.getHp() < LabyrinthFactory.HP_PLAYER) {
+            hero.increaseHP(hp);
+        }
     }
+
+    /**
+     * According to the content do an effect
+     * @param content Type of the effect
+     */
+    public void mystery(int content) {
+        switch (content){
+            case LabyrinthFactory.MYSTERYTRAP:
+                damagePlayer(LabyrinthFactory.TRAPDAMAGE);
+                break;
+            case LabyrinthFactory.MYSTERYCARE:
+                healPlayer(LabyrinthFactory.MAGICHEALTH);
+                break;
+        }
+    }
+
 
     /**
      * create the current level
@@ -570,7 +588,7 @@ public class World {
             Monsters m = json.fromJson(Monsters.class, heroJson);
 
             // On instancie la nouvelle liste de monstre avec celle de la classe temporaire
-            monsters=new ArrayList<>();
+            monsters=new ArrayList<Monster>();
             monsters=m.getMonsters();
         }
         catch (GdxRuntimeException e){
@@ -584,4 +602,6 @@ public class World {
 
         return isSaving;
     }
+
+
 }
