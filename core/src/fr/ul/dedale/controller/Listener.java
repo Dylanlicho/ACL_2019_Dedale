@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
+import com.badlogic.gdx.Game;
+import fr.ul.dedale.model.View.ViewMenu;
 import fr.ul.dedale.model.View.ViewWorld;
 import fr.ul.dedale.model.World;
 import fr.ul.dedale.model.character.Player;
@@ -14,9 +16,10 @@ public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
     Boolean turnFirstPress = false;
     private Music mp3Sound;
+    private Game game;
 
-    public Listener(ViewWorld vWorld){
-
+    public Listener(ViewWorld vWorld, Game game){
+        this.game = game;
         this.viewWorld = vWorld;
         mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
     }
@@ -60,7 +63,7 @@ public class Listener implements InputProcessor {
 
 
             if (keycode == Input.Keys.ESCAPE) {
-                Gdx.app.exit();
+                game.setScreen(new ViewMenu(game));
             }
             if (keycode == Input.Keys.S) {
                 viewWorld.getWorld().save();

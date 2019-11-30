@@ -44,7 +44,7 @@ public class ViewWorld extends ScreenAdapter {
         sb = new SpriteBatch();
         camera = new OrthographicCamera(LabyrinthFactory.WIDTH, LabyrinthFactory.HEIGHT);
         camera.setToOrtho(false, LabyrinthFactory.WIDTH , LabyrinthFactory.HEIGHT);
-        Gdx.input.setInputProcessor(new Listener(this));
+        Gdx.input.setInputProcessor(new Listener(this,game));
         camera.update();
         sb.setProjectionMatrix(camera.combined);
     }
