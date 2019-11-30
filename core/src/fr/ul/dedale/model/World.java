@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import fr.ul.dedale.DataFactory.DirectionFactory;
@@ -25,24 +26,35 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
 
+    // Thread useful for monsters' evolution
     private Thread one;
-    Player hero ;
-    ArrayList<Monster> monsters;
+
+    // Hero class
+    private Player hero ;
+
+    // List of monsters
+    private ArrayList<Monster> monsters;
+
+    // Actual Maze
     private Labyrinth labyrinth;
+
     //The loader of the labyrinth
     private LabyrinthLoader labyrinthLoader;
+
     //The loader of the characters
     private CharacterLoader characterLoader;
 
     //The number of the current level
     private int level;
+
     //The number of the current room of the level
     private int room;
+
     //The game
     private Game game;
+
     //For know if the level is finished
     private boolean currentLevelFinish;
-
 
     // When we save the game
     private boolean isSaving;
@@ -355,7 +367,7 @@ public class World {
             // The monster is a troll
             if(!monsters.get(i).isThroughWall()  ) {
 
-                if(distance < 3){
+                if(distance < 5){
                     // The X has a bigger distance than the Y, So we move the ghost in absciss
                     if(deltaX > deltaY){
                         if(directionX >= 0){
@@ -445,12 +457,6 @@ public class World {
         createRoom();
     }
 
-    /**
-     * Increment the level
-     */
-    public void incrementLevel() {
-        level++;
-    }
 
     /**
      * Getter of the currentLevelFinish
@@ -470,31 +476,48 @@ public class World {
     }
 
 
+    /*
+    Méthode de sauvegarde du monde
+     */
     public void save(){
 
+        // Sauvegarde le héro
         FileHandle file = Gdx.files.local("save/hero.json");
         Json json = new Json();
         file.writeString(json.toJson(hero,Player.class),false);
 
 
+        // Sauvegarde l'attribut level
         file = Gdx.files.local("save/level.json");
         json = new Json();
         file.writeString(json.toJson(level,Integer.class),false);
 
+        // Sauvegarde l'attribut room
         file = Gdx.files.local("save/room.json");
         json = new Json();
         file.writeString(json.toJson(room,Integer.class),false);
 
+        // Sauvegarde le labyrinth
         file = Gdx.files.local("save/labyrinth.json");
         json = new Json();
         json.setOutputType(JsonWriter.OutputType.json);
         json.setElementType(Labyrinth.class, "cellList", Cell.class);
         file.writeString(json.toJson(labyrinth,Labyrinth.class),false);
 
+        // Sauvegarde les monstres
+        file = Gdx.files.local("save/monsters.json");
+        json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);
+        json.setElementType(Monsters.class, "monsters", Monster.class);
+
+        // Classe temporaire avec la liste des monstres à sauvegarder
+        Monsters monsters = new Monsters(this.monsters);
+        file.writeString(json.toJson(monsters,Monsters.class),false);
+
 
         isSaving = true;
 
-
+        // On fait un compteur afficher l'icone de sauvegarde
         Thread save = new Thread(new Runnable() {
             public void run() {
 
@@ -513,25 +536,46 @@ public class World {
 
     public void load(){
 
-        FileHandle file = Gdx.files.local("save/hero.json");
-        Json json = new Json();
-        String heroJson = file.readString();
-        hero = json.fromJson(Player.class, heroJson);
+        // Try si une sauvegarde existe
+        try {
 
-        file = Gdx.files.local("save/room.json");
-        json = new Json();
-        heroJson = file.readString();
-        room = json.fromJson(Integer.class, heroJson);
+            // On récupert le hero
+            FileHandle file = Gdx.files.local("save/hero.json");
+            Json json = new Json();
+            String heroJson = file.readString();
+            hero = json.fromJson(Player.class, heroJson);
 
-        file = Gdx.files.local("save/level.json");
-        json = new Json();
-        heroJson = file.readString();
-        level = json.fromJson(Integer.class, heroJson);
+            // On récupert l'attribut room
+            file = Gdx.files.local("save/room.json");
+            json = new Json();
+            heroJson = file.readString();
+            room = json.fromJson(Integer.class, heroJson);
 
-        file = Gdx.files.local("save/labyrinth.json");
-        json = new Json();
-        heroJson = file.readString();
-        labyrinth = json.fromJson(Labyrinth.class, heroJson);
+            // On récupert l'attribut level
+            file = Gdx.files.local("save/level.json");
+            json = new Json();
+            heroJson = file.readString();
+            level = json.fromJson(Integer.class, heroJson);
+
+            // On récupert l'attribut labyrinth
+            file = Gdx.files.local("save/labyrinth.json");
+            json = new Json();
+            heroJson = file.readString();
+            labyrinth = json.fromJson(Labyrinth.class, heroJson);
+
+            // On récupert la classe temporaire Monsters
+            file = Gdx.files.local("save/monsters.json");
+            json = new Json();
+            heroJson = file.readString();
+            Monsters m = json.fromJson(Monsters.class, heroJson);
+
+            // On instancie la nouvelle liste de monstre avec celle de la classe temporaire
+            monsters=new ArrayList<>();
+            monsters=m.getMonsters();
+        }
+        catch (GdxRuntimeException e){
+
+        }
 
 
     }

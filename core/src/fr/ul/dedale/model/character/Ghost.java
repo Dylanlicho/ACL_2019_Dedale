@@ -16,4 +16,12 @@ public class Ghost extends Monster implements Attacker {
         super.sprite.setSize(1,1);
         super.throughWall = true;
     }
+
+    // Constructor use for the save
+    public Ghost(){
+        super.hp = 1;
+        super.sprite = new Sprite(TextureFactory.getInstance().getImage("ghost"),SPRITESIZE ,SPRITESIZE);
+        super.sprite.setSize(1,1);
+        super.throughWall = true;
+    }
 }

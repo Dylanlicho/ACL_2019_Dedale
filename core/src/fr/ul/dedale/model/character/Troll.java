@@ -21,4 +21,11 @@ public class Troll extends Monster implements Attacker {
         super.sprite.setSize(1,1);
     }
 
+    // Constructor use for the save
+    public Troll(){
+        super.hp = 1;
+        super.sprite = new Sprite(TextureFactory.getInstance().getImage("troll"),SPRITESIZE,SPRITESIZE);
+        super.sprite.setSize(1,1);
+    }
+
 }

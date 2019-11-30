@@ -1,7 +1,6 @@
 package fr.ul.dedale;
 
 import fr.ul.dedale.model.View.ViewMenu;
-import fr.ul.dedale.model.World;
 
 public class Game extends com.badlogic.gdx.Game {
 
