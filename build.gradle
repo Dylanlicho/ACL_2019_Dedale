@@ -45,9 +45,14 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "junit:junit:4.+"
+        compile "org.mockito:mockito-all:1.9.5"
+        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
+        testCompile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         testCompile 'junit:junit:4.12'
-        testCompile 'org.mockito:mockito-core:2.7.22'
+        testCompile 'org.mockito:mockito-all:2.7.22'
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.3'
         testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.7.3'
 
