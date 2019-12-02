@@ -214,14 +214,14 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: subtitle
 		fontColor: field,
-		disabledFontColor: black,
+		disabledFontColor: stone,
 		up: button
 		down: button-pressed
 	}
 	toggle: {
 		font: subtitle,
 		fontColor: field,
-		disabledFontColor: black,
+		disabledFontColor: stone,
 		up: button
 		down: button-pressed
 		checked: button-pressed
@@ -229,7 +229,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	arcade: {
 		font: font,
 		fontColor: field,
-		disabledFontColor: black,
+		disabledFontColor: stone,
 		up: button-arcade
 		down: button-arcade-pressed
 	}

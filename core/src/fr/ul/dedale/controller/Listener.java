@@ -91,6 +91,17 @@ public class Listener implements InputProcessor {
 
             viewWorld.getWorld().game();
         }
+
+        if( viewWorld.getWorld().isCurrentLevelFinish() && viewWorld.getWorld().isBegin()) {
+            if (keycode == Input.Keys.ENTER) {
+                if (viewWorld.getWorld().getLevel() <= LabyrinthFactory.NB_LEVEL)
+                    viewWorld.getWorld().createLevel();
+                else
+                    viewWorld.getWorld().menuReturn();
+//                return true;
+            }
+
+        }
         return true;
     }
 

@@ -62,6 +62,7 @@ public class World {
     // When we save the game
     private boolean isSaving;
 
+
     // Know if we have begin to play
     private boolean begin;
 
@@ -211,7 +212,11 @@ public class World {
     private void loose(){
         hero = characterLoader.getPlayer();
         createMonsters();
-        labyrinth.init();
+        if (room == 1) labyrinth.init();
+        else {
+            room = 1;
+            createRoom();
+        }
     }
 
     /**
@@ -276,6 +281,8 @@ public class World {
             case LabyrinthFactory.MYSTERYCARE:
                 healPlayer(LabyrinthFactory.MAGICHEALTH);
                 break;
+            default:
+                    break;
         }
     }
 
@@ -293,6 +300,8 @@ public class World {
      * Create the current room
      */
     private void createRoom() {
+        int hp = LabyrinthFactory.HP_PLAYER;
+        if (hero != null) hp = hero.getHp();
         try {
             labyrinth = labyrinthLoader.createLabyrinth(level, room);
         } catch (IOException e) {
@@ -302,6 +311,7 @@ public class World {
         try {
             characterLoader.createCharacter(level, room);
             hero = characterLoader.getPlayer();
+            if (room > 1) hero.setHp(hp);
             createMonsters();
         } catch (IOException e) {
             e.printStackTrace();
@@ -640,6 +650,7 @@ public class World {
 
         return isSaving;
     }
+
 
     /**
      * Change the level

@@ -10,9 +10,14 @@ import java.util.Random;
 
 public class Mystery extends Cell {
 
+    private int contentActivate;
+    private static int print;
+
     public Mystery(int posX, int posY){
         super(posX,posY);
         type = "mystery";
+        contentActivate = 0;
+        print = 0;
     }
 
     public Mystery() {
@@ -27,7 +32,8 @@ public class Mystery extends Cell {
     @Override
     public void activate(World world) {
         if(!isActivate) {
-            world.mystery(getContent());
+            contentActivate = getContent();
+            world.mystery(contentActivate);
             isActivate = true;
         }
     }
@@ -50,7 +56,23 @@ public class Mystery extends Cell {
         if(!isActivate){
             texture = TextureFactory.getInstance().getImage("mystery");
         }else{
-            texture = TextureFactory.getInstance().getImage("ground");
+            if (print < 100) {
+                switch (contentActivate){
+                    case LabyrinthFactory.MYSTERYTRAP:
+                        texture = TextureFactory.getInstance().getImage("fire");
+                        break;
+                    case LabyrinthFactory.MYSTERYCARE:
+                        texture = TextureFactory.getInstance().getImage("magic");
+                        break;
+                    default:
+                        texture = TextureFactory.getInstance().getImage("ground");
+                        break;
+                }
+                print++;
+            }
+            else texture = TextureFactory.getInstance().getImage("ground");
+
+
         }
         sb.draw(texture, x, y, 1, 1, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
     }
