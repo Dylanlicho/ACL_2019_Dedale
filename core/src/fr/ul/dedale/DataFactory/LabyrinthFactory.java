@@ -34,7 +34,7 @@ public class LabyrinthFactory {
     public static final int SCREEN_HEIGHT = 680;
 
     // Number of type the mystery cell can be
-    public static final int NB_MYSTERY = 2;
+    public static final int NB_MYSTERY = 3;
 
     // The id corresponding of the different type the mystery cell can be
     public static final int MYSTERYTRAP = 0;

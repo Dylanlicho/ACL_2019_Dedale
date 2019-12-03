@@ -78,6 +78,18 @@ public class World {
         begin = false;
     }
 
+    public World(Game game, int numLevel, int room) throws IOException {
+        this.game = game;
+        this.lastLevel = numLevel;
+        this.level = numLevel;
+        this.room = room;
+        isSaving=false;
+        labyrinthLoader = new LabyrinthLoader();
+        labyrinth = labyrinthLoader.createLabyrinth(numLevel,room);
+        characterLoader = new CharacterLoader();
+        begin = false;
+    }
+
     public void begin() {
         begin = true;
         launchThread();
@@ -251,6 +263,10 @@ public class World {
         return hero;
     }
 
+    public void setHero(Player player){
+        this.hero = player;
+    }
+
     /**
      * getter monsters
      * @return the monsters
@@ -281,11 +297,22 @@ public class World {
             case LabyrinthFactory.MYSTERYCARE:
                 healPlayer(LabyrinthFactory.MAGICHEALTH);
                 break;
+            case LabyrinthFactory.MYSTERYARROW:
+                if(hero.getNumberArrow() < LabyrinthFactory.ARROWNUMBER){
+                    winArrow();
+                }
+                break;
             default:
                     break;
         }
     }
 
+    /**
+     * Increment the number of arrow the player have
+     */
+    public void winArrow(){
+        hero.incrementArrow();
+    }
 
     /**
      * create the current level
