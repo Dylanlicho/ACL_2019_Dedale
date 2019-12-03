@@ -41,5 +41,7 @@ public class LabyrinthFactory {
     public static final int MYSTERYCARE = 1;
     public static final int MYSTERYARROW = 2;
 
+    // arrow number
+    public static final int ARROWNUMBER = 3;
 
 }

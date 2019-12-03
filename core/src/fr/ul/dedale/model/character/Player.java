@@ -10,8 +10,8 @@ import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
-import javafx.geometry.Point2D;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,7 +25,7 @@ public class Player extends Character  {
     protected static int SPRITEBOTTOM = 0;
     protected static int SPRITELEFT = 1;
     protected static int SPRITERIGHT = 3;
-    private ArrayList<Point2D> animAttack;
+    private ArrayList<Point> animAttack;
     private Date timeActual ;
     private Date timesave ;
     int cpt = 0 ;
@@ -34,6 +34,7 @@ public class Player extends Character  {
     protected  int yAttack;
     protected  boolean attackSword;
     protected  boolean attackBow;
+    protected  int numberArrow ;
 
 
     /**
@@ -42,6 +43,7 @@ public class Player extends Character  {
      * @param y ordonate coordinate player
      */
     public Player(int x , int y ){
+        numberArrow = 3 ;
         attack =false;
         hp = LabyrinthFactory.HP_PLAYER;
         throughWall = false;
@@ -83,6 +85,7 @@ public class Player extends Character  {
 
     @Override
     public void attackSword(World world) {
+
         attackSword = true;
         int x = getPosX();
         int y = getPosY();
@@ -110,13 +113,14 @@ public class Player extends Character  {
             }
         }
         animAttack = new ArrayList<>();
-        animAttack.add(new Point2D(x,y));
+        animAttack.add(new Point(x,y));
         xAttack = x;
         yAttack = y;
        }
 
     @Override
     public void attackArrow(World world) {
+        numberArrow--;
         attackBow = true;
         animAttack = new ArrayList<>();
         int dirX = 0;
@@ -152,8 +156,7 @@ public class Player extends Character  {
 
                 x = x + dirX;
                 y = y + dirY;
-                System.out.println(x + "  " + y);
-                animAttack.add(new Point2D(x,y));
+                animAttack.add(new Point(x,y));
 
             }else{
                 stop = true;
@@ -212,5 +215,9 @@ public class Player extends Character  {
                      }
                 }
         }
+    }
+
+    public int getNumberArrow() {
+        return numberArrow;
     }
 }

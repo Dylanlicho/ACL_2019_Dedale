@@ -14,12 +14,14 @@ public class Listener implements InputProcessor {
     ViewWorld viewWorld ;
     Boolean turnFirstPress = false;
     private Music mp3Sound;
+    private Music mp3SoundArrow;
     private Game game;
 
     public Listener(ViewWorld vWorld, Game game){
         this.game = game;
         this.viewWorld = vWorld;
         mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
+        mp3SoundArrow = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
     }
 
     @Override
@@ -39,14 +41,12 @@ public class Listener implements InputProcessor {
                     if (keycode == Input.Keys.LEFT) {
                         viewWorld.getWorld().getHero().turn(DirectionFactory.TURNLEFT);
                         return true;
-
                     }
 
 
                     if (keycode == Input.Keys.DOWN) {
                         viewWorld.getWorld().getHero().turn(DirectionFactory.TURNBOTTOM);
                         return true;
-
                     }
                 }
                 if (keycode == Input.Keys.C) {
@@ -61,9 +61,11 @@ public class Listener implements InputProcessor {
                 }
 
             if(keycode== Input.Keys.F){
-                viewWorld.getWorld().getHero().attackArrow(viewWorld.getWorld());
-                viewWorld.getWorld().getHero().hit();
-                //mp3Sound.play();
+                if(viewWorld.getWorld().getHero().getNumberArrow() > 0 ) {
+                    viewWorld.getWorld().getHero().attackArrow(viewWorld.getWorld());
+                    viewWorld.getWorld().getHero().hit();
+                    mp3SoundArrow.play();
+                }
             }
 
             if (keycode == Input.Keys.ESCAPE) {
