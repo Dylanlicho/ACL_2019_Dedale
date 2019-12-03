@@ -3,7 +3,7 @@ package fr.ul.dedale.model.character;
 import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
 
-public class Monster extends Character implements Attacker {
+public class Monster extends Character {
 
     @Override
     public void attackCollision(World world) {
@@ -14,6 +14,11 @@ public class Monster extends Character implements Attacker {
 
     @Override
     public void attackSword(World world) {
+
+    }
+
+    @Override
+    public void attackArrow(World world) {
 
     }
 }

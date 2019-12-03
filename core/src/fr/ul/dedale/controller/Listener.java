@@ -60,6 +60,11 @@ public class Listener implements InputProcessor {
                     mp3Sound.play();
                 }
 
+            if(keycode== Input.Keys.F){
+                viewWorld.getWorld().getHero().attackArrow(viewWorld.getWorld());
+                viewWorld.getWorld().getHero().hit();
+                //mp3Sound.play();
+            }
 
             if (keycode == Input.Keys.ESCAPE) {
                 game.setScreen(new ViewMenu(game));
@@ -109,13 +114,18 @@ public class Listener implements InputProcessor {
     public boolean keyUp(int keycode) {
         if (viewWorld.getWorld().isBegin()) {
             if (keycode == Input.Keys.SPACE) {
-                viewWorld.getWorld().getHero().nohit();
+               // viewWorld.getWorld().getHero().nohit();
 
             }
             if (keycode == Input.Keys.C) {
                 turnFirstPress = false;
                 return true;
             }
+        if(keycode== Input.Keys.F){
+
+          //  viewWorld.getWorld().getHero().nohit();
+
+        }
 
         }
         return false;

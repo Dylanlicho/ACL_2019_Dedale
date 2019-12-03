@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import fr.ul.dedale.DataFactory.DirectionFactory;
+import fr.ul.dedale.model.Attacker;
 
-public abstract class Character implements Movement, Json.Serializable {
+public abstract class Character implements Movement, Json.Serializable, Attacker {
 
     protected int hp ;
     protected  boolean attack ;

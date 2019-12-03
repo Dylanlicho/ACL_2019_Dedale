@@ -351,6 +351,9 @@ public class World {
         }
     }
 
+    public Labyrinth getLabyrinth(){
+        return labyrinth;
+    }
 
     /**
      * Find an empty cell

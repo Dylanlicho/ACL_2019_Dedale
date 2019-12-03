@@ -8,4 +8,6 @@ public interface Attacker {
     void attackCollision(World world);
 
     void attackSword(World world);
+
+    void attackArrow(World world);
 }
