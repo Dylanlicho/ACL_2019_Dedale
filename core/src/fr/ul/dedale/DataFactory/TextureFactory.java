@@ -27,6 +27,8 @@ public class TextureFactory {
     private static final Texture mystery = new Texture("images/mystery.png");
     private static final Texture arrowHit = new Texture("images/hitArrow.png");
 
+    private static final Texture arrowNB = new Texture("images/FireWand.png");
+
     private static TextureFactory ourInstance = new TextureFactory();
 
     /**
@@ -62,6 +64,7 @@ public class TextureFactory {
         images.put("save", save);
         images.put("mystery", mystery);
         images.put("hitArrow" ,arrowHit);
+        images.put("nbRow", arrowNB);
     }
 
     public Texture getImage(String imageName) {

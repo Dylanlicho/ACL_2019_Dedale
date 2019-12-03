@@ -66,6 +66,9 @@ public class ViewWorld extends ScreenAdapter {
         for (int i = 0; i < getWorld().getHero().getHp(); i++) {
             sb.draw(TextureFactory.getInstance().getImage("life"), i * posX, posY, 2, 2);
         }
+        for (int i = 0; i < getWorld().getHero().getNumberArrow(); i++) {
+            sb.draw(TextureFactory.getInstance().getImage("nbRow"), 10+ i * posX, posY , 2, 2);
+        }
         if(getWorld().isSaving()) {
             sb.draw(TextureFactory.getInstance().getImage("save"), 18, posY, 2, 2);
         }
