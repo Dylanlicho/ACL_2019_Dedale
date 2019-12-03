@@ -129,7 +129,6 @@ public class LabyrinthLoaderTest {
     public void createLabyrinthPlusGrandQueTailleMonde() throws IOException {
         Labyrinth labyrinth = loader.createLabyrinth(0,3);
         Cell[][] cells = labyrinth.getCells();
-        System.out.println("cells.length = "+cells.length);
         assertEquals("createLabyrinth | size error", LabyrinthFactory.WIDTH, cells.length);
         assertEquals("createLabyrinth | size error", LabyrinthFactory.HEIGHT - 2, cells[0].length);
     }
