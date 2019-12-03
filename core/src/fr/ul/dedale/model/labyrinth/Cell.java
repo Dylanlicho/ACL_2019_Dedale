@@ -87,4 +87,28 @@ public abstract class Cell implements Serializable {
     public void setActivate(boolean activate) {
         isActivate = activate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (solid != cell.solid) return false;
+        if (x != cell.x) return false;
+        if (y != cell.y) return false;
+        if (isActivate != cell.isActivate) return false;
+        return type != null ? type.equals(cell.type) : cell.type == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (solid ? 1 : 0);
+        result = 31 * result + x;
+        result = 31 * result + y;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (isActivate ? 1 : 0);
+        return result;
+    }
 }

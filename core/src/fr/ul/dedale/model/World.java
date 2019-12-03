@@ -209,7 +209,7 @@ public class World {
     /**
      * the player loose
      */
-    private void loose(){
+    public void loose(){
         hero = characterLoader.getPlayer();
         createMonsters();
         if (room == 1) labyrinth.init();
