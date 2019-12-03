@@ -30,10 +30,12 @@ public class Labyrinth implements Serializable {
      */
     public Labyrinth(char[][] tabLevel) {
         //initialisation of the level
-        cellList = new Cell[tabLevel.length][tabLevel[0].length];
-//        int passageX = -1, passageY = -1; //The first passage
-        for (int i = 0; i < tabLevel.length; i++) {
-            for (int j = 0; j < tabLevel[i].length; j++) {
+        int X = Math.min(tabLevel.length, LabyrinthFactory.HEIGHT - 2);
+        int Y = Math.min(tabLevel[0].length, LabyrinthFactory.WIDTH);
+        cellList = new Cell[X][Y];
+
+        for (int i = 0; i < X; i++) {
+            for (int j = 0; j < Y; j++) {
                 switch (tabLevel[i][j]) {
                     case LabyrinthFactory.WALL:
                         cellList[i][j] = new Wall(i, j);
@@ -131,6 +133,10 @@ public class Labyrinth implements Serializable {
                 }
             }
         }
+    }
+
+    public Cell[][] getCells() {
+        return cellList;
     }
 
 }

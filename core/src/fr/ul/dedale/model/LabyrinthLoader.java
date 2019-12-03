@@ -27,6 +27,7 @@ public class LabyrinthLoader {
      * create the labyrinth of the level
      * @param numLevel the number of the level
      * @return the tab of the labyrinth (-> after an instance of labyrinth)
+     * @throws IOException if one of the file doesn't exist
      */
     public Labyrinth createLabyrinth(int numLevel, int room) throws IOException {
         //initialization of the tab of the labyrinth
