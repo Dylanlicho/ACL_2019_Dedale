@@ -1,7 +1,6 @@
 package tests;
 
 import fr.ul.dedale.model.character.Player;
-import fr.ul.jdg.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
