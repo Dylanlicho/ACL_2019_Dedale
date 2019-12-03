@@ -83,6 +83,20 @@ public class Player extends Character  {
 
     }
 
+    /**
+     * Increment the number of arrow of the player
+     */
+    public void incrementArrow(){
+        numberArrow = numberArrow + 1;
+    }
+
+    /**
+     * Decrement the number of arrow of the player
+     */
+    public void decrementArrow(){
+        numberArrow = numberArrow - 1;
+    }
+
     @Override
     public void attackSword(World world) {
 
