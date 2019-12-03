@@ -695,4 +695,8 @@ public class World {
     public void setLastLevel(int lastLevel) {
         this.lastLevel = lastLevel;
     }
+
+    public void stopThread() {
+       this.one.stop();
+    }
 }
