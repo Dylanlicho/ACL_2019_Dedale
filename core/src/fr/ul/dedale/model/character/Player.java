@@ -10,6 +10,8 @@ import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
+import fr.ul.dedale.model.labyrinth.Cell;
+import fr.ul.dedale.model.labyrinth.WallDestructible;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -125,6 +127,11 @@ public class Player extends Character  {
                         super.increaseHP(1);
                 }
             }
+        }
+        Cell cell = world.getLabyrinth().getCell(x,y);
+        if(cell.getType().equals("destructible")){
+            WallDestructible wd = (WallDestructible)cell;
+            wd.damage();
         }
         animAttack = new ArrayList<>();
         animAttack.add(new Point(x,y));

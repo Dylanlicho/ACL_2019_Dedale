@@ -15,6 +15,7 @@ public class LabyrinthFactory {
     public static final char MAGIC = 'm';
     public static final char DOOR = 'o';
     public static final char MYSTERY = '?';
+    public static final char WALLDESTRUCTIBLE = 's';
 
     //The number of life which is given by the magic cell
     public static final int MAGICHEALTH = 1;
@@ -43,5 +44,8 @@ public class LabyrinthFactory {
 
     // arrow number
     public static final int ARROWNUMBER = 3;
+
+    // Number of hp of the destructible wall
+    public static final int WALLDESTRUCTIBLEHP = 3;
 
 }
