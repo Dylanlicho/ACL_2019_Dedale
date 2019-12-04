@@ -17,9 +17,10 @@ public class TreasureTest {
 
     @Test
     public void testTrue() throws IOException {
-        World world = new World(new Game(),0,104);
-        Player player = new Player(1,1);
-        world.setHero(player);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(104);
+        world.createRoom();
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
         assertTrue(world.getLevel() == 1);
@@ -27,9 +28,10 @@ public class TreasureTest {
 
     @Test
     public void testFalse() throws IOException {
-        World world = new World(new Game(),0,104);
-        Player player = new Player(1,1);
-        world.setHero(player);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(104);
+        world.createRoom();
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
         assertFalse(world.getLevel() == 0);
