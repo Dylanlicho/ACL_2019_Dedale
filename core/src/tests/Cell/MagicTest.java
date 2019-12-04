@@ -22,20 +22,24 @@ public class MagicTest {
 
     @Test
     public void testMaxHP() throws IOException {
-        World world = new World(new Game(),0,101);
-        Player player = new Player(1,1);
-        world.setHero(player);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(101);
+        world.createRoom();
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
-        assertTrue(player.getHp() == LabyrinthFactory.HP_PLAYER);
+        assertTrue(world.getHero().getHp() == LabyrinthFactory.HP_PLAYER);
     }
+
+
 
     @Test
     public void testHealMinus1() throws IOException {
-        World world = new World(new Game(),0,101);
-        Player player = new Player(1,1);
-        world.setHero(player);
-        world.getHero().decreaseHp(2);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(101);
+        world.createRoom();
+        world.damagePlayer(2);
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
         assertTrue(world.getHero().getHp() == LabyrinthFactory.HP_PLAYER - 1);
@@ -43,13 +47,14 @@ public class MagicTest {
 
     @Test
     public void testHealToMax() throws IOException {
-        World world = new World(new Game(),0,101);
-        Player player = new Player(1,1);
-        world.setHero(player);
-        world.getHero().decreaseHp(1);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(101);
+        world.createRoom();
+        world.damagePlayer(1);
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
-        assertTrue(player.getHp() == LabyrinthFactory.HP_PLAYER);
+        assertTrue(world.getHero().getHp() == LabyrinthFactory.HP_PLAYER);
     }
 
 }

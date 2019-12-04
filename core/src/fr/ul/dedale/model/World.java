@@ -78,18 +78,6 @@ public class World {
         begin = false;
     }
 
-    public World(Game game, int numLevel, int room) throws IOException {
-        this.game = game;
-        this.lastLevel = numLevel;
-        this.level = numLevel;
-        this.room = room;
-        isSaving=false;
-        labyrinthLoader = new LabyrinthLoader();
-        labyrinth = labyrinthLoader.createLabyrinth(numLevel,room);
-        characterLoader = new CharacterLoader();
-        begin = false;
-    }
-
     public void begin() {
         begin = true;
         launchThread();
@@ -326,7 +314,7 @@ public class World {
     /**
      * Create the current room
      */
-    private void createRoom() {
+    public void createRoom() {
         int hp = LabyrinthFactory.HP_PLAYER;
         if (hero != null) hp = hero.getHp();
         try {
@@ -387,8 +375,8 @@ public class World {
      * @return a point corresponding to the position of an empty cell
      */
     public Point findEmptyCell(){
-        int height =LabyrinthFactory.HEIGHT;
-        int widht = LabyrinthFactory.WIDTH;
+        int height = Math.min(labyrinth.getCells().length,LabyrinthFactory.HEIGHT-2);
+        int widht = Math.min(labyrinth.getCells()[0].length, LabyrinthFactory.WIDTH);
         while(true) {
             int x = ThreadLocalRandom.current().nextInt(0, widht-2);
             int y = ThreadLocalRandom.current().nextInt(0, height-2);
@@ -689,6 +677,14 @@ public class World {
     public void setLevel(int level) {
         this.level = level;
         room = 1;
+    }
+
+    /**
+     * Change the room
+     * @param room the number of the room
+     */
+    public void setRoom(int room){
+        this.room = room;
     }
 
     /**
