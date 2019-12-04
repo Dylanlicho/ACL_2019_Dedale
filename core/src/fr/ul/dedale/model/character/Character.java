@@ -156,5 +156,9 @@ public abstract class Character implements Movement, Json.Serializable, Attacker
         throughWall=jsonData.getBoolean("throughWall");
 
     }
+
+    public int getDirection() {
+        return direction;
+    }
 }
 

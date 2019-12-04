@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.DirectionFactory;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import java.io.Serializable;
+import java.util.Arrays;
 
 
 public class Labyrinth implements Serializable {
@@ -139,4 +140,19 @@ public class Labyrinth implements Serializable {
         return cellList;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Labyrinth labyrinth = (Labyrinth) o;
+
+        return Arrays.deepEquals(cellList, labyrinth.cellList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(cellList);
+    }
 }

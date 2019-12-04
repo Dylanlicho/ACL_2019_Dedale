@@ -64,6 +64,9 @@ public class Mystery extends Cell {
                     case LabyrinthFactory.MYSTERYCARE:
                         texture = TextureFactory.getInstance().getImage("magic");
                         break;
+                    case LabyrinthFactory.MYSTERYARROW:
+                        texture = TextureFactory.getInstance().getImage("nbRow");
+                        break;
                     default:
                         texture = TextureFactory.getInstance().getImage("ground");
                         break;
