@@ -213,7 +213,7 @@ public class Player extends Character  {
 
             long time = timeActual.getTime() - timesave.getTime();
 
-            if (time > 5 ) {
+            if (time > 10 ) {
                     nohit();
 
             }
@@ -240,5 +240,27 @@ public class Player extends Character  {
 
     public int getNumberArrow() {
         return numberArrow;
+    }
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("hp", hp);
+        json.writeValue("attack", attack);
+        json.writeValue("posX", posX);
+        json.writeValue("posY", posY);
+        json.writeValue("direction", direction);
+        json.writeValue("throughWall", throughWall);
+        json.writeValue("arrow", numberArrow);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        hp=jsonData.getInt("hp");
+        attack=jsonData.getBoolean("attack");
+        posX=jsonData.getInt("posX");
+        posY=jsonData.getInt("posY");
+        direction=jsonData.getInt("direction");
+        throughWall=jsonData.getBoolean("throughWall");
+        numberArrow = jsonData.getInt("arrow");
     }
 }
