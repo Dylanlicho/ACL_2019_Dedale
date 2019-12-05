@@ -16,6 +16,7 @@ import fr.ul.dedale.model.labyrinth.WallDestructible;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 
 public class Player extends Character  {
@@ -117,14 +118,18 @@ public class Player extends Character  {
         if(direction==DirectionFactory.TURNBOTTOM.ordinal()){
             y--;
         }
+
         for(Monster m :world.getMonsters()){
             if((m.getPosX()==x && m.getPosY()==y) ||(m.getPosX()==getPosX() && m.getPosY()==getPosY()) ){
                 m.decreaseHp(1);
 
                 if(m.getHp() <= 0){
 
-                    if(super.getHp()<3)
-                        super.increaseHP(1);
+                    if(super.getHp()<3) {
+                        Random random = new Random();
+                        int bonus = random.nextInt(1);
+                        super.increaseHP(bonus);
+                    }
                 }
             }
         }

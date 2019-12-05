@@ -11,7 +11,7 @@ import java.util.Random;
 public class Mystery extends Cell {
 
     private int contentActivate;
-    private static int print;
+    private int print;
 
     public Mystery(int posX, int posY){
         super(posX,posY);
@@ -54,6 +54,7 @@ public class Mystery extends Cell {
     public void draw (SpriteBatch sb) {
         Texture texture ;
         if(!isActivate){
+            print = 0;
             texture = TextureFactory.getInstance().getImage("mystery");
         }else{
             if (print < 100) {

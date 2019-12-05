@@ -19,13 +19,19 @@ public class TextureFactory {
     private static final Texture magic = new Texture("images/magic.png");
     private static final Texture life = new Texture("images/life.png");
     private static final Texture hit = new Texture("images/hit.png");
-    private static final Texture tuto = new Texture("images/keyboard.png");
+    private static final Texture tuto = new Texture("images/howmove.png");
     private static final Texture door = new Texture("images/door.png");
     private static final Texture win = new Texture("images/win_message.png");
     private static final Texture menu = new Texture("images/menu_return.png");
     private static final Texture save = new Texture("images/save.png");
     private static final Texture mystery = new Texture("images/mystery.png");
     private static final Texture arrowHit = new Texture("images/hitArrow.png");
+    private static final Texture howtitle = new Texture("images/howtitle.png");
+    private static final Texture howturn = new Texture("images/howturn.png");
+    private static final Texture howhit = new Texture("images/howhit.png");
+    private static final Texture howarrow = new Texture("images/howarrow.png");
+    private static final Texture howsave = new Texture("images/howsave.png");
+    private static final Texture howmenu = new Texture("images/howmenu.png");
 
     private static final Texture arrowNB = new Texture("images/FireWand.png");
 
@@ -67,6 +73,12 @@ public class TextureFactory {
         images.put("mystery", mystery);
         images.put("hitArrow" ,arrowHit);
         images.put("nbRow", arrowNB);
+        images.put("howtitle", howtitle);
+        images.put("howturn", howturn);
+        images.put("howhit", howhit);
+        images.put("howarrow", howarrow);
+        images.put("howsave", howsave);
+        images.put("howmenu", howmenu);
         images.put("wallDestructible", wallDestructible);
     }
 

@@ -27,7 +27,7 @@ public class LabyrinthFactory {
     public static final int GHOST = 1;
     public static final int TROLL = 2;
 
-    public static final int NB_LEVEL = 2;
+    public static final int NB_LEVEL = 11;
 
     public static final int HP_PLAYER = 3 ; //life player
 
