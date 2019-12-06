@@ -66,6 +66,7 @@ public class Labyrinth implements Serializable {
                         cellList[i][j] = new WallDestructible(i,j);
                         break;
                     default:
+
                         break;
                 }
             }

@@ -4,24 +4,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
-import fr.ul.dedale.model.LabyrinthLoader;
 import fr.ul.dedale.model.World;
 
 public class WallDestructible extends Cell{
 
-    private boolean notDestroy;
     private int hp;
 
     public WallDestructible(int x,int y){
         super(x, y);
         hp = LabyrinthFactory.WALLDESTRUCTIBLEHP;
-        notDestroy = true;
         type = "destructible";
     }
 
+    public WallDestructible(){}
+
     @Override
     public boolean isSolid() {
-        return notDestroy;
+        return !isActivate;
     }
 
     @Override
@@ -35,13 +34,13 @@ public class WallDestructible extends Cell{
     public void damage(){
         hp = hp - 1;
         if(hp <= 0){
-            notDestroy = false;
+            isActivate = true;
         }
     }
 
     public void draw (SpriteBatch sb) {
         Texture texture ;
-        if(notDestroy){
+        if(!isActivate){
             texture = TextureFactory.getInstance().getImage("wallDestructible");
         }else{
             texture = TextureFactory.getInstance().getImage("ground");
