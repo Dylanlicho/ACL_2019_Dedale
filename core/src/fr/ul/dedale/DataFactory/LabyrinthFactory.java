@@ -50,6 +50,6 @@ public class LabyrinthFactory {
     public static final int WALLDESTRUCTIBLEHP = 3;
 
     // Number of round the player can't move
-    public static final int WATERCOUNT = 3;
+    public static final int WATERCOUNT = 2;
 
 }
