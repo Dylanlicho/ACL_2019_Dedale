@@ -62,9 +62,11 @@ public class World {
     // When we save the game
     private boolean isSaving;
 
-
     // Know if we have begin to play
     private boolean begin;
+
+    // The player can move on the next cell
+    private int canmove;
 
 
     public World(Game game) {
@@ -76,6 +78,7 @@ public class World {
         labyrinthLoader = new LabyrinthLoader();
         characterLoader = new CharacterLoader();
         begin = false;
+        canmove = 0;
     }
 
     public void begin() {
@@ -129,22 +132,37 @@ public class World {
 
     }
 
-    public void moveHero(DirectionFactory direction){
-        if(canMove(hero,direction)){
-        switch (direction){
-            case TOP :  hero.moveTop();
-            break;
+    public void stopPlayer() {
+        if (canmove <= 0)
+            canmove = LabyrinthFactory.WATERCOUNT;
+        else
+            canmove--;
+    }
 
-            case BOTTOM :  hero.moveBottom();
-                break;
+    public void moveHero(DirectionFactory direction) {
+        if (canmove <= 0) {
+            if (canMove(hero, direction)) {
+                switch (direction) {
+                    case TOP:
+                        hero.moveTop();
+                        break;
 
-            case LEFT : { hero.moveLeft();
-                break; }
+                    case BOTTOM:
+                        hero.moveBottom();
+                        break;
 
-            case RIGHT : { hero.moveRight();
-                break; }
+                    case LEFT: {
+                        hero.moveLeft();
+                        break;
+                    }
 
-          }
+                    case RIGHT: {
+                        hero.moveRight();
+                        break;
+                    }
+
+                }
+            }
         }
     }
 
@@ -567,6 +585,16 @@ public class World {
         json = new Json();
         file.writeString(json.toJson(room,Integer.class),false);
 
+        // Sauvegarde l'attribut room
+        file = Gdx.files.local("save/room.json");
+        json = new Json();
+        file.writeString(json.toJson(room,Integer.class),false);
+
+        // Sauvegarde l'attribut canmove
+        file = Gdx.files.local("save/canmove.json");
+        json = new Json();
+        file.writeString(json.toJson(canmove,Integer.class),false);
+
         // Sauvegarde le labyrinth
         file = Gdx.files.local("save/labyrinth.json");
         json = new Json();
@@ -632,6 +660,12 @@ public class World {
             json = new Json();
             heroJson = file.readString();
             level = json.fromJson(Integer.class, heroJson);
+
+            // On récupert l'attribut canmove
+            file = Gdx.files.local("save/canmove.json");
+            json = new Json();
+            heroJson = file.readString();
+            canmove = json.fromJson(Integer.class, heroJson);
 
             // On récupert l'attribut labyrinth
             file = Gdx.files.local("save/labyrinth.json");

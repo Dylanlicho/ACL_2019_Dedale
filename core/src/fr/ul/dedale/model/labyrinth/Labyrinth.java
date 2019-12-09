@@ -65,6 +65,9 @@ public class Labyrinth implements Serializable {
                     case LabyrinthFactory.WALLDESTRUCTIBLE:
                         cellList[i][j] = new WallDestructible(i,j);
                         break;
+                    case LabyrinthFactory.WATER:
+                        cellList[i][j] = new Water(i,j);
+                        break;
                     default:
 
                         break;

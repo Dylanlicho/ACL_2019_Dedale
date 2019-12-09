@@ -32,10 +32,9 @@ public class TextureFactory {
     private static final Texture howarrow = new Texture("images/howarrow.png");
     private static final Texture howsave = new Texture("images/howsave.png");
     private static final Texture howmenu = new Texture("images/howmenu.png");
-
     private static final Texture arrowNB = new Texture("images/FireWand.png");
-
     private static final Texture wallDestructible = new Texture("images/wallDestructible.png");
+    private static final Texture water = new Texture("images/water.png");
 
     private static TextureFactory ourInstance = new TextureFactory();
 
@@ -80,6 +79,7 @@ public class TextureFactory {
         images.put("howsave", howsave);
         images.put("howmenu", howmenu);
         images.put("wallDestructible", wallDestructible);
+        images.put("water", water);
     }
 
     public Texture getImage(String imageName) {
