@@ -235,6 +235,7 @@ public class World {
             room = 1;
             createRoom();
         }
+        canmove = 0;
     }
 
     /**
