@@ -248,9 +248,13 @@ public class World {
         int x = c.getPosX() ;
         int y = c.getPosY();
 
-
         try {
             Cell nextCell = labyrinth.getNextCell(x, y, d);
+            for(int i =0; i < monsters.size(); i++){
+                if(nextCell.getX()==monsters.get(i).getPosX() && nextCell.getY()==monsters.get(i).getPosY()){
+                    return false;
+                }
+            }
             if(!c.isThroughWall() && nextCell.isSolid()){
                 return false;
             }
@@ -260,6 +264,12 @@ public class World {
 
         }
         return false;
+    }
+    public String nextCase(Character c, DirectionFactory d){
+        int x = c.getPosX() ;
+        int y = c.getPosY();
+        return labyrinth.getNextCell(x, y, d).getType();
+
     }
 
     /**
@@ -474,9 +484,12 @@ public class World {
                 else{
 
 
-                    while (!canMove(monsters.get(i), DirectionFactory.values()[dir])) {
+                    while (!canMove(monsters.get(i), DirectionFactory.values()[dir]) || nextCase(monsters.get(i),DirectionFactory.values()[dir]).equals("fire")) {
+
+
                         dir = r.nextInt((3 - 0) + 1) + 0;
                     }
+
                     moveMonster(dir, i);
                 }
             }
