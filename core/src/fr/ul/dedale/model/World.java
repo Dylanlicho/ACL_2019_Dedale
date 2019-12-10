@@ -68,30 +68,41 @@ public class World {
     // The player can move on the next cell
     private int canmove;
 
+    // The monsters don't move
+    private boolean pauseMonsters;
+
 
     public World(Game game) {
         this.game = game;
         this.lastLevel = 1;
-        this.level = 1;
+        this.level = 8;
         room = 1;
         isSaving=false;
         labyrinthLoader = new LabyrinthLoader();
         characterLoader = new CharacterLoader();
         begin = false;
         canmove = 0;
+        currentLevelFinish = false;
+        pauseMonsters = true;
+        monsters = new ArrayList<>();
+        createThread();
     }
 
     public void begin() {
         begin = true;
-        launchThread();
+//        launchThread();
+//        pauseMon/sters = false;
+        playThread();
     }
 
-    private void launchThread() {
+    private void createThread() {
+        System.out.println("Creation of the thread");
         one = new Thread(new Runnable() {
             public void run() {
 
                 while(true){
-                    if (!currentLevelFinish)
+                    if (!currentLevelFinish && !pauseMonsters)
+                        System.out.println("evolve monsters");
                         evolveMonsters();
 
                     try {
@@ -102,8 +113,12 @@ public class World {
                 }
             }
         });
-
         one.start();
+    }
+
+    public void playThread() {
+        System.out.println("Start the thread");
+        pauseMonsters = false;
     }
 
     public void game(){
@@ -127,8 +142,6 @@ public class World {
             }
         }
         hero.drawhit(sb);
-
-
 
     }
 
@@ -212,6 +225,7 @@ public class World {
 //            else {
                 currentLevelFinish = true;
 //            }
+        pauseThread();
     }
 
     /**
@@ -228,6 +242,7 @@ public class World {
      * the player loose
      */
     public void loose(){
+        pauseThread();
         hero = characterLoader.getPlayer();
         createMonsters();
         if (room == 1) labyrinth.init();
@@ -393,6 +408,8 @@ public class World {
                 }
             }
         }
+
+        playThread();
     }
 
     public Labyrinth getLabyrinth(){
@@ -558,6 +575,7 @@ public class World {
     }
 
     public void menuReturn() {
+        pauseThread();
         if (level > LabyrinthFactory.NB_LEVEL) {
             FileHandle[] files = Gdx.files.local("save/").list();
             for (FileHandle file : files) {
@@ -599,10 +617,10 @@ public class World {
         json = new Json();
         file.writeString(json.toJson(room,Integer.class),false);
 
-        // Sauvegarde l'attribut room
-        file = Gdx.files.local("save/room.json");
-        json = new Json();
-        file.writeString(json.toJson(room,Integer.class),false);
+//        // Sauvegarde l'attribut pauseMonsters
+//        file = Gdx.files.local("save/pauseMonsters.json");
+//        json = new Json();
+//        file.writeString(json.toJson(pauseMonsters,Boolean.class),false);
 
         // Sauvegarde l'attribut canmove
         file = Gdx.files.local("save/canmove.json");
@@ -650,6 +668,7 @@ public class World {
         boolean load = false;
         // Try si une sauvegarde existe
         try {
+            pauseThread();
 
             // On récupert le hero
             FileHandle file = Gdx.files.local("save/hero.json");
@@ -681,6 +700,12 @@ public class World {
             heroJson = file.readString();
             canmove = json.fromJson(Integer.class, heroJson);
 
+//            // On récupert l'attribut pauseMonsters
+//            file = Gdx.files.local("save/pauseMonsters.json");
+//            json = new Json();
+//            heroJson = file.readString();
+//            pauseMonsters = json.fromJson(Boolean.class, heroJson);
+
             // On récupert l'attribut labyrinth
             file = Gdx.files.local("save/labyrinth.json");
             json = new Json();
@@ -709,6 +734,8 @@ public class World {
         if (!load) {
             createLevel();
         }
+        else
+            playThread();
 
     }
 
@@ -767,8 +794,15 @@ public class World {
         this.lastLevel = lastLevel;
     }
 
+    public void pauseThread() {
+        System.out.println("pause the thread");
+//        if (one.isAlive())
+//            this.one.interrupt();
+        pauseMonsters = true;
+    }
+
     public void stopThread() {
-       this.one.stop();
+        this.one.stop();
     }
 
 

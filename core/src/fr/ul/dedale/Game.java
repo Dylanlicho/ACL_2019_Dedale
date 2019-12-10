@@ -26,7 +26,8 @@ public class Game extends com.badlogic.gdx.Game {
 			world.setLastLevel(lastLevel);
 		}
 		mp3Sound =  Gdx.audio.newMusic(Gdx.files.internal("audio/Organ.mp3"));
-		mp3Sound.setVolume(0.2f);
+		mp3Sound.setVolume(0);
+//		mp3Sound.setVolume(0.2f);
 		mp3Sound.setLooping(true);
 	 	es =  new ViewMenu(this);
 	 	setScreen(es);
