@@ -14,23 +14,50 @@ public class PlayerTest {
 
 
     @Test
-    public void move() {
+    public void moveLeft() {
         Player p = new Player(10,10);
         p.moveLeft();
         assertEquals("moveLeft X error",  p.getPosX(), 9);
         assertEquals("moveLeft Y error",  p.getPosY(), 10);
 
+    }
+
+    @Test
+    public void moveRight() {
+        Player p = new Player(10,10);
+
         p.moveRight();
-        assertEquals("moveRight Xerror",  p.getPosX(), 10);
+        assertEquals("moveRight Xerror",  p.getPosX(), 11);
         assertEquals("moveRight Y error",  p.getPosY(), 10);
+
+
+    }
+
+    @Test
+    public void moveBottom() {
+        Player p = new Player(10,10);
 
         p.moveBottom();
         assertEquals("moveBottom error",  p.getPosX(), 10);
         assertEquals("moveBottom error",  p.getPosY(), 9);
 
+
+    }
+
+    @Test
+    public void moveTop() {
+        Player p = new Player(10,10);
         p.moveTop();
         assertEquals("moveTop error",  p.getPosX(), 10);
-        assertEquals("moveTop error",  p.getPosY(), 10);
+        assertEquals("moveTop error",  p.getPosY(), 11);
+
+    }
+
+    @Test
+    public void moveInAWall() {
+
+        World world = new World(new Game());
+        world.createLevel();
 
     }
 
