@@ -66,7 +66,7 @@ public class World {
     private boolean begin;
 
     // The player can move on the next cell
-    private int canmove;
+    private int roundBlocked;
 
     // The monsters don't move
     private boolean pauseMonsters;
@@ -75,13 +75,13 @@ public class World {
     public World(Game game) {
         this.game = game;
         this.lastLevel = 1;
-        this.level = 8;
+        this.level = 1;
         room = 1;
         isSaving=false;
         labyrinthLoader = new LabyrinthLoader();
         characterLoader = new CharacterLoader();
         begin = false;
-        canmove = 0;
+        roundBlocked = 0;
         currentLevelFinish = false;
         pauseMonsters = true;
         monsters = new ArrayList<>();
@@ -146,14 +146,14 @@ public class World {
     }
 
     public void stopPlayer() {
-        if (canmove <= 0)
-            canmove = LabyrinthFactory.WATERCOUNT;
+        if (roundBlocked <= 0)
+            roundBlocked = LabyrinthFactory.WATERCOUNT;
         else
-            canmove--;
+            roundBlocked--;
     }
 
     public void moveHero(DirectionFactory direction) {
-        if (canmove <= 0) {
+        if (roundBlocked <= 0) {
             if (canMove(hero, direction)) {
                 switch (direction) {
                     case TOP:
@@ -250,7 +250,7 @@ public class World {
             room = 1;
             createRoom();
         }
-        canmove = 0;
+        roundBlocked = 0;
     }
 
     /**
@@ -622,10 +622,10 @@ public class World {
 //        json = new Json();
 //        file.writeString(json.toJson(pauseMonsters,Boolean.class),false);
 
-        // Sauvegarde l'attribut canmove
-        file = Gdx.files.local("save/canmove.json");
+        // Sauvegarde l'attribut roundBlocked
+        file = Gdx.files.local("save/roundBlocked.json");
         json = new Json();
-        file.writeString(json.toJson(canmove,Integer.class),false);
+        file.writeString(json.toJson(roundBlocked,Integer.class),false);
 
         // Sauvegarde le labyrinth
         file = Gdx.files.local("save/labyrinth.json");
@@ -694,11 +694,11 @@ public class World {
             heroJson = file.readString();
             level = json.fromJson(Integer.class, heroJson);
 
-            // On récupert l'attribut canmove
-            file = Gdx.files.local("save/canmove.json");
+            // On récupert l'attribut roundBlocked
+            file = Gdx.files.local("save/roundBlocked.json");
             json = new Json();
             heroJson = file.readString();
-            canmove = json.fromJson(Integer.class, heroJson);
+            roundBlocked = json.fromJson(Integer.class, heroJson);
 
 //            // On récupert l'attribut pauseMonsters
 //            file = Gdx.files.local("save/pauseMonsters.json");
