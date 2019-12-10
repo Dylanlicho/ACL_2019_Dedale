@@ -146,46 +146,48 @@ public class Player extends Character  {
 
     @Override
     public void attackArrow(World world) {
-        numberArrow--;
-        attackBow = true;
-        animAttack = new ArrayList<>();
-        int dirX = 0;
-        int dirY = 0;
-        int x = getPosX();
-        int y = getPosY();
-        if(direction == DirectionFactory.TURNLEFT.ordinal()){
-            dirX = -1 ;
-            dirY = 0 ;
-        }
-        if(direction == DirectionFactory.TURNRIGHT.ordinal()){
-            dirX = 1 ;
-            dirY = 0 ;
-        }
-        if(direction == DirectionFactory.TURNTOP.ordinal()){
-            dirX = 0 ;
-            dirY = 1 ;
-        }
-        if(direction == DirectionFactory.TURNBOTTOM.ordinal()){
-            dirX = 0 ;
-            dirY = -1 ;
-        }
-        boolean stop = false;
-        while(!(x < 0 || y < 0 || x >=LabyrinthFactory.WIDTH || y >=  LabyrinthFactory.HEIGHT -2) && !stop ){
-            if(!world.getLabyrinth().getCell(x,y).isSolid() ){
+        if(numberArrow > 0) {
+            numberArrow--;
+            attackBow = true;
+            animAttack = new ArrayList<>();
+            int dirX = 0;
+            int dirY = 0;
+            int x = getPosX();
+            int y = getPosY();
+            if (direction == DirectionFactory.TURNLEFT.ordinal()) {
+                dirX = -1;
+                dirY = 0;
+            }
+            if (direction == DirectionFactory.TURNRIGHT.ordinal()) {
+                dirX = 1;
+                dirY = 0;
+            }
+            if (direction == DirectionFactory.TURNTOP.ordinal()) {
+                dirX = 0;
+                dirY = 1;
+            }
+            if (direction == DirectionFactory.TURNBOTTOM.ordinal()) {
+                dirX = 0;
+                dirY = -1;
+            }
+            boolean stop = false;
+            while (!(x < 0 || y < 0 || x >= LabyrinthFactory.WIDTH || y >= LabyrinthFactory.HEIGHT - 2) && !stop) {
+                if (!world.getLabyrinth().getCell(x, y).isSolid()) {
 
-                for(Monster m : world.getMonsters()){
-                    if(m.getPosX()==x+dirX && m.getPosY()==y+dirY){
-                        m.decreaseHp(1);
-                        return ;
+                    for (Monster m : world.getMonsters()) {
+                        if (m.getPosX() == x + dirX && m.getPosY() == y + dirY) {
+                            m.decreaseHp(1);
+                            return;
+                        }
                     }
+
+                    x = x + dirX;
+                    y = y + dirY;
+                    animAttack.add(new Point(x, y));
+
+                } else {
+                    stop = true;
                 }
-
-                x = x + dirX;
-                y = y + dirY;
-                animAttack.add(new Point(x,y));
-
-            }else{
-                stop = true;
             }
         }
     }

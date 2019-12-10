@@ -770,4 +770,9 @@ public class World {
     public void stopThread() {
        this.one.stop();
     }
+
+
+    public void setMonsters(ArrayList<Monster> m){
+        this.monsters=m;
+    }
 }
