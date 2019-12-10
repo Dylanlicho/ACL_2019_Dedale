@@ -73,21 +73,6 @@ public class PlayerTest {
 
     }
 
-    @Test
-    public void moveInWater() {
-
-        World world = new World(new Game());
-        world.createLevel();
-
-        int posX = world.getHero().getPosX();
-        int posY = world.getHero().getPosY();
-
-        world.moveHero(DirectionFactory.LEFT);
-
-        assertEquals("Le hero ne devrait pas se deplacer",posX-1,world.getHero().getPosX());
-        assertEquals("Le hero ne devrait pas se deplacer",posY,world.getHero().getPosY());
-
-    }
 
     @Test
     public void attackSwordWrongDirection() {
