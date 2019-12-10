@@ -17,19 +17,21 @@ public class TrapTest {
 
     @Test
     public void testMaxHP() throws IOException {
-        World world = new World(new Game(),0,103);
-        Player player = new Player(1,1);
-        world.setHero(player);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(103);
+        world.createRoom();
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
-        assertTrue(player.getHp() == LabyrinthFactory.HP_PLAYER-1);
+        assertTrue(world.getHero().getHp() == LabyrinthFactory.HP_PLAYER-1);
     }
 
     @Test
     public void testMinus1() throws IOException {
-        World world = new World(new Game(),0,103);
-        Player player = new Player(1,1);
-        world.setHero(player);
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(103);
+        world.createRoom();
         world.getHero().decreaseHp(1);
         world.moveHero(DirectionFactory.RIGHT);
         world.game();

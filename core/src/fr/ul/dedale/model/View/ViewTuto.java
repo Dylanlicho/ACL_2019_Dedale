@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -46,29 +47,69 @@ public class ViewTuto extends ScreenAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
         sb.begin();
         stage.draw();
+        Texture texture = TextureFactory.getInstance().getImage("tuto");
+        sb.draw(texture, 2, LabyrinthFactory.HEIGHT - 4, 7, 4, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
         sb.end();
     }
 
     @Override
     public void show() {
         super.show();
-        // Create a table that fills the screen. Everything else will go inside this table.
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
 
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
-        //create buttons
-        TextButton menu = new TextButton("Menu", skin);
-        Image image = new Image(TextureFactory.getInstance().getImage("tuto"));
+        // Create a table that fills the screen. Everything else will go inside this table.
+        Table tableTitle = new Table();
+        tableTitle.setFillParent(true);
+        stage.addActor(tableTitle);
 
-        //add components to table
-        table.add(image).width(LabyrinthFactory.SCREEN_WIDTH-40);
-        table.row().pad(10, 0, 10, 0);
-        table.add(menu).center();
-        table.row();
+        Image title = new Image(TextureFactory.getInstance().getImage("howtitle"));
+        tableTitle.row().pad(LabyrinthFactory.SCREEN_WIDTH - 1000, 0, 0, 0);
+        tableTitle.add(title).top();
+
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        Image move = new Image(TextureFactory.getInstance().getImage("tuto"));
+        table.row().pad(LabyrinthFactory.SCREEN_WIDTH - 900, 30, 0, 0);
+        table.add(move);//.width(LabyrinthFactory.SCREEN_WIDTH-40);
+
+        Image turn = new Image(TextureFactory.getInstance().getImage("howturn"));
+        table.add(turn);
+
+        Table tableHit = new Table();
+        tableHit.setFillParent(true);
+        stage.addActor(tableHit);
+
+        Image hit = new Image(TextureFactory.getInstance().getImage("howhit"));
+        tableHit.row().pad(LabyrinthFactory.SCREEN_WIDTH - 600, 10, 0, 0);
+        tableHit.add(hit);//.width(LabyrinthFactory.SCREEN_WIDTH-40);
+
+        Image arrow = new Image(TextureFactory.getInstance().getImage("howarrow"));
+        tableHit.add(arrow);
+
+        Table table2 = new Table();
+        table2.setFillParent(true);
+        stage.addActor(table2);
+
+        Image save = new Image(TextureFactory.getInstance().getImage("howsave"));
+        table2.row().pad(LabyrinthFactory.SCREEN_WIDTH - 400, 30, 0, 0);
+        table2.add(save);//.width(LabyrinthFactory.SCREEN_WIDTH-40);
+
+        Image returnMenu = new Image(TextureFactory.getInstance().getImage("howmenu"));
+        table2.add(returnMenu);
+
+
+        Table tableMenu = new Table();
+        tableMenu.setFillParent(true);
+        stage.addActor(tableMenu);
+
+        tableMenu.row().pad(LabyrinthFactory.SCREEN_WIDTH - 100, 0, 10, 0);
+        TextButton menu = new TextButton("Menu", skin);
+        tableMenu.add(menu).center();
+        tableMenu.row();
 
         menu.addListener(new InputListener(){
             @Override

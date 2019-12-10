@@ -62,9 +62,11 @@ public class World {
     // When we save the game
     private boolean isSaving;
 
-
     // Know if we have begin to play
     private boolean begin;
+
+    // The player can move on the next cell
+    private int canmove;
 
 
     public World(Game game) {
@@ -76,18 +78,7 @@ public class World {
         labyrinthLoader = new LabyrinthLoader();
         characterLoader = new CharacterLoader();
         begin = false;
-    }
-
-    public World(Game game, int numLevel, int room) throws IOException {
-        this.game = game;
-        this.lastLevel = numLevel;
-        this.level = numLevel;
-        this.room = room;
-        isSaving=false;
-        labyrinthLoader = new LabyrinthLoader();
-        labyrinth = labyrinthLoader.createLabyrinth(numLevel,room);
-        characterLoader = new CharacterLoader();
-        begin = false;
+        canmove = 0;
     }
 
     public void begin() {
@@ -141,22 +132,37 @@ public class World {
 
     }
 
-    public void moveHero(DirectionFactory direction){
-        if(canMove(hero,direction)){
-        switch (direction){
-            case TOP :  hero.moveTop();
-            break;
+    public void stopPlayer() {
+        if (canmove <= 0)
+            canmove = LabyrinthFactory.WATERCOUNT;
+        else
+            canmove--;
+    }
 
-            case BOTTOM :  hero.moveBottom();
-                break;
+    public void moveHero(DirectionFactory direction) {
+        if (canmove <= 0) {
+            if (canMove(hero, direction)) {
+                switch (direction) {
+                    case TOP:
+                        hero.moveTop();
+                        break;
 
-            case LEFT : { hero.moveLeft();
-                break; }
+                    case BOTTOM:
+                        hero.moveBottom();
+                        break;
 
-            case RIGHT : { hero.moveRight();
-                break; }
+                    case LEFT: {
+                        hero.moveLeft();
+                        break;
+                    }
 
-          }
+                    case RIGHT: {
+                        hero.moveRight();
+                        break;
+                    }
+
+                }
+            }
         }
     }
 
@@ -229,6 +235,7 @@ public class World {
             room = 1;
             createRoom();
         }
+        canmove = 0;
     }
 
     /**
@@ -241,9 +248,13 @@ public class World {
         int x = c.getPosX() ;
         int y = c.getPosY();
 
-
         try {
             Cell nextCell = labyrinth.getNextCell(x, y, d);
+            for(int i =0; i < monsters.size(); i++){
+                if(nextCell.getX()==monsters.get(i).getPosX() && nextCell.getY()==monsters.get(i).getPosY()){
+                    return false;
+                }
+            }
             if(!c.isThroughWall() && nextCell.isSolid()){
                 return false;
             }
@@ -253,6 +264,12 @@ public class World {
 
         }
         return false;
+    }
+    public String nextCase(Character c, DirectionFactory d){
+        int x = c.getPosX() ;
+        int y = c.getPosY();
+        return labyrinth.getNextCell(x, y, d).getType();
+
     }
 
     /**
@@ -326,7 +343,7 @@ public class World {
     /**
      * Create the current room
      */
-    private void createRoom() {
+    public void createRoom() {
         int hp = LabyrinthFactory.HP_PLAYER;
         if (hero != null) hp = hero.getHp();
         try {
@@ -387,8 +404,8 @@ public class World {
      * @return a point corresponding to the position of an empty cell
      */
     public Point findEmptyCell(){
-        int height =LabyrinthFactory.HEIGHT;
-        int widht = LabyrinthFactory.WIDTH;
+        int height = Math.min(labyrinth.getCells().length,LabyrinthFactory.HEIGHT-2);
+        int widht = Math.min(labyrinth.getCells()[0].length, LabyrinthFactory.WIDTH);
         while(true) {
             int x = ThreadLocalRandom.current().nextInt(0, widht-2);
             int y = ThreadLocalRandom.current().nextInt(0, height-2);
@@ -467,9 +484,12 @@ public class World {
                 else{
 
 
-                    while (!canMove(monsters.get(i), DirectionFactory.values()[dir])) {
+                    while (!canMove(monsters.get(i), DirectionFactory.values()[dir]) || nextCase(monsters.get(i),DirectionFactory.values()[dir]).equals("fire")) {
+
+
                         dir = r.nextInt((3 - 0) + 1) + 0;
                     }
+
                     moveMonster(dir, i);
                 }
             }
@@ -579,6 +599,16 @@ public class World {
         json = new Json();
         file.writeString(json.toJson(room,Integer.class),false);
 
+        // Sauvegarde l'attribut room
+        file = Gdx.files.local("save/room.json");
+        json = new Json();
+        file.writeString(json.toJson(room,Integer.class),false);
+
+        // Sauvegarde l'attribut canmove
+        file = Gdx.files.local("save/canmove.json");
+        json = new Json();
+        file.writeString(json.toJson(canmove,Integer.class),false);
+
         // Sauvegarde le labyrinth
         file = Gdx.files.local("save/labyrinth.json");
         json = new Json();
@@ -645,6 +675,12 @@ public class World {
             heroJson = file.readString();
             level = json.fromJson(Integer.class, heroJson);
 
+            // On récupert l'attribut canmove
+            file = Gdx.files.local("save/canmove.json");
+            json = new Json();
+            heroJson = file.readString();
+            canmove = json.fromJson(Integer.class, heroJson);
+
             // On récupert l'attribut labyrinth
             file = Gdx.files.local("save/labyrinth.json");
             json = new Json();
@@ -689,6 +725,14 @@ public class World {
     public void setLevel(int level) {
         this.level = level;
         room = 1;
+    }
+
+    /**
+     * Change the room
+     * @param room the number of the room
+     */
+    public void setRoom(int room){
+        this.room = room;
     }
 
     /**

@@ -21,7 +21,7 @@ public class Listener implements InputProcessor {
         this.game = game;
         this.viewWorld = vWorld;
         mp3Sound = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
-        mp3SoundArrow = Gdx.audio.newMusic(Gdx.files.internal("audio/sword.wav"));
+        mp3SoundArrow = Gdx.audio.newMusic(Gdx.files.internal("audio/bow.wav"));
     }
 
     @Override

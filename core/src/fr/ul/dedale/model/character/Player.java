@@ -10,10 +10,13 @@ import fr.ul.dedale.DataFactory.LabyrinthFactory;
 import fr.ul.dedale.DataFactory.TextureFactory;
 import fr.ul.dedale.model.Attacker;
 import fr.ul.dedale.model.World;
+import fr.ul.dedale.model.labyrinth.Cell;
+import fr.ul.dedale.model.labyrinth.WallDestructible;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 
 public class Player extends Character  {
@@ -115,16 +118,25 @@ public class Player extends Character  {
         if(direction==DirectionFactory.TURNBOTTOM.ordinal()){
             y--;
         }
+
         for(Monster m :world.getMonsters()){
             if((m.getPosX()==x && m.getPosY()==y) ||(m.getPosX()==getPosX() && m.getPosY()==getPosY()) ){
                 m.decreaseHp(1);
 
                 if(m.getHp() <= 0){
 
-                    if(super.getHp()<3)
-                        super.increaseHP(1);
+                    if(super.getHp()<3) {
+                        Random random = new Random();
+                        int bonus = random.nextInt(1);
+                        super.increaseHP(bonus);
+                    }
                 }
             }
+        }
+        Cell cell = world.getLabyrinth().getCell(x,y);
+        if(cell.getType().equals("destructible")){
+            WallDestructible wd = (WallDestructible)cell;
+            wd.damage();
         }
         animAttack = new ArrayList<>();
         animAttack.add(new Point(x,y));
@@ -206,7 +218,7 @@ public class Player extends Character  {
 
             long time = timeActual.getTime() - timesave.getTime();
 
-            if (time > 5 ) {
+            if (time > 10 ) {
                     nohit();
 
             }
@@ -233,5 +245,27 @@ public class Player extends Character  {
 
     public int getNumberArrow() {
         return numberArrow;
+    }
+
+    @Override
+    public void write(Json json) {
+        json.writeValue("hp", hp);
+        json.writeValue("attack", attack);
+        json.writeValue("posX", posX);
+        json.writeValue("posY", posY);
+        json.writeValue("direction", direction);
+        json.writeValue("throughWall", throughWall);
+        json.writeValue("arrow", numberArrow);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        hp=jsonData.getInt("hp");
+        attack=jsonData.getBoolean("attack");
+        posX=jsonData.getInt("posX");
+        posY=jsonData.getInt("posY");
+        direction=jsonData.getInt("direction");
+        throughWall=jsonData.getBoolean("throughWall");
+        numberArrow = jsonData.getInt("arrow");
     }
 }

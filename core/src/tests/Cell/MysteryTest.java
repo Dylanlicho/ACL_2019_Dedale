@@ -17,9 +17,11 @@ public class MysteryTest {
 
     @Test
     public void test() throws IOException {
-        World world = new World(new Game(),0,102);
-        Player player = new Player(1,1);
-        world.setHero(player);
+
+        World world = new World(new Game());
+        world.setLevel(0);
+        world.setRoom(102);
+        world.createRoom();
         world.getHero().decrementArrow();
         world.moveHero(DirectionFactory.RIGHT);
         world.game();
