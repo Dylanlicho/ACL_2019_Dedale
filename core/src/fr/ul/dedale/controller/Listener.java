@@ -69,7 +69,7 @@ public class Listener implements InputProcessor {
             }
 
             if (keycode == Input.Keys.ESCAPE) {
-                viewWorld.getWorld().stopThread();
+                viewWorld.getWorld().pauseThread();
                 game.setScreen(new ViewMenu(game));
             }
             if (keycode == Input.Keys.S) {
