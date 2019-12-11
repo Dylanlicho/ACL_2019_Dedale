@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class World {
 
@@ -72,6 +73,9 @@ public class World {
     private boolean pauseMonsters;
 
 
+    private AtomicBoolean running;
+
+
     public World(Game game) {
         this.game = game;
         this.lastLevel = 1;
@@ -85,6 +89,7 @@ public class World {
         currentLevelFinish = false;
         pauseMonsters = true;
         monsters = new ArrayList<>();
+        running = new AtomicBoolean(true);
         createThread();
     }
 
@@ -92,7 +97,7 @@ public class World {
         begin = true;
 //        launchThread();
 //        pauseMon/sters = false;
-        playThread();
+        //playThread();
     }
 
     private void createThread() {
@@ -100,7 +105,7 @@ public class World {
         one = new Thread(new Runnable() {
             public void run() {
 
-                while(true){
+                while(running.get()){
                     if (!currentLevelFinish && !pauseMonsters)
                         System.out.println("evolve monsters");
                         evolveMonsters();
@@ -119,6 +124,7 @@ public class World {
     public void playThread() {
         System.out.println("Start the thread");
         pauseMonsters = false;
+        this.running.set(true);
     }
 
     public void game(){
@@ -734,8 +740,9 @@ public class World {
         if (!load) {
             createLevel();
         }
-        else
-            playThread();
+        else {
+            //playThread();
+        }
 
     }
 
@@ -802,7 +809,9 @@ public class World {
     }
 
     public void stopThread() {
-        this.one.stop();
+        //this.one.stop();
+
+        this.running.set(false);
     }
 
 
