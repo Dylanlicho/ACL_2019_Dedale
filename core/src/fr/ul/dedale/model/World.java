@@ -506,14 +506,16 @@ public class World {
                 }
                 else{
 
-
-                    while (!canMove(monsters.get(i), DirectionFactory.values()[dir]) || nextCase(monsters.get(i),DirectionFactory.values()[dir]).equals("fire")) {
-
+                    int cpt = 0;
+                    while (cpt!=10 && !canMove(monsters.get(i), DirectionFactory.values()[dir]) || nextCase(monsters.get(i),DirectionFactory.values()[dir]).equals("fire")) {
 
                         dir = r.nextInt((3 - 0) + 1) + 0;
+                        cpt++;
                     }
-
-                    moveMonster(dir, i);
+                    if(cpt<10) {
+                        moveMonster(dir, i);
+                    }
+                    cpt=0;
                 }
             }
 
